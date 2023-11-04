@@ -81,4 +81,13 @@ public class DAO_NhanVien extends DAO {
         }
         return list;
     }
+    
+    public static NhanVien getNhanVienTheoMaNhanVien(String maNhanVien){
+        ArrayList<NhanVien> list = getAllNhanVien();
+        for(NhanVien thisNhanVien : list){
+            if(thisNhanVien.getMaNhanVien().equals(maNhanVien))
+                return thisNhanVien;
+        }
+        return null;
+    }
 }
