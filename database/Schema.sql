@@ -177,7 +177,7 @@ CREATE TABLE HoaDon
 	MaCuaHang nvarchar(16) NOT NULL,
 	MaNhanVien nvarchar(10) NOT NULL,
 	MaKhachHang nvarchar(10) NOT NULL,
-	ThoiGianLapHoaDon datetime
+	ThoiGianTao datetime
 )
 
 ALTER TABLE HoaDon
@@ -204,7 +204,7 @@ CREATE TABLE DonDatHang
 	MaDonDatHang nvarchar(12) NOT NULL,
 	MaNhanVien nvarchar(10) NOT NULL,
 	MaKhachHang nvarchar(10) NOT NULL,
-	ThoiGianLapHoaDon datetime,
+	ThoiGianTao datetime,
 	TrangThaiThanhToan bit
 )
 
