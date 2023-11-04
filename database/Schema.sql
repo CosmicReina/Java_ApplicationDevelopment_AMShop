@@ -52,11 +52,11 @@ CREATE TABLE NhanVien
 	MaNhanVien nvarchar(10) NOT NULL,
 	HoTen nvarchar(64),
 	SoDienThoai nvarchar(10),
+	DiaChi nvarchar(128),
 	ChucVu nvarchar(32) NOT NULL,
 	NgaySinh date,
 	CanCuocCongDan nvarchar(12),
-	GioiTinh bit,
-	DiaChi nvarchar(128),
+	GioiTinh nvarchar(8),
 	NgayBatDauLam date,
 	NgayKetThucLam date,
 	Luong decimal
@@ -89,8 +89,8 @@ CREATE TABLE KhachHang
 	MaKhachHang nvarchar(10) NOT NULL,
 	HoTen nvarchar(64),
 	SoDienThoai nvarchar(10),
-	NhomKhachHang nvarchar(32) NOT NULL,
 	DiaChi nvarchar(128),
+	NhomKhachHang nvarchar(32) NOT NULL
 )
 
 ALTER TABLE KhachHang
