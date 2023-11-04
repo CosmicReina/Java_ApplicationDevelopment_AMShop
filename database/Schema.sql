@@ -1,5 +1,9 @@
 GO
 USE master
+DROP DATABASE AMShop
+
+GO
+USE master
 USE master
 
 GO
@@ -111,7 +115,7 @@ ADD CONSTRAINT PK_DanhMuc PRIMARY KEY (DanhMuc)
 ------------------------------------------------------------
 CREATE TABLE GioiTinh
 (
-	GioiTinh nvarchar(4) NOT NULL,
+	GioiTinh nvarchar(8) NOT NULL,
 )
 
 ALTER TABLE GioiTinh
@@ -150,7 +154,7 @@ CREATE TABLE QuanAo
 	SoLuongTrongKho int,
 	NhaSanXuat nvarchar(64) NOT NULL,
 	DanhMuc nvarchar(16) NOT NULL,
-	GioiTinh nvarchar(4) NOT NULL,
+	GioiTinh nvarchar(8) NOT NULL,
 	MauSac nvarchar(8) NOT NULL,
 	KichThuoc nvarchar(8) NOT NULL,
 	ChatLieu nvarchar(32) NOT NULL,
@@ -220,3 +224,40 @@ ALTER TABLE ChiTietDonDatHang
 ADD CONSTRAINT FK_ChiTietDonDatHang_DonDatHang FOREIGN KEY (MaDonDatHang) REFERENCES DonDatHang(MaDonDatHang),
 	CONSTRAINT FK_ChiTietDonDatHang_QuanAo FOREIGN KEY (MaQuanAo) REFERENCES QuanAo(MaQuanAo),
 	CONSTRAINT PK_ChiTietDonDatHang PRIMARY KEY (MaDonDatHang, MaQuanAo)
+------------------------------------------------------------
+CREATE TABLE CaLamViec
+(
+	MaCaLamViec int NOT NULL,
+	TenCaLamViec nvarchar(16),
+	ThoiGianBatDau time,
+	ThoiGianKetThuc time
+)
+
+ALTER TABLE CaLamViec
+ADD CONSTRAINT PK_CaLamViec PRIMARY KEY (MaCaLamViec)
+------------------------------------------------------------
+CREATE TABLE LichLamViec
+(
+	MaLichLamViec nvarchar(9) NOT NULL,
+	NgayLamViec date,
+	MaCaLamViec int NOT NULL
+)
+
+ALTER TABLE LichLamViec
+ADD CONSTRAINT PK_LichLamViec PRIMARY KEY (MaLichLamViec),
+	CONSTRAINT FK_LichLamViec_CaLamViec FOREIGN KEY (MaCaLamViec) REFERENCES CaLamViec(MaCaLamViec)
+------------------------------------------------------------
+CREATE TABLE ChiTietPhanCong
+(
+	MaPhanCong int NOT NULL,
+	MaLichLamViec nvarchar(9) NOT NULL,
+	MaNhanVien nvarchar(10) NOT NULL,
+	ThoiGianVaoCa datetime,
+	ThoiGianRaCa datetime,
+)
+
+ALTER TABLE ChiTietPhanCong
+ADD CONSTRAINT PK_ChiTietPhanCong PRIMARY KEY (MaPhanCong),
+	CONSTRAINT FK_ChiTietPhanCong_LichLamViec FOREIGN KEY (MaLichLamViec) REFERENCES LichLamViec(MaLichLamViec),
+	CONSTRAINT FK_ChiTietPhanCong_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien)
+------------------------------------------------------------
