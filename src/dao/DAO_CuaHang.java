@@ -13,6 +13,9 @@ public class DAO_CuaHang extends DAO {
                 String tenCuaHang = rs.getString(2);
                 String soDienThoai = rs.getString(3);
                 String diaChi = rs.getString(4);
+                
+                CuaHang cuaHang = new CuaHang(maCuaHang, tenCuaHang, soDienThoai, diaChi);
+                return cuaHang;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

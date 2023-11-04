@@ -1,16 +1,16 @@
 package entity;
 
 public class CuaHang {
-    private int maCuaHang;
+    private String maCuaHang;
     private String tenCuaHang;
     private String soDienThoai;
     private String diaChi;
 
-    public int getMaCuaHang() {
+    public String getMaCuaHang() {
         return maCuaHang;
     }
 
-    public void setMaCuaHang(int maCuaHang) {
+    public void setMaCuaHang(String maCuaHang) {
         this.maCuaHang = maCuaHang;
     }
 
@@ -41,7 +41,7 @@ public class CuaHang {
     public CuaHang() {
     }
 
-    public CuaHang(int maCuaHang, String tenCuaHang, String soDienThoai, String diaChi) {
+    public CuaHang(String maCuaHang, String tenCuaHang, String soDienThoai, String diaChi) {
         this.maCuaHang = maCuaHang;
         this.tenCuaHang = tenCuaHang;
         this.soDienThoai = soDienThoai;
