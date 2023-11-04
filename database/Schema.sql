@@ -32,8 +32,8 @@ CREATE TABLE CuaHang
 (
 	MaCuaHang nvarchar(16) NOT NULL,
 	TenCuaHang nvarchar(64),
-	DiaChi nvarchar(128),
-	SoDienThoai nvarchar(10)
+	SoDienThoai nvarchar(10),
+	DiaChi nvarchar(128)
 )
 
 ALTER TABLE CuaHang
