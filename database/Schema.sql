@@ -64,7 +64,7 @@ CREATE TABLE NhanVien
 
 ALTER TABLE NhanVien
 ADD CONSTRAINT PK_NhanVien PRIMARY KEY (MaNhanVien),
-	CONSTRAINT FK_NhanVien_ChucVu FOREIGN KEY (ChucVu) REFERENCES ChucVu(ChucVu)
+	CONSTRAINT FK_NhanVien_ChucVu FOREIGN KEY (ChucVu) REFERENCES ChucVu(ChucVu) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE TaiKhoan
 (
@@ -74,7 +74,7 @@ CREATE TABLE TaiKhoan
 
 ALTER TABLE TaiKhoan
 ADD CONSTRAINT PK_TaiKhoan PRIMARY KEY (TenDangNhap),
-	CONSTRAINT FK_TaiKhoan_NhanVien FOREIGN KEY (TenDangNhap) REFERENCES NhanVien(MaNhanVien)
+	CONSTRAINT FK_TaiKhoan_NhanVien FOREIGN KEY (TenDangNhap) REFERENCES NhanVien(MaNhanVien) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE NhomKhachHang
 (
@@ -95,7 +95,7 @@ CREATE TABLE KhachHang
 
 ALTER TABLE KhachHang
 ADD CONSTRAINT PK_KhachHang PRIMARY KEY (MaKhachHang),
-	CONSTRAINT FK_KhachHang_NhomKhachHang FOREIGN KEY (NhomKhachHang) REFERENCES NhomKhachHang(NhomKhachHang)
+	CONSTRAINT FK_KhachHang_NhomKhachHang FOREIGN KEY (NhomKhachHang) REFERENCES NhomKhachHang(NhomKhachHang) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE NhaSanXuat
 (
@@ -164,12 +164,12 @@ CREATE TABLE QuanAo
 
 ALTER TABLE QuanAo
 ADD CONSTRAINT PK_QuanAo PRIMARY KEY (MaQuanAo),
-	CONSTRAINT FK_QuanAo_NhaSanXuat FOREIGN KEY (NhaSanXuat) REFERENCES NhaSanXuat(NhaSanXuat),
-	CONSTRAINT FK_QuanAo_DanhMuc FOREIGN KEY (DanhMuc) REFERENCES DanhMuc(DanhMuc),
-	CONSTRAINT FK_QuanAo_GioiTinh FOREIGN KEY (GioiTinh) REFERENCES GioiTinh(GioiTinh),
-	CONSTRAINT FK_QuanAo_MauSac FOREIGN KEY (MauSac) REFERENCES MauSac(MauSac),
-	CONSTRAINT FK_QuanAo_KichThuoc FOREIGN KEY (KichThuoc) REFERENCES KichThuoc(KichThuoc),
-	CONSTRAINT FK_QuanAo_ChatLieu FOREIGN KEY (ChatLieu) REFERENCES ChatLieu(ChatLieu)
+	CONSTRAINT FK_QuanAo_NhaSanXuat FOREIGN KEY (NhaSanXuat) REFERENCES NhaSanXuat(NhaSanXuat) ON UPDATE CASCADE,
+	CONSTRAINT FK_QuanAo_DanhMuc FOREIGN KEY (DanhMuc) REFERENCES DanhMuc(DanhMuc) ON UPDATE CASCADE,
+	CONSTRAINT FK_QuanAo_GioiTinh FOREIGN KEY (GioiTinh) REFERENCES GioiTinh(GioiTinh) ON UPDATE CASCADE,
+	CONSTRAINT FK_QuanAo_MauSac FOREIGN KEY (MauSac) REFERENCES MauSac(MauSac) ON UPDATE CASCADE,
+	CONSTRAINT FK_QuanAo_KichThuoc FOREIGN KEY (KichThuoc) REFERENCES KichThuoc(KichThuoc) ON UPDATE CASCADE,
+	CONSTRAINT FK_QuanAo_ChatLieu FOREIGN KEY (ChatLieu) REFERENCES ChatLieu(ChatLieu) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE HoaDon
 (
@@ -182,9 +182,9 @@ CREATE TABLE HoaDon
 
 ALTER TABLE HoaDon
 ADD CONSTRAINT PK_HoaDon PRIMARY KEY (MaHoaDon),
-	CONSTRAINT PK_HoaDon_CuaHang FOREIGN KEY (MaCuaHang) REFERENCES CuaHang(MaCuaHang),
-	CONSTRAINT PK_HoaDon_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
-	CONSTRAINT PK_HoaDon_KhachHang FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+	CONSTRAINT PK_HoaDon_CuaHang FOREIGN KEY (MaCuaHang) REFERENCES CuaHang(MaCuaHang) ON UPDATE CASCADE,
+	CONSTRAINT PK_HoaDon_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien) ON UPDATE CASCADE,
+	CONSTRAINT PK_HoaDon_KhachHang FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE ChiTietHoaDon
 (
@@ -195,8 +195,8 @@ CREATE TABLE ChiTietHoaDon
 )
 
 ALTER TABLE ChiTietHoaDon
-ADD CONSTRAINT FK_ChiTietHoaDon_HoaDon FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon),
-	CONSTRAINT FK_ChiTietHoaDon_QuanAo FOREIGN KEY (MaQuanAo) REFERENCES QuanAo(MaQuanAo),
+ADD CONSTRAINT FK_ChiTietHoaDon_HoaDon FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon) ON UPDATE CASCADE,
+	CONSTRAINT FK_ChiTietHoaDon_QuanAo FOREIGN KEY (MaQuanAo) REFERENCES QuanAo(MaQuanAo) ON UPDATE CASCADE,
 	CONSTRAINT PK_ChiTietHoaDon PRIMARY KEY (MaHoaDon, MaQuanAo)
 	------------------------------------------------------------
 CREATE TABLE DonDatHang
@@ -210,8 +210,8 @@ CREATE TABLE DonDatHang
 
 ALTER TABLE DonDatHang
 ADD CONSTRAINT PK_DonDatHang PRIMARY KEY (MaDonDatHang),
-	CONSTRAINT PK_DonDatHang_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien),
-	CONSTRAINT PK_DonDatHang_KhachHang FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang)
+	CONSTRAINT PK_DonDatHang_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien) ON UPDATE CASCADE,
+	CONSTRAINT PK_DonDatHang_KhachHang FOREIGN KEY (MaKhachHang) REFERENCES KhachHang(MaKhachHang) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE ChiTietDonDatHang
 (
@@ -221,8 +221,8 @@ CREATE TABLE ChiTietDonDatHang
 )
 
 ALTER TABLE ChiTietDonDatHang
-ADD CONSTRAINT FK_ChiTietDonDatHang_DonDatHang FOREIGN KEY (MaDonDatHang) REFERENCES DonDatHang(MaDonDatHang),
-	CONSTRAINT FK_ChiTietDonDatHang_QuanAo FOREIGN KEY (MaQuanAo) REFERENCES QuanAo(MaQuanAo),
+ADD CONSTRAINT FK_ChiTietDonDatHang_DonDatHang FOREIGN KEY (MaDonDatHang) REFERENCES DonDatHang(MaDonDatHang) ON UPDATE CASCADE,
+	CONSTRAINT FK_ChiTietDonDatHang_QuanAo FOREIGN KEY (MaQuanAo) REFERENCES QuanAo(MaQuanAo) ON UPDATE CASCADE,
 	CONSTRAINT PK_ChiTietDonDatHang PRIMARY KEY (MaDonDatHang, MaQuanAo)
 ------------------------------------------------------------
 CREATE TABLE CaLamViec
@@ -245,11 +245,10 @@ CREATE TABLE LichLamViec
 
 ALTER TABLE LichLamViec
 ADD CONSTRAINT PK_LichLamViec PRIMARY KEY (MaLichLamViec),
-	CONSTRAINT FK_LichLamViec_CaLamViec FOREIGN KEY (MaCaLamViec) REFERENCES CaLamViec(MaCaLamViec)
+	CONSTRAINT FK_LichLamViec_CaLamViec FOREIGN KEY (MaCaLamViec) REFERENCES CaLamViec(MaCaLamViec) ON UPDATE CASCADE
 ------------------------------------------------------------
 CREATE TABLE ChiTietPhanCong
 (
-	MaPhanCong int NOT NULL,
 	MaLichLamViec nvarchar(9) NOT NULL,
 	MaNhanVien nvarchar(10) NOT NULL,
 	ThoiGianVaoCa datetime,
@@ -257,7 +256,7 @@ CREATE TABLE ChiTietPhanCong
 )
 
 ALTER TABLE ChiTietPhanCong
-ADD CONSTRAINT PK_ChiTietPhanCong PRIMARY KEY (MaPhanCong),
-	CONSTRAINT FK_ChiTietPhanCong_LichLamViec FOREIGN KEY (MaLichLamViec) REFERENCES LichLamViec(MaLichLamViec),
-	CONSTRAINT FK_ChiTietPhanCong_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien)
+ADD CONSTRAINT FK_ChiTietPhanCong_LichLamViec FOREIGN KEY (MaLichLamViec) REFERENCES LichLamViec(MaLichLamViec) ON UPDATE CASCADE,
+	CONSTRAINT FK_ChiTietPhanCong_NhanVien FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNhanVien) ON UPDATE CASCADE,
+	CONSTRAINT PK_ChiTietPhanCong PRIMARY KEY (MaLichLamViec, MaNhanVien)
 ------------------------------------------------------------
