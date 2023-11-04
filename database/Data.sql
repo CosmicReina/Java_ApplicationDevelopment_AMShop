@@ -7,3 +7,9 @@ INSERT INTO CaLamViec
 VALUES 
 (1, N'Ca Sáng', '08:00', '15:00'),
 (2, N'Ca Chiều', '15:00', '22:00')
+
+
+INSERT INTO ChucVu
+VALUES 
+(N'Nhân Viên'), 
+(N'Người Quản Lý')
