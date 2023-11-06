@@ -103,4 +103,22 @@ public class DAO_QuanAo extends DAO {
         }
         return null;
     }
+    
+    public static String getMaQuanAoCuoi(){
+        String maQuanAoCuoi = null;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM QuanAo "
+                    + "ORDER BY MaQuanAO DESC";
+            ResultSet rs = getResultSet(sql);
+            if(rs.next()){
+                maQuanAoCuoi = rs.getString(1);
+                return maQuanAoCuoi;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return maQuanAoCuoi;
+    }
 }

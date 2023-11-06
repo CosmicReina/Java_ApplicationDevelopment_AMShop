@@ -134,7 +134,7 @@ public class DAO_NhanVien extends DAO {
             String sql = ""
                     + "SELECT * "
                     + "FROM NhanVien "
-                    + "ORDER BY MaNhanVien desc";
+                    + "ORDER BY MaNhanVien DESC";
             ResultSet rs = getResultSet(sql);
             if(rs.next()){
                 maNhanVienCuoi = rs.getString(1);
