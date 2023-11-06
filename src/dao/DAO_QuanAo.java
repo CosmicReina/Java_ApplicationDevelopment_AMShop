@@ -1,5 +1,6 @@
 package dao;
 
+import data.UtilityImageIcon;
 import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
@@ -9,7 +10,7 @@ public class DAO_QuanAo extends DAO {
         int n = 0;
         try {
             String sql = ""
-                    + "INSERT INTO QuanAo"
+                    + "INSERT INTO QuanAo "
                     + "VALUES ("
                     + "?, "
                     + "?, "
@@ -37,8 +38,8 @@ public class DAO_QuanAo extends DAO {
             prs.setString(9, quanAo.getMauSac());
             prs.setString(10, quanAo.getKichThuoc());
             prs.setString(11, quanAo.getChatLieu());
-            prs.setString(12, quanAo.getHinhAnh());
-            prs.setBoolean(113, quanAo.isNgungNhap());
+            prs.setBytes(12, UtilityImageIcon.toBytes(quanAo.getHinhAnh()));
+            prs.setBoolean(13, quanAo.isNgungNhap());
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -47,9 +48,44 @@ public class DAO_QuanAo extends DAO {
         return n > 0;
     }
     
-    public static boolean updateQuanAo(){
+    public static boolean updateQuanAo(QuanAo quanAo){
         int n = 0;
-        
+        try {
+            String sql = ""
+                    + "UPDATE QuanAO "
+                    + "SET "
+                    + "TenQuanAo = ?, "
+                    + "DonGiaNhap = ?, "
+                    + "DonGiaBan = ?, "
+                    + "SoLuongTrongKho = ?, "
+                    + "NhaSanXuat = ?, "
+                    + "DanhMuc = ?, "
+                    + "GioiTinh = ?, "
+                    + "MauSac = ?, "
+                    + "KichThuoc = ?, "
+                    + "ChatLieu = ?, "
+                    + "HinhAnh = ?, "
+                    + "NgungNhap = ?"
+                    + "WHERE MaQuanAo = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(13, quanAo.getMaQuanAo());
+            prs.setString(1, quanAo.getTenQuanAo());
+            prs.setDouble(2, quanAo.getDonGiaNhap());
+            prs.setDouble(3, quanAo.getDonGiaBan());
+            prs.setInt(4, quanAo.getSoLuongTrongKho());
+            prs.setString(5, quanAo.getNhaSanXuat());
+            prs.setString(6, quanAo.getDanhMuc());
+            prs.setString(7, quanAo.getGioiTinh());
+            prs.setString(8, quanAo.getMauSac());
+            prs.setString(9, quanAo.getKichThuoc());
+            prs.setString(10, quanAo.getChatLieu());
+            prs.setBytes(11, UtilityImageIcon.toBytes(quanAo.getHinhAnh()));
+            prs.setBoolean(12, quanAo.isNgungNhap());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
         return n > 0;
     }
     
