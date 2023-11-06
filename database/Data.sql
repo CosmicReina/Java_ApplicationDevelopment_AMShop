@@ -13,3 +13,48 @@ INSERT INTO ChucVu
 VALUES 
 (N'Nhân Viên'), 
 (N'Người Quản Lý')
+
+INSERT INTO NhaSanXuat
+VALUES
+(N'YAME'),
+(N'Adidas')
+
+INSERT INTO DanhMuc
+VALUES
+(N'Áo Thun'),
+(N'Áo Khoác'),
+(N'Quần'),
+(N'Váy')
+
+INSERT INTO GioiTinh
+VALUES
+(N'Nam'),
+(N'Nữ'),
+(N'Chung')
+
+INSERT INTO MauSac
+VALUES
+(N'Đỏ'),
+(N'Cam'),
+(N'Vàng'),
+(N'Lục'),
+(N'Lam'),
+(N'Tím'),
+(N'Đen'),
+(N'Trắng'),
+(N'Khác')
+
+INSERT INTO KichThuoc
+VALUES
+(N'XS'),
+(N'S'),
+(N'M'),
+(N'L'),
+(N'XL'),
+(N'XXL'),
+(N'XXXL')
+
+INSERT INTO ChatLieu
+VALUES
+(N'Thun'),
+(N'Gấm')
