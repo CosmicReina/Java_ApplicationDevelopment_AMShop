@@ -47,6 +47,43 @@ public class DAO_NhanVien extends DAO {
         return n > 0;
     }
     
+    public static boolean updateNhanVien(NhanVien nhanVien){
+        int n = 0;
+        try {
+            String sql = ""
+                    + "UPDATE NhanVien "
+                    + "SET "
+                    + "HoTen = ?, "
+                    + "SoDienThoai = ?, "
+                    + "DiaChi = ?, "
+                    + "ChucVu = ?, "
+                    + "NgaySinh = ?, "
+                    + "CanCuocCongDan = ?, "
+                    + "GioiTinh = ?, "
+                    + "NgayBatDauLam = ?, "
+                    + "NgayKetThucLam = ?, "
+                    + "Luong = ? "
+                    + "WHERE MaNhanVien = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(11, nhanVien.getMaNhanVien());
+            prs.setString(1, nhanVien.getHoTen());
+            prs.setString(2, nhanVien.getSoDienThoai());
+            prs.setString(3, nhanVien.getDiaChi());
+            prs.setString(4, nhanVien.getChucVu());
+            prs.setDate(5, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+            prs.setString(6, nhanVien.getCanCuocCongDan());
+            prs.setString(7, nhanVien.getGioiTinh().gioiTinh);
+            prs.setDate(8, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+            prs.setDouble(10, nhanVien.getLuong());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
+    }
+    
     public static ArrayList<NhanVien> getAllNhanVien(){
         ArrayList<NhanVien> list = new ArrayList();
         try {
@@ -89,5 +126,23 @@ public class DAO_NhanVien extends DAO {
                 return thisNhanVien;
         }
         return null;
+    }
+
+    public static String getMaNhanVienCuoi(){
+        String maNhanVienCuoi = null;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM NhanVien "
+                    + "ORDER BY MaNhanVien DESC";
+            ResultSet rs = getResultSet(sql);
+            if(rs.next()){
+                maNhanVienCuoi = rs.getString(1);
+                return maNhanVienCuoi;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return maNhanVienCuoi;
     }
 }
