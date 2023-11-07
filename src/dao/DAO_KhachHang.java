@@ -6,11 +6,54 @@ import java.sql.*;
 
 public class DAO_KhachHang extends DAO {
     public static boolean createKhachHang(KhachHang khachHang){
-        return false;
+        int n = 0;
+        try {
+            String sql = ""
+                    + "INSERT INTO KhachHang "
+                    + "VALUES ("
+                    + "?, "
+                    + "?, "
+                    + "?, "
+                    + "?, "
+                    + "?"
+                    + ")";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, khachHang.getMaKhachHang());
+            prs.setString(2, khachHang.getHoTen());
+            prs.setString(3, khachHang.getSoDienThoai());
+            prs.setString(4, khachHang.getDiaChi());
+            prs.setString(5, khachHang.getNhomKhachHang());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
     }
     
     public static boolean updateKhachHang(KhachHang khachHang){
-        return false;
+        int n = 0;
+        try {
+            String sql = ""
+                    + "UPDATE KhachHang "
+                    + "SET "
+                    + "HoTen = ?, "
+                    + "SoDienThoai = ?, "
+                    + "DiaChi = ?, "
+                    + "NhomKhachHang = ? "
+                    + "WHERE MaKhachHang = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(5, khachHang.getMaKhachHang());
+            prs.setString(1, khachHang.getHoTen());
+            prs.setString(2, khachHang.getSoDienThoai());
+            prs.setString(3, khachHang.getDiaChi());
+            prs.setString(4, khachHang.getNhomKhachHang());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
     }
     
     public static ArrayList<KhachHang> getAllKhachHang(){
@@ -36,11 +79,29 @@ public class DAO_KhachHang extends DAO {
     }
     
     public static KhachHang getKhachHangTheoMaKhachHang(String maKhachHang){
-        ArrayList<KhachHang> list = new ArrayList<>();
+        ArrayList<KhachHang> list = getAllKhachHang();
         for(KhachHang thisKhachHang : list){
             if(thisKhachHang.getMaKhachHang().equals(maKhachHang))
                 return thisKhachHang;
         }
         return null;
+    }
+    
+    public static KhachHang getKhachHangTheoSoDienThoai(String soDienThoai){
+        ArrayList<KhachHang> list = getAllKhachHang();
+        for(KhachHang thisKhachHang : list){
+            if(thisKhachHang.getSoDienThoai().equals(soDienThoai))
+                return thisKhachHang;
+        }
+        return null;
+    }
+    
+    public static boolean checkKhachHangTheoSoDienThoai(String soDienThoai){
+        ArrayList<KhachHang> list = getAllKhachHang();
+        for(KhachHang thisKhachHang : list){
+            if(thisKhachHang.getSoDienThoai().equals(soDienThoai))
+                return true;
+        }
+        return false;
     }
 }
