@@ -51,30 +51,26 @@
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="pnlHinhAnh" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnXoaQA" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="btnThemQA" min="-2" pref="117" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtSoLuong" min="-2" pref="67" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="btnTimKiemQA" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="cmbMauSac" min="-2" pref="92" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cmbGioiTinh" min="-2" pref="92" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="cmbDanhMuc" alignment="0" pref="193" max="32767" attributes="0"/>
-                              <Component id="cmbNhaSanXuat" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtTenQuanAo" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtMaQuanAo" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="cmbChatLieu" min="-2" pref="92" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cmbKichThuoc" min="-2" pref="92" max="-2" attributes="0"/>
-                          </Group>
+                      <Component id="btnXoaQA" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnThemQA" min="-2" pref="117" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="txtSoLuong" min="-2" pref="67" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnTimKiemQA" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="cmbMauSac" min="-2" pref="92" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="cmbGioiTinh" min="-2" pref="92" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="cmbDanhMuc" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cmbNhaSanXuat" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtTenQuanAo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtMaQuanAo" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="cmbChatLieu" min="-2" pref="92" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="cmbKichThuoc" min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
