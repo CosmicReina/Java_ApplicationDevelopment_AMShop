@@ -1,8 +1,152 @@
 package gui;
 
+import dao.DAO_ChatLieu;
+import dao.DAO_DanhMuc;
+import dao.DAO_GioiTinh;
+import dao.DAO_KichThuoc;
+import dao.DAO_MauSac;
+import dao.DAO_NhaSanXuat;
+import dao.DAO_QuanAo;
+import data.UtilityImageIcon;
+import entity.QuanAo;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlThemQuanAo extends javax.swing.JPanel {
+    
+    private String imagePath = "";
+    private static PnlThemQuanAo instance = new PnlThemQuanAo();
+    
+    public static PnlThemQuanAo getInstance() {
+        return instance;
+    }
+    
+    public static PnlThemQuanAo newInstance() {
+        instance = new PnlThemQuanAo();
+        return instance;
+    }
+    
     public PnlThemQuanAo() {
         initComponents();
+        initExtra();
+    }
+    
+    private void initExtra(){
+        String maQuanAo = generateMaQuanAo();
+        txtMaQuanAo.setText(maQuanAo);
+        txtMaQuanAo.setEditable(false);
+        
+        ArrayList<String> listNhaSanXuat = DAO_NhaSanXuat.getAllNhaSanXuat();
+        for(String thisNhaSanXuat : listNhaSanXuat){
+            cmbNhaSanXuat.addItem(thisNhaSanXuat);
+        }
+        cmbNhaSanXuat.setSelectedItem(null);
+       
+        ArrayList<String> listDanhMuc = DAO_DanhMuc.getAllDanhMuc();
+        for(String thisDanhMuc : listDanhMuc){
+            cmbDanhMuc.addItem(thisDanhMuc);
+        }
+        cmbDanhMuc.setSelectedItem(null);
+        
+        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
+        for(String thisGioiTinh : listGioiTinh){
+            cmbGioiTinh.addItem(thisGioiTinh);
+        }
+        cmbGioiTinh.setSelectedItem(null);
+        
+        ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
+        for(String thisMauSac : listMauSac){
+            cmbMauSac.addItem(thisMauSac);
+        }
+        cmbMauSac.setSelectedItem(null);
+        
+        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
+        for(String thisKichThuoc : listKichThuoc){
+            cmbKichThuoc.addItem(thisKichThuoc);
+        }
+        cmbKichThuoc.setSelectedItem(null);
+        
+        ArrayList<String> listChatLieu = DAO_ChatLieu.getAllChatLieu();
+        for(String thisChatLieu : listChatLieu){
+            cmbChatLieu.addItem(thisChatLieu);
+        }
+        cmbChatLieu.setSelectedItem(null);
+        
+        updateTable(DAO_QuanAo.getAllQuanAo());
+    }
+    
+    private String generateMaQuanAo(){
+        String maQuanAo;
+        int soSanPham;
+        String prefix = "SP";
+        String maQuanAoCuoi = DAO_QuanAo.getMaQuanAoCuoi();
+        if(maQuanAoCuoi == null){
+            soSanPham = 1;
+            maQuanAo = prefix + String.format("%06d", soSanPham);
+        }
+        else{
+            soSanPham = Integer.parseInt(maQuanAoCuoi.substring(2)) + 1;
+            maQuanAo = prefix + String.format("%06d", soSanPham);
+        }
+        return maQuanAo;
+    }
+    
+    private void themQuanAo(){
+        String maQuanAo = txtMaQuanAo.getText();
+        String tenQuanAo = txtTenQuanAo.getText();
+        
+        String donGiaNhapString = txtDonGiaNhap.getText();
+        double donGiaNhap = Double.parseDouble(donGiaNhapString);
+        
+        String donGiaBanString = txtDonGiaBan.getText();
+        double donGiaBan = Double.parseDouble(donGiaBanString);
+        
+        String soLuongString = txtSoLuong.getText();
+        int soLuong = Integer.parseInt(soLuongString);
+        
+        String nhaSanXuat = cmbNhaSanXuat.getSelectedItem().toString();
+        String danhMuc = cmbDanhMuc.getSelectedItem().toString();
+        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+        String mauSac = cmbMauSac.getSelectedItem().toString();
+        String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
+        String chatLieu = cmbChatLieu.getSelectedItem().toString();
+        ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 194, 270);
+        boolean ngungNhap = false;
+        
+        QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, ngungNhap);
+        
+        boolean themQuanAo = DAO_QuanAo.createQuanAo(quanAo);
+        if(themQuanAo == true){
+            JOptionPane.showMessageDialog(null, "Thêm Thành Công");
+            PnlMain.getInstance().showPanel(newInstance());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Thêm Thất Bại");
+        }
+    }
+    
+    private void updateTable(ArrayList<QuanAo> list){
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachQuanAo.getModel();
+        for(QuanAo thisQuanAo : list){
+            model.addRow(new Object[]{
+                thisQuanAo.getMaQuanAo(),
+                thisQuanAo.getTenQuanAo(),
+                thisQuanAo.getDonGiaNhap(),
+                thisQuanAo.getDonGiaBan(),
+                thisQuanAo.getSoLuongTrongKho(),
+                thisQuanAo.getNhaSanXuat(),
+                thisQuanAo.getDanhMuc(),
+                thisQuanAo.getGioiTinh(),
+                thisQuanAo.getMauSac(),
+                thisQuanAo.getKichThuoc(),
+                thisQuanAo.getChatLieu()
+            });
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -40,9 +184,10 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
         btnLamMoi = new javax.swing.JButton();
         pnlHinhAnh = new javax.swing.JPanel();
         lblHinhAnhPNG = new javax.swing.JLabel();
-        scrDanhSachQA = new javax.swing.JScrollPane();
-        tblDanhSachQA = new javax.swing.JTable();
+        scrDanhSachQuanAo = new javax.swing.JScrollPane();
+        tblDanhSachQuanAo = new javax.swing.JTable();
 
+        setEnabled(false);
         setPreferredSize(new java.awt.Dimension(1400, 800));
         setLayout(new java.awt.BorderLayout());
 
@@ -98,6 +243,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
         lblHinhAnh.setForeground(new java.awt.Color(255, 255, 255));
         lblHinhAnh.setText("Hình ảnh");
 
+        txtMaQuanAo.setBackground(new java.awt.Color(204, 204, 204));
         txtMaQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtTenQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -120,12 +266,23 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
 
         cmbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        btnHinhAnh.setBackground(new java.awt.Color(204, 255, 255));
         btnHinhAnh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnHinhAnh.setText("Hình ảnh");
+        btnHinhAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHinhAnhActionPerformed(evt);
+            }
+        });
 
         btnTimKiem.setBackground(new java.awt.Color(0, 255, 255));
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTimKiem.setText("Tìm kiếm ");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         btnTimKiemTheoMa.setBackground(new java.awt.Color(0, 255, 255));
         btnTimKiemTheoMa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -139,10 +296,20 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
         btnThem.setBackground(new java.awt.Color(0, 255, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnLamMoi.setBackground(new java.awt.Color(0, 255, 255));
         btnLamMoi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLamMoi.setText("Làm mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
 
         pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
@@ -261,33 +428,74 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
 
         add(pnlThemQuanAo, java.awt.BorderLayout.CENTER);
 
-        scrDanhSachQA.setPreferredSize(new java.awt.Dimension(1166, 351));
+        scrDanhSachQuanAo.setPreferredSize(new java.awt.Dimension(1166, 351));
 
-        tblDanhSachQA.setModel(new javax.swing.table.DefaultTableModel(
+        tblDanhSachQuanAo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Mã quần áo", "Tên quần áo", "Đơn giá nhập", "Đơn giá bán", "Số lượng", "Nhà sản xuất", "Danh mục", "Giới tính", "Màu sắc", "Kích thước", "Chất liệu", "Ngừng nhập"
+                "Mã quần áo", "Tên quần áo", "Đơn giá nhập", "Đơn giá bán", "Số lượng", "Nhà sản xuất", "Danh mục", "Giới tính", "Màu sắc", "Kích thước", "Chất liệu"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSachQA.setPreferredSize(new java.awt.Dimension(1166, 351));
-        scrDanhSachQA.setViewportView(tblDanhSachQA);
+        tblDanhSachQuanAo.setPreferredSize(new java.awt.Dimension(1166, 351));
+        scrDanhSachQuanAo.setViewportView(tblDanhSachQuanAo);
+        if (tblDanhSachQuanAo.getColumnModel().getColumnCount() > 0) {
+            tblDanhSachQuanAo.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tblDanhSachQuanAo.getColumnModel().getColumn(1).setMaxWidth(300);
+        }
 
-        add(scrDanhSachQA, java.awt.BorderLayout.SOUTH);
+        add(scrDanhSachQuanAo, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimKiemTheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoMaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimKiemTheoMaActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        themQuanAo();
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        PnlMain.getInstance().showPanel(newInstance());
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnHinhAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhAnhActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter executeFilter = new FileNameExtensionFilter("Image", "jpg", "png");
+        fileChooser.setFileFilter(executeFilter);
+        fileChooser.setMultiSelectionEnabled(false);
+        
+        int prompt = fileChooser.showDialog(this, "Add");
+        if(prompt == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            imagePath = file.getAbsolutePath();
+            lblHinhAnhPNG.setText("");
+            lblHinhAnhPNG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
+        }
+    }//GEN-LAST:event_btnHinhAnhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHinhAnh;
@@ -316,8 +524,8 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
     private javax.swing.JLabel lblTenQuanAo;
     private javax.swing.JPanel pnlHinhAnh;
     private javax.swing.JPanel pnlThemQuanAo;
-    private javax.swing.JScrollPane scrDanhSachQA;
-    private javax.swing.JTable tblDanhSachQA;
+    private javax.swing.JScrollPane scrDanhSachQuanAo;
+    private javax.swing.JTable tblDanhSachQuanAo;
     private javax.swing.JTextField txtDonGiaBan;
     private javax.swing.JTextField txtDonGiaNhap;
     private javax.swing.JTextField txtMaQuanAo;
