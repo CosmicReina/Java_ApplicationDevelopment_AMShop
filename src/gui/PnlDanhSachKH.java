@@ -23,6 +23,9 @@ public class PnlDanhSachKH extends javax.swing.JPanel {
         btnThemKH = new javax.swing.JButton();
         btnSuaKH = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(1400, 800));
+        setLayout(new java.awt.BorderLayout());
+
         tblDanhSachKH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -43,6 +46,8 @@ public class PnlDanhSachKH extends javax.swing.JPanel {
             }
         });
         srcDanhSachKH.setViewportView(tblDanhSachKH);
+
+        add(srcDanhSachKH, java.awt.BorderLayout.CENTER);
 
         pnlTimKiem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -137,20 +142,7 @@ public class PnlDanhSachKH extends javax.swing.JPanel {
 
         pnlTimKiem.add(pnlThongTinKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 205, 431, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(srcDanhSachKH, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(srcDanhSachKH)
-            .addComponent(pnlTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 918, Short.MAX_VALUE)
-        );
+        add(pnlTimKiem, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
