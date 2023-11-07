@@ -110,6 +110,7 @@ public class PnlTaoNhanVien extends javax.swing.JPanel {
         pnlThongTinNV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhân viên", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
         txtMaNV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMaNV.setEnabled(false);
         txtMaNV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaNVActionPerformed(evt);

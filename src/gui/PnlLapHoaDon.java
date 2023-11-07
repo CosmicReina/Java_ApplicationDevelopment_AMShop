@@ -59,11 +59,6 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         txtTenQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         cmbNhaSanXuat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbNhaSanXuat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbNhaSanXuatActionPerformed(evt);
-            }
-        });
 
         cmbDanhMuc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -78,11 +73,6 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         btnTimKiemQA.setBackground(new java.awt.Color(0, 255, 255));
         btnTimKiemQA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTimKiemQA.setText("Tìm kiếm");
-        btnTimKiemQA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemQAActionPerformed(evt);
-            }
-        });
 
         btnThemQA.setBackground(new java.awt.Color(0, 255, 255));
         btnThemQA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -283,6 +273,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         lblTienKhachDua.setText("Tiền khách đưa");
 
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTongTien.setEnabled(false);
 
         txtTienKhachDua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -299,6 +290,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         lblTienThua.setText("Tiền thừa");
 
         txtTienThua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTienThua.setEnabled(false);
 
         javax.swing.GroupLayout pnlThanhToanLayout = new javax.swing.GroupLayout(pnlThanhToan);
         pnlThanhToan.setLayout(pnlThanhToanLayout);
@@ -352,14 +344,6 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
 
         add(pnlHoaDon, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cmbNhaSanXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNhaSanXuatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbNhaSanXuatActionPerformed
-
-    private void btnTimKiemQAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemQAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemQAActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatHang;
