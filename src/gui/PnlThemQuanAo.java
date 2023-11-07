@@ -48,6 +48,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
 
         pnlThemQuanAo.setBackground(new java.awt.Color(79, 137, 255));
         pnlThemQuanAo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quần áo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlThemQuanAo.setPreferredSize(new java.awt.Dimension(1166, 349));
 
         lblMaQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblMaQuanAo.setForeground(new java.awt.Color(255, 255, 255));
@@ -155,7 +156,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
         pnlThemQuanAoLayout.setHorizontalGroup(
             pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlThemQuanAoLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlThemQuanAoLayout.createSequentialGroup()
                         .addGroup(pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -201,14 +202,15 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addGap(12, 12, 12))
         );
         pnlThemQuanAoLayout.setVerticalGroup(
             pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlThemQuanAoLayout.createSequentialGroup()
-                .addGroup(pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlThemQuanAoLayout.createSequentialGroup()
                         .addGroup(pnlThemQuanAoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlThemQuanAoLayout.createSequentialGroup()
@@ -253,12 +255,13 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
                             .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                             .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                            .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pnlThemQuanAo, java.awt.BorderLayout.CENTER);
+
+        scrDanhSachQA.setPreferredSize(new java.awt.Dimension(1166, 351));
 
         tblDanhSachQA.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -276,7 +279,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSachQA.setPreferredSize(new java.awt.Dimension(1400, 431));
+        tblDanhSachQA.setPreferredSize(new java.awt.Dimension(1166, 351));
         scrDanhSachQA.setViewportView(tblDanhSachQA);
 
         add(scrDanhSachQA, java.awt.BorderLayout.SOUTH);
