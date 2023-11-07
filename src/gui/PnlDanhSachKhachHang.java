@@ -23,8 +23,10 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
         btnThemKH = new javax.swing.JButton();
         btnSuaKH = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(1400, 800));
+        setPreferredSize(new java.awt.Dimension(1166, 700));
         setLayout(new java.awt.BorderLayout());
+
+        srcDanhSachKH.setPreferredSize(new java.awt.Dimension(500, 700));
 
         tblDanhSachKH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -45,11 +47,13 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblDanhSachKH.setPreferredSize(new java.awt.Dimension(525, 700));
         srcDanhSachKH.setViewportView(tblDanhSachKH);
 
         add(srcDanhSachKH, java.awt.BorderLayout.CENTER);
 
-        pnlTimKiem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlTimKiem.setPreferredSize(new java.awt.Dimension(431, 700));
+        pnlTimKiem.setLayout(new java.awt.BorderLayout());
 
         pnlTimKiemKH.setBackground(new java.awt.Color(79, 137, 255));
         pnlTimKiemKH.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm Khách hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -69,8 +73,8 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
             .addGroup(pnlTimKiemKHLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(pnlTimKiemKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnTimKiemKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTimKiemSoDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                    .addComponent(btnTimKiemKH, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                    .addComponent(txtTimKiemSoDienThoai))
                 .addGap(18, 18, 18)
                 .addComponent(txtTimKiemHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -87,10 +91,11 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        pnlTimKiem.add(pnlTimKiemKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 210));
+        pnlTimKiem.add(pnlTimKiemKH, java.awt.BorderLayout.CENTER);
 
         pnlThongTinKH.setBackground(new java.awt.Color(79, 137, 255));
         pnlThongTinKH.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlThongTinKH.setPreferredSize(new java.awt.Dimension(431, 490));
 
         txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -122,25 +127,25 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
                         .addComponent(btnThemKH, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSuaKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlThongTinKHLayout.setVerticalGroup(
             pnlThongTinKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlThongTinKHLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(pnlThongTinKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(txtSoDienThoai))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlThongTinKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtSoDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(txtHoTen))
                 .addGap(18, 18, 18)
                 .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlThongTinKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnThemKH, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(btnSuaKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(502, 502, 502))
+                .addGap(523, 523, 523))
         );
 
-        pnlTimKiem.add(pnlThongTinKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 205, 431, -1));
+        pnlTimKiem.add(pnlThongTinKH, java.awt.BorderLayout.SOUTH);
 
         add(pnlTimKiem, java.awt.BorderLayout.EAST);
     }// </editor-fold>//GEN-END:initComponents
