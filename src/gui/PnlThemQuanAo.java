@@ -77,6 +77,9 @@ public class PnlThemQuanAo extends javax.swing.JPanel {
         }
         cmbChatLieu.setSelectedItem(null);
         
+        btnTimKiem.setVisible(false);
+        btnTimKiemTheoMa.setVisible(false);
+        
         updateTable(DAO_QuanAo.getAllQuanAo());
     }
     

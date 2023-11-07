@@ -101,14 +101,14 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         pnlThongTinKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlThongTinKhachHang.setPreferredSize(new java.awt.Dimension(730, 156));
 
+        txtSoDienThoai.setBackground(new java.awt.Color(204, 204, 204));
         txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSoDienThoai.setEnabled(false);
 
+        txtHoTen.setBackground(new java.awt.Color(204, 204, 204));
         txtHoTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtHoTen.setEnabled(false);
 
+        txtDiaChi.setBackground(new java.awt.Color(204, 204, 204));
         txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtDiaChi.setEnabled(false);
 
         javax.swing.GroupLayout pnlThongTinKhachHangLayout = new javax.swing.GroupLayout(pnlThongTinKhachHang);
         pnlThongTinKhachHang.setLayout(pnlThongTinKhachHangLayout);
@@ -119,10 +119,10 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
                 .addGroup(pnlThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlThongTinKhachHangLayout.createSequentialGroup()
-                        .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
+                        .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         pnlThongTinKhachHangLayout.setVerticalGroup(
             pnlThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +151,8 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         lblTienKhachDua.setForeground(new java.awt.Color(255, 255, 255));
         lblTienKhachDua.setText("Tiền khách đưa");
 
+        txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTongTien.setEnabled(false);
 
         txtTienKhachDua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -164,8 +164,8 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         lblTienThua.setForeground(new java.awt.Color(255, 255, 255));
         lblTienThua.setText("Tiền thừa");
 
+        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
         txtTienThua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTienThua.setEnabled(false);
 
         javax.swing.GroupLayout pnlThanhToanLayout = new javax.swing.GroupLayout(pnlThanhToan);
         pnlThanhToan.setLayout(pnlThanhToanLayout);

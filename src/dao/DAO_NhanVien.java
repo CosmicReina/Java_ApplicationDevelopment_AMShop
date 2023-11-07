@@ -8,6 +8,9 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class DAO_NhanVien extends DAO {
+    
+    public static NhanVien nhanVienHienTai = getNhanVienTheoMaNhanVien("NV23110801");
+    
     public static boolean createNhanVien(NhanVien nhanVien){
         int n = 0;
         try {

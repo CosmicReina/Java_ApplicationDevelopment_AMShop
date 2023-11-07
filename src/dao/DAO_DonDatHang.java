@@ -69,4 +69,21 @@ public class DAO_DonDatHang extends DAO {
         }
         return null;
     }
+    
+    public static String getMaDonDatHangCuoi(){
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM DonDatHang "
+                    + "ORDER BY MaDonDatHang DESC";
+            ResultSet rs = getResultSet(sql);
+            if(rs.next()){
+                String maDonDatHangCuoi = rs.getString(1);
+                return maDonDatHangCuoi;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
 }

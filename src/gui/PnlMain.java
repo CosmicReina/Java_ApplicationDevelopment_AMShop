@@ -389,11 +389,13 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnLapHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapHoaDonActionPerformed
         // TODO add your handling code here:
+        showPanel(new PnlLapHoaDon());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnLapHoaDonActionPerformed
 
     private void btnDanhSachDonDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachDonDatHangActionPerformed
         // TODO add your handling code here:
+        showPanel(new PnlDanhSachDonDatHang());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachDonDatHangActionPerformed
 
