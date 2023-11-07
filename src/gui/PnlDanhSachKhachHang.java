@@ -1,7 +1,7 @@
 package gui;
 
-public class PnlDanhSachKH extends javax.swing.JPanel {
-    public PnlDanhSachKH() {
+public class PnlDanhSachKhachHang extends javax.swing.JPanel {
+    public PnlDanhSachKhachHang() {
         initComponents();
     }
 
