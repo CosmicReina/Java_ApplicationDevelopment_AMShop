@@ -4,6 +4,7 @@ import data.UtilityImageIcon;
 import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
+import javax.swing.ImageIcon;
 
 public class DAO_QuanAo extends DAO {
     public static boolean createQuanAo(QuanAo quanAo){
@@ -91,7 +92,32 @@ public class DAO_QuanAo extends DAO {
     
     public static ArrayList<QuanAo> getAllQuanAo(){
         ArrayList<QuanAo> list = new ArrayList<>();
-        
+        try {
+            
+            String sql = "SELECT * FROM QuanAo";
+            ResultSet rs = getResultSet(sql);
+            while(rs.next()){
+                String maQuanAo = rs.getString(1);
+                String tenQuanAo = rs.getString(2);
+                double donGiaNhap = rs.getDouble(3);
+                double donBan = rs.getDouble(4);
+                int soLuongTrongKho = rs.getInt(5);
+                String nhaSanXuat = rs.getString(6);
+                String danhMuc = rs.getString(7);
+                String gioiTinh = rs.getString(8);
+                String mauSac = rs.getString(9);
+                String kichThuoc = rs.getString(10);
+                String chatLieu = rs.getString(11);
+                ImageIcon hinhAnh  = UtilityImageIcon.fromBytes(rs.getBytes(12));
+                boolean ngungNhap = rs.getBoolean(13);
+                
+                QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donBan, soLuongTrongKho, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, ngungNhap);
+                
+                list.add(quanAo);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
         return list;
     }
     
