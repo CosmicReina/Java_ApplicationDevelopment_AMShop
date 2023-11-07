@@ -68,17 +68,17 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
 
         tblDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã quần áo", "Tên quần áo", "Số lượng", "Đơn giá"
+                "Mã quần áo", "Tên quần áo", "Số lượng", "Đơn giá", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

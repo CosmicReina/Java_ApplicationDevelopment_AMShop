@@ -202,7 +202,7 @@ public class PnlCapNhatQuanAo extends javax.swing.JPanel {
                         .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(91, 91, 91))
         );
@@ -256,7 +256,7 @@ public class PnlCapNhatQuanAo extends javax.swing.JPanel {
                             .addComponent(btnCapNhat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pnlCapNhatQuanAo, java.awt.BorderLayout.CENTER);
@@ -277,7 +277,7 @@ public class PnlCapNhatQuanAo extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSachQA.setPreferredSize(new java.awt.Dimension(1400, 431));
+        tblDanhSachQA.setPreferredSize(new java.awt.Dimension(1166, 431));
         scrDanhSachQA.setViewportView(tblDanhSachQA);
 
         add(scrDanhSachQA, java.awt.BorderLayout.SOUTH);
