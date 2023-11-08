@@ -36,6 +36,31 @@ public class DAO_DonDatHang extends DAO {
         return n > 0;
     }
     
+    public static boolean updateDonDatHang(DonDatHang donDatHang){
+        int n = 0;
+        try {
+            String sql = ""
+                    + "UPDATE DonDatHang "
+                    + "SET "
+                    + "MaNhanVien = ?, "
+                    + "MaKhachHang = ?, "
+                    + "ThoiGianTao = ?, "
+                    + "TrangThaiThanhToan = ? "
+                    + "WHERE MaDonDatHang = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(5, donDatHang.getMaDonDatHang());
+            prs.setString(1, donDatHang.getNhanVien().getMaNhanVien());
+            prs.setString(2, donDatHang.getKhachHang().getMaKhachHang());
+            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDate(donDatHang.getThoiGianTao()));
+            prs.setBoolean(4, donDatHang.isTrangThaiThanhToan());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
+    }
+    
     public static ArrayList<DonDatHang> getAllDonDatHang(){
         ArrayList<DonDatHang> list = new ArrayList<>();
         try {
