@@ -81,7 +81,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
                 thisChiTietHoaDon.getQuanAo().getTenQuanAo(),
                 thisChiTietHoaDon.getSoLuong(),
                 thisChiTietHoaDon.getDonGia(),
-                nbf.format(tongTien)
+                nbf.format(thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia())
             });
             
         }
@@ -223,6 +223,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
                 double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công");
                 PrintInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienKhachDua);
+                PnlMain.getInstance().showPanel(new PnlLapHoaDon());
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
@@ -542,6 +543,11 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         btnTimKiemKH.setBackground(new java.awt.Color(0, 255, 255));
         btnTimKiemKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTimKiemKH.setText("Tìm kiếm");
+        btnTimKiemKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemKHActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlThongTinKhachHangLayout = new javax.swing.GroupLayout(pnlThongTinKhachHang);
         pnlThongTinKhachHang.setLayout(pnlThongTinKhachHangLayout);
@@ -718,6 +724,21 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
         taoDonDatHang();
     }//GEN-LAST:event_btnDatHangActionPerformed
+
+    private void btnTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemKHActionPerformed
+        // TODO add your handling code here:
+        String soDienThoai = txtSoDienThoai.getText();
+        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        if(khachHang == null){
+            JOptionPane.showMessageDialog(null, "Không tồn tại khách hàng");
+        }
+        else{
+            txtHoTen.setText(khachHang.getHoTen());
+            UtilityJTextField.removePlaceHolderStyle(txtHoTen);
+            txtDiaChi.setText(khachHang.getDiaChi());
+            UtilityJTextField.removePlaceHolderStyle(txtDiaChi);
+        }
+    }//GEN-LAST:event_btnTimKiemKHActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatHang;

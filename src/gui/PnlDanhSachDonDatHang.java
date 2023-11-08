@@ -46,19 +46,21 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         ArrayList<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
         DefaultTableModel model = (DefaultTableModel) tblDanhSachDonDatHang.getModel();
         for(DonDatHang thisDonDatHang : list){
-            if(thisDonDatHang.isTrangThaiThanhToan() == true) break;
-            ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
-            double tongTien = 0;
-            for(ChiTietDonDatHang thisChiTietDonDatHang : listCTDDH){
-                tongTien += (thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+            if(thisDonDatHang.isTrangThaiThanhToan() != true){
+                ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
+                double tongTien = 0;
+                for(ChiTietDonDatHang thisChiTietDonDatHang : listCTDDH){
+                    tongTien += (thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+                }
+                model.addRow(new Object[]{
+                    thisDonDatHang.getMaDonDatHang(),
+                    thisDonDatHang.getNhanVien().getHoTen(),
+                    thisDonDatHang.getKhachHang().getHoTen(),
+                    thisDonDatHang.getThoiGianTao().toString(),
+                    tongTien
+                });
             }
-            model.addRow(new Object[]{
-                thisDonDatHang.getMaDonDatHang(),
-                thisDonDatHang.getNhanVien().getHoTen(),
-                thisDonDatHang.getKhachHang().getHoTen(),
-                thisDonDatHang.getThoiGianTao().toString(),
-                tongTien
-            });
+            
         }
     }
     
