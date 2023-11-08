@@ -1,8 +1,161 @@
 package gui;
 
+import dao.DAO_ChiTietDonDatHang;
+import dao.DAO_ChiTietHoaDon;
+import dao.DAO_CuaHang;
+import dao.DAO_DonDatHang;
+import dao.DAO_HoaDon;
+import dao.DAO_KhachHang;
+import dao.DAO_NhanVien;
+import data.PrintInvoice;
+import entity.ChiTietDonDatHang;
+import entity.ChiTietHoaDon;
+import entity.CuaHang;
+import entity.DonDatHang;
+import entity.HoaDon;
+import entity.KhachHang;
+import entity.NhanVien;
+import entity.QuanAo;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
+    
+    ArrayList<ChiTietHoaDon> listDonHang = new ArrayList<>();
+    ArrayList<ChiTietDonDatHang> listDonDatHang = new ArrayList<>();
+    DonDatHang donDatHangHienTai;
+    double tongTienThanhToan = 0;
+    
     public PnlDanhSachDonDatHang() {
         initComponents();
+        initExtra();
+    }
+    
+    private void initExtra(){
+        showTableListDonDatHang();
+    }
+    
+    private void showTableListDonDatHang (){
+        
+        ArrayList<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachDonDatHang.getModel();
+        for(DonDatHang thisDonDatHang : list){
+            if(thisDonDatHang.isTrangThaiThanhToan() == true) break;
+            ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
+            double tongTien = 0;
+            for(ChiTietDonDatHang thisChiTietDonDatHang : listCTDDH){
+                tongTien += (thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+            }
+            model.addRow(new Object[]{
+                thisDonDatHang.getMaDonDatHang(),
+                thisDonDatHang.getNhanVien().getHoTen(),
+                thisDonDatHang.getKhachHang().getHoTen(),
+                thisDonDatHang.getThoiGianTao().toString(),
+                tongTien
+            });
+        }
+    }
+    
+    private String generateMaKhachHang(){
+        String maKhachHang;
+        int soKhachHang;
+        
+        LocalDate localDate = LocalDate.now();
+        String year = Integer.toString(localDate.getYear()).substring(2);
+        
+        String prefix = "KH" + year;
+        
+        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi();
+        if(maKhachHangCuoi == null){
+            soKhachHang = 1;
+            maKhachHang = prefix + String.format("%06d", soKhachHang);
+        }
+        else{
+            soKhachHang = Integer.parseInt(maKhachHangCuoi.substring(4)) + 1;
+            maKhachHang = prefix + String.format("%06d", soKhachHang);
+        }
+        return maKhachHang;
+    }
+    
+    private String generateMaHoaDon(){
+        String maHoaDon;
+        int soHoaDon;
+        
+        LocalDate localDate = LocalDate.now();
+        String year = Integer.toString(localDate.getYear()).substring(2);
+        String month = String.format("%02d", localDate.getMonth().getValue());
+        String day = String.format("%02d", localDate.getDayOfMonth());
+        
+        String prefix = "HD" + year + month + day;
+        
+        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi();
+        if(maHoaDonCuoi == null){
+            soHoaDon = 1;
+            maHoaDon = prefix + String.format("%04d", soHoaDon);
+        }
+        else{
+            soHoaDon = Integer.parseInt(maHoaDonCuoi.substring(8)) + 1;
+            maHoaDon = prefix + String.format("%04d", soHoaDon);
+        }
+        return maHoaDon;
+    }
+    
+    private void thanhToanChoDonHang(){
+        
+        
+        String maHoaDon = generateMaHoaDon();
+        
+        String soDienThoai = txtSoDienThoai.getText();
+        String hoTen = txtHoTen.getText();
+        String diaChi = txtDiaChi.getText();
+        KhachHang khachHang;
+        if(DAO_KhachHang.checkKhachHangTheoSoDienThoai(soDienThoai)){
+            khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        } 
+        else{
+            String maKhachHang = generateMaKhachHang();
+            String nhomKhachHang = "Thường";
+            khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
+            DAO_KhachHang.createKhachHang(khachHang);
+        } 
+        
+        CuaHang cuaHang = DAO_CuaHang.getCuaHang();
+        
+        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
+
+        LocalDateTime thoiGianTao = LocalDateTime.now();
+
+        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+        
+        boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
+        
+        for(ChiTietDonDatHang thisChiTietDonDatHang : listDonDatHang){
+            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon, thisChiTietDonDatHang.getQuanAo(), thisChiTietDonDatHang.getSoLuong(), thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+            listDonHang.add(chiTietHoaDon);
+        }
+        
+        if(themHoaDon == true){
+            try {
+                double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
+                JOptionPane.showMessageDialog(null, "Thanh toán thành công");
+                PrintInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTienThanhToan, tienKhachDua);
+                donDatHangHienTai.setTrangThaiThanhToan(true);
+                DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
+            } catch (IOException ex) {
+                ex.printStackTrace(System.out);
+            }
+        } 
+        else{
+            JOptionPane.showMessageDialog(null, "Thanh toán thất bại");
+        }
+        PnlMain.getInstance().showPanel(new PnlDanhSachDonDatHang());
+        listDonHang = new ArrayList<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -11,7 +164,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
 
         pnlHoaDon = new javax.swing.JPanel();
         scrDanhSachQA = new javax.swing.JScrollPane();
-        tblDanhSachQA = new javax.swing.JTable();
+        tblDanhSachDonDatHang = new javax.swing.JTable();
         pnlTaoHoaDon = new javax.swing.JPanel();
         pnlDonHang = new javax.swing.JPanel();
         scrDonHang = new javax.swing.JScrollPane();
@@ -38,12 +191,9 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
 
         scrDanhSachQA.setPreferredSize(new java.awt.Dimension(1166, 352));
 
-        tblDanhSachQA.setModel(new javax.swing.table.DefaultTableModel(
+        tblDanhSachDonDatHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Mã đơn đặt trước", "Tên nhân viên lập đơn", "Tên khách hàng", "Ngày lập đơn", "Tổng tiền"
@@ -57,8 +207,13 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSachQA.setPreferredSize(new java.awt.Dimension(1164, 375));
-        scrDanhSachQA.setViewportView(tblDanhSachQA);
+        tblDanhSachDonDatHang.setPreferredSize(new java.awt.Dimension(1164, 375));
+        tblDanhSachDonDatHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDanhSachDonDatHangMouseClicked(evt);
+            }
+        });
+        scrDanhSachQA.setViewportView(tblDanhSachDonDatHang);
 
         pnlHoaDon.add(scrDanhSachQA, java.awt.BorderLayout.NORTH);
 
@@ -71,10 +226,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
 
         tblDonHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Mã quần áo", "Tên quần áo", "Số lượng", "Đơn giá", "Tổng tiền"
@@ -101,14 +253,14 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         pnlThongTinKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Khách hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlThongTinKhachHang.setPreferredSize(new java.awt.Dimension(730, 156));
 
+        txtSoDienThoai.setBackground(new java.awt.Color(204, 204, 204));
         txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSoDienThoai.setEnabled(false);
 
+        txtHoTen.setBackground(new java.awt.Color(204, 204, 204));
         txtHoTen.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtHoTen.setEnabled(false);
 
+        txtDiaChi.setBackground(new java.awt.Color(204, 204, 204));
         txtDiaChi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtDiaChi.setEnabled(false);
 
         javax.swing.GroupLayout pnlThongTinKhachHangLayout = new javax.swing.GroupLayout(pnlThongTinKhachHang);
         pnlThongTinKhachHang.setLayout(pnlThongTinKhachHangLayout);
@@ -119,10 +271,10 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
                 .addGroup(pnlThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlThongTinKhachHangLayout.createSequentialGroup()
-                        .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
+                        .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         pnlThongTinKhachHangLayout.setVerticalGroup(
             pnlThongTinKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,21 +303,26 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         lblTienKhachDua.setForeground(new java.awt.Color(255, 255, 255));
         lblTienKhachDua.setText("Tiền khách đưa");
 
+        txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
         txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTongTien.setEnabled(false);
 
         txtTienKhachDua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnThanhToan.setBackground(new java.awt.Color(0, 255, 255));
         btnThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
 
         lblTienThua.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTienThua.setForeground(new java.awt.Color(255, 255, 255));
         lblTienThua.setText("Tiền thừa");
 
+        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
         txtTienThua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtTienThua.setEnabled(false);
 
         javax.swing.GroupLayout pnlThanhToanLayout = new javax.swing.GroupLayout(pnlThanhToan);
         pnlThanhToan.setLayout(pnlThanhToanLayout);
@@ -216,6 +373,43 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         add(pnlHoaDon, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblDanhSachDonDatHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachDonDatHangMouseClicked
+        // TODO add your handling code here:
+        int i = tblDanhSachDonDatHang.getSelectedRow();
+        if(i < 0) return;
+        NumberFormat nbf = NumberFormat.getCurrencyInstance(new Locale("vi", "vn"));
+        String maDonDatHang = tblDanhSachDonDatHang.getValueAt(i, 0).toString();
+        DonDatHang donDatHang = DAO_DonDatHang.getDonDatHangTheoMaDonDatHang(maDonDatHang);
+        ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(maDonDatHang);
+        donDatHangHienTai = donDatHang;
+        listDonDatHang = listCTDDH;
+        double tongTien = 0;
+        DefaultTableModel model = (DefaultTableModel) tblDonHang.getModel();
+        model.getDataVector().removeAllElements();
+        tblDonHang.revalidate();
+        tblDonHang.repaint();
+        for(ChiTietDonDatHang thisChiTietDonDatHang : listCTDDH){
+            tongTien += thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan();
+            model.addRow(new Object[]{
+                thisChiTietDonDatHang.getQuanAo().getMaQuanAo(),
+                thisChiTietDonDatHang.getQuanAo().getTenQuanAo(),
+                thisChiTietDonDatHang.getSoLuong(),
+                thisChiTietDonDatHang.getQuanAo().getDonGiaBan(),
+                thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan()
+            });
+        }
+        txtSoDienThoai.setText(donDatHang.getKhachHang().getSoDienThoai());
+        txtHoTen.setText(donDatHang.getKhachHang().getHoTen());
+        txtDiaChi.setText(donDatHang.getKhachHang().getDiaChi());
+        txtTongTien.setText(nbf.format(tongTien));
+        tongTienThanhToan = tongTien;
+    }//GEN-LAST:event_tblDanhSachDonDatHangMouseClicked
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        // TODO add your handling code here:
+        thanhToanChoDonHang();
+    }//GEN-LAST:event_btnThanhToanActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JLabel lblTienKhachDua;
@@ -229,7 +423,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
     private javax.swing.JPanel pnlThongTinKhachHang;
     private javax.swing.JScrollPane scrDanhSachQA;
     private javax.swing.JScrollPane scrDonHang;
-    private javax.swing.JTable tblDanhSachQA;
+    private javax.swing.JTable tblDanhSachDonDatHang;
     private javax.swing.JTable tblDonHang;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtHoTen;

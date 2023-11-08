@@ -1,28 +1,26 @@
 package dao;
 
-import entity.ChiTietHoaDon;
-import entity.HoaDon;
+import entity.ChiTietDonDatHang;
+import entity.DonDatHang;
 import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
 
-public class DAO_ChiTietHoaDon extends DAO {
-    public static boolean createChiTietHoaDon(ChiTietHoaDon chiTietHoaDon){
+public class DAO_ChiTietDonDatHang extends DAO {
+    public static boolean createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang){
         int n = 0;
         try {
             String sql = ""
-                    + "INSERT INTO ChiTietHoaDon "
+                    + "INSERT INTO ChiTietDonDatHang "
                     + "VALUES ("
-                    + "?, "
                     + "?, "
                     + "?, "
                     + "?"
                     + ")";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, chiTietHoaDon.getHoaDon().getMaHoaDon());
-            prs.setString(2, chiTietHoaDon.getQuanAo().getMaQuanAo());
-            prs.setInt(3, chiTietHoaDon.getSoLuong());
-            prs.setDouble(4, chiTietHoaDon.getDonGia());
+            prs.setString(1, chiTietDonDatHang.getDonDatHang().getMaDonDatHang());
+            prs.setString(2, chiTietDonDatHang.getQuanAo().getMaQuanAo());
+            prs.setInt(3, chiTietDonDatHang.getSoLuong());
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -31,28 +29,27 @@ public class DAO_ChiTietHoaDon extends DAO {
         return n > 0;
     }
     
-    public static ArrayList<ChiTietHoaDon> getAllChiTietHoaDonTheoMaHoaDon(String maHoaDon){
-        ArrayList<ChiTietHoaDon> list = new ArrayList<>();
+    public static ArrayList<ChiTietDonDatHang> getAllChiTietDonDatHangTheoMaDonDatHang(String maDonDatHang){
+        ArrayList<ChiTietDonDatHang> list = new ArrayList<>();
         try {
             String sql = ""
                     + "SELECT * "
-                    + "FROM ChiTietHoaDon "
-                    + "WHERE MaHoaDon = ?";
+                    + "FROM ChiTietDonDatHang "
+                    + "WHERE MaDonDatHang = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, maHoaDon);
+            prs.setString(1, maDonDatHang);
             
             ResultSet rs = prs.executeQuery();
             while(rs.next()){
                 String maQuanAo = rs.getString(2);
                 int soLuong = rs.getInt(3);
-                double donGia = rs.getDouble(4);
                 
-                HoaDon hoaDon = DAO_HoaDon.getHoaDonTheoMaHoaDon(maHoaDon);
+                DonDatHang donDatHang = DAO_DonDatHang.getDonDatHangTheoMaDonDatHang(maDonDatHang);
                 QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
                 
-                ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon, quanAo, soLuong, donGia);
+                ChiTietDonDatHang chiTietDonDatHang = new ChiTietDonDatHang(donDatHang, quanAo, soLuong);
                 
-                list.add(chiTietHoaDon);
+                list.add(chiTietDonDatHang);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

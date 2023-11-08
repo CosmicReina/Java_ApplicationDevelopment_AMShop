@@ -104,4 +104,21 @@ public class DAO_KhachHang extends DAO {
         }
         return false;
     }
+    
+    public static String getMaKhachHangCuoi(){
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM KhachHang "
+                    + "ORDER BY MaKhachHang DESC";
+            ResultSet rs = getResultSet(sql);
+            if(rs.next()){
+                String maKhachHang = rs.getString(1);
+                return maKhachHang;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
 }
