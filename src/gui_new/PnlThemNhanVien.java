@@ -1,12 +1,16 @@
 package gui_new;
 
+import dao.DAO_ChucVu;
 import dao.DAO_NhanVien;
 import data.FormatDate;
 import data.FormatDouble;
 import data.GenerateID;
 import data.UtilityJTextField;
 import entity.NhanVien;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlThemNhanVien extends javax.swing.JPanel {
@@ -36,6 +40,12 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         txtTenDangNhap.setText(GenerateID.generateMaNhanVien());
         txtMaNhanVien.setText(GenerateID.generateMaNhanVien());
         
+        ArrayList<String> listChucVu = DAO_ChucVu.getAllChucVu();
+        for(String thisChucVu : listChucVu)
+            cmbChucVu.addItem(thisChucVu);
+        
+        tblTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         UtilityJTextField.addPlaceHolderStyle(txtHoTen);
         UtilityJTextField.addPlaceHolderStyle(txtCCCD);
         UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
@@ -62,7 +72,53 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
     }
     
     private void themNhanVien(){
+        String error = "";
         
+        String maNhanVien = txtMaNhanVien.getText();
+        String hoTen = txtHoTen.getText();
+        String canCuocCongDan = txtCCCD.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        String ngaySinhString = txtNgaySinh.getText();
+        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+        String chucVu = cmbChucVu.getSelectedItem().toString();
+        String luongString = txtLuong.getText();
+        String diaChi = txtDiaChi.getText();
+        String tenDangNhap = txtTenDangNhap.getText();
+        String matKhau = new String(txtMauKhau.getPassword());
+        
+        double luong = 0;
+        try{
+            luong = Double.parseDouble(luongString);
+        }
+        catch(NumberFormatException e){
+            error += "\n- Mức Lương không hợp lệ.";
+        }
+        
+        LocalDate ngaySinh = null;
+        try{
+            ngaySinh = FormatDate.toLocalDate(ngaySinhString);
+        }
+        catch(Exception e){
+            error += "\n- Ngày Sinh không hợp lệ.";
+        }
+        
+        LocalDate ngayBatDauLam = LocalDate.now();
+        LocalDate ngayKetThucLam = null;
+        
+        if(error.equals("")){
+            NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
+            if(DAO_NhanVien.createNhanVien(nhanVien) == true){
+                JOptionPane.showMessageDialog(null, "Thêm Nhân Viên thành công.");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Thêm Nhân Viên thất bại.");
+            }
+            PnlMain.getInstance().showPanel(newInstance());
+        }
+        else{
+            String throwMessage = "Lỗi: " + error;
+            JOptionPane.showMessageDialog(null, throwMessage);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -104,7 +160,16 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
             new String [] {
                 "Mã Nhân Viên", "Họ Tên", "Căn Cước Công Dân", "Số Điện Thoại", "Ngày Sinh", "Giới Tính", "Chức Vụ", "Mức Lương"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblTable.setRowHeight(40);
         scrTable.setViewportView(tblTable);
 
         pnlTable.add(scrTable, java.awt.BorderLayout.CENTER);
@@ -327,7 +392,6 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         themNhanVien();
-        PnlMain.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed

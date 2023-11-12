@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class FormatDate {
-    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     public static String fromLocalDate(LocalDate localDate){
         String date = dtf.format(localDate);
