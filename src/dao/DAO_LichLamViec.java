@@ -36,13 +36,15 @@ public class DAO_LichLamViec extends DAO {
             String sql = ""
                     + "UPDATE LichLamViec "
                     + "SET "
-                    + "NgayLamViec = ? , "
+                    + "NgayLamViec = ?, "
                     + "CaLamViec = ? "
                     + "WHERE MaCaLamViec = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(3, lichLamViec.getMaLichLamViec());
             prs.setDate(1, UtilityLocalDate.fromLocalDate(lichLamViec.getNgayLamViec()));
             prs.setInt(2, lichLamViec.getCaLamViec().getMaCaLamViec());
+            
+            n = prs.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
