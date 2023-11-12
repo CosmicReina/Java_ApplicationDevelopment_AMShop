@@ -95,13 +95,17 @@ public class DAO_DonDatHang extends DAO {
         return null;
     }
     
-    public static String getMaDonDatHangCuoi(){
+    public static String getMaDonDatHangCuoi(String prefix){
+        String searchPrefix = prefix + "%";
         try {
             String sql = ""
                     + "SELECT * "
                     + "FROM DonDatHang "
+                    + "WHERE MaDonDatHang LIKE ? "
                     + "ORDER BY MaDonDatHang DESC";
-            ResultSet rs = getResultSet(sql);
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, searchPrefix);
+            ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String maDonDatHangCuoi = rs.getString(1);
                 return maDonDatHangCuoi;

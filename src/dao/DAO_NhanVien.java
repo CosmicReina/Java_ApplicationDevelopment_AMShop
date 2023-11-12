@@ -130,21 +130,24 @@ public class DAO_NhanVien extends DAO {
         return null;
     }
 
-    public static String getMaNhanVienCuoi(){
-        String maNhanVienCuoi = null;
+    public static String getMaNhanVienCuoi(String prefix){
+        String searchPrefix = prefix + "%";
         try {
             String sql = ""
                     + "SELECT * "
                     + "FROM NhanVien "
+                    + "WHERE MaNhanVien LIKE ? "
                     + "ORDER BY MaNhanVien DESC";
-            ResultSet rs = getResultSet(sql);
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, searchPrefix);
+            ResultSet rs = prs.executeQuery();
             if(rs.next()){
-                maNhanVienCuoi = rs.getString(1);
+                String maNhanVienCuoi = rs.getString(1);
                 return maNhanVienCuoi;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
-        return maNhanVienCuoi;
+        return null;
     }
 }

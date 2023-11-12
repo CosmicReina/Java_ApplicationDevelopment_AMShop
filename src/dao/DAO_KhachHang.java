@@ -105,13 +105,17 @@ public class DAO_KhachHang extends DAO {
         return false;
     }
     
-    public static String getMaKhachHangCuoi(){
+    public static String getMaKhachHangCuoi(String prefix){
+        String searchPrefix = prefix + "%";
         try {
             String sql = ""
                     + "SELECT * "
                     + "FROM KhachHang "
+                    + "WHERE MaKhachHang LIKE ? "
                     + "ORDER BY MaKhachHang DESC";
-            ResultSet rs = getResultSet(sql);
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, searchPrefix);
+            ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String maKhachHang = rs.getString(1);
                 return maKhachHang;

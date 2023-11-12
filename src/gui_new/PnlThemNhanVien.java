@@ -3,6 +3,7 @@ package gui_new;
 import dao.DAO_NhanVien;
 import data.FormatDate;
 import data.FormatDouble;
+import data.GenerateID;
 import data.UtilityJTextField;
 import entity.NhanVien;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         
         txtTenDangNhap.setEditable(false);
         txtMaNhanVien.setEditable(false);
+        
+        txtTenDangNhap.setText(GenerateID.generateMaNhanVien());
+        txtMaNhanVien.setText(GenerateID.generateMaNhanVien());
         
         UtilityJTextField.addPlaceHolderStyle(txtHoTen);
         UtilityJTextField.addPlaceHolderStyle(txtCCCD);

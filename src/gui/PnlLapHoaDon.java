@@ -99,7 +99,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         String prefix = "HD" + year + month + day;
         
-        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi();
+        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi(prefix);
         if(maHoaDonCuoi == null){
             soHoaDon = 1;
             maHoaDon = prefix + String.format("%04d", soHoaDon);
@@ -122,7 +122,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         String prefix = "DD" + year + month + day;
         
-        String maDonDatHangCuoi = DAO_DonDatHang.getMaDonDatHangCuoi();
+        String maDonDatHangCuoi = DAO_DonDatHang.getMaDonDatHangCuoi(prefix);
         if(maDonDatHangCuoi == null){
             soDonDatHang = 1;
             maDonDatHang = prefix + String.format("%04d", soDonDatHang);
@@ -143,7 +143,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         String prefix = "KH" + year;
         
-        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi();
+        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi(prefix);
         if(maKhachHangCuoi == null){
             soKhachHang = 1;
             maKhachHang = prefix + String.format("%06d", soKhachHang);
