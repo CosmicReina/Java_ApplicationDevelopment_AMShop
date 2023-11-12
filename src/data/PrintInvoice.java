@@ -133,13 +133,12 @@ public class PrintInvoice {
                 .setFontSize(6);
 
         tblInvoiceHeader
-                .addCell(new Cell()
+                .addCell(new Cell(1,2)
                                 .add(prgInvoiceID)
                                 .setBorder(Border.NO_BORDER))	
-                .addCell(new Cell()
+                .addCell(new Cell(1,2)
                                 .add(prgInvoiceDate)
-                                .setBorder(Border.NO_BORDER)
-                                .setTextAlignment(TextAlignment.RIGHT))
+                                .setBorder(Border.NO_BORDER))
                 .addCell(new Cell(1,2)
                                 .add(prgInvoiceMaker)
                                 .setBorder(Border.NO_BORDER))
