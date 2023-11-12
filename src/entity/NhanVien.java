@@ -1,6 +1,5 @@
 package entity;
 
-import entity_enum.Enum_GioiTinh;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -12,7 +11,7 @@ public class NhanVien {
     private String chucVu;
     private LocalDate ngaySinh;
     private String canCuocCongDan;
-    private Enum_GioiTinh gioiTinh;
+    private String gioiTinh;
     private LocalDate ngayBatDauLam;
     private LocalDate ngayKetThucLam;
     private double luong;
@@ -75,11 +74,11 @@ public class NhanVien {
         this.canCuocCongDan = canCuocCongDan;
     }
 
-    public Enum_GioiTinh getGioiTinh() {
+    public String getGioiTinh() {
         return gioiTinh;
     }
 
-    public void setGioiTinh(Enum_GioiTinh gioiTinh) {
+    public void setGioiTinh(String gioiTinh) {
         this.gioiTinh = gioiTinh;
     }
 
@@ -126,7 +125,7 @@ public class NhanVien {
     public NhanVien() {
     }
 
-    public NhanVien(String maNhanVien, String hoTen, String soDienThoai, String diaChi, String chucVu, LocalDate ngaySinh, String canCuocCongDan, Enum_GioiTinh gioiTinh, LocalDate ngayBatDauLam, LocalDate ngayKetThucLam, double luong, String tenDangNhap, String matKhau) {
+    public NhanVien(String maNhanVien, String hoTen, String soDienThoai, String diaChi, String chucVu, LocalDate ngaySinh, String canCuocCongDan, String gioiTinh, LocalDate ngayBatDauLam, LocalDate ngayKetThucLam, double luong, String tenDangNhap, String matKhau) {
         this.maNhanVien = maNhanVien;
         this.hoTen = hoTen;
         this.soDienThoai = soDienThoai;
@@ -144,8 +143,8 @@ public class NhanVien {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.maNhanVien);
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.maNhanVien);
         return hash;
     }
 
@@ -168,4 +167,5 @@ public class NhanVien {
     public String toString() {
         return "NhanVien{" + "maNhanVien=" + maNhanVien + ", hoTen=" + hoTen + ", soDienThoai=" + soDienThoai + ", diaChi=" + diaChi + ", chucVu=" + chucVu + ", ngaySinh=" + ngaySinh + ", canCuocCongDan=" + canCuocCongDan + ", gioiTinh=" + gioiTinh + ", ngayBatDauLam=" + ngayBatDauLam + ", ngayKetThucLam=" + ngayKetThucLam + ", luong=" + luong + ", tenDangNhap=" + tenDangNhap + ", matKhau=" + matKhau + '}';
     }
+    
 }
