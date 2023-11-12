@@ -70,13 +70,17 @@ public class DAO_HoaDon extends DAO {
         return null;
     }
     
-    public static String getMaHoaDonCuoi(){
+    public static String getMaHoaDonCuoi(String prefix){
+        String searchPrefix = prefix + "%";
         try {
             String sql = ""
                     + "SELECT * "
                     + "FROM HoaDon "
+                    + "WHERE MaHoaDon LIKE ? "
                     + "ORDER BY MaHoaDon DESC";
-            ResultSet rs = getResultSet(sql);
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, searchPrefix);
+            ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String maHoaDonCuoi = rs.getString(1);
                 return maHoaDonCuoi;

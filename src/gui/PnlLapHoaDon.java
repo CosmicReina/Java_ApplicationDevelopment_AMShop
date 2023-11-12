@@ -8,7 +8,7 @@ import dao.DAO_HoaDon;
 import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
-import data.PrintInvoice;
+import data.GenerateInvoice;
 import data.UtilityJTextField;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
@@ -81,7 +81,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
                 thisChiTietHoaDon.getQuanAo().getTenQuanAo(),
                 thisChiTietHoaDon.getSoLuong(),
                 thisChiTietHoaDon.getDonGia(),
-                nbf.format(tongTien)
+                nbf.format(thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia())
             });
             
         }
@@ -99,7 +99,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         String prefix = "HD" + year + month + day;
         
-        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi();
+        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi(prefix);
         if(maHoaDonCuoi == null){
             soHoaDon = 1;
             maHoaDon = prefix + String.format("%04d", soHoaDon);
@@ -122,7 +122,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         String prefix = "DD" + year + month + day;
         
-        String maDonDatHangCuoi = DAO_DonDatHang.getMaDonDatHangCuoi();
+        String maDonDatHangCuoi = DAO_DonDatHang.getMaDonDatHangCuoi(prefix);
         if(maDonDatHangCuoi == null){
             soDonDatHang = 1;
             maDonDatHang = prefix + String.format("%04d", soDonDatHang);
@@ -143,7 +143,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         String prefix = "KH" + year;
         
-        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi();
+        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi(prefix);
         if(maKhachHangCuoi == null){
             soKhachHang = 1;
             maKhachHang = prefix + String.format("%06d", soKhachHang);
@@ -222,7 +222,8 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             try {
                 double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công");
-                PrintInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienKhachDua);
+                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienKhachDua);
+                PnlMain.getInstance().showPanel(new PnlLapHoaDon());
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);
             }
@@ -542,6 +543,11 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         btnTimKiemKH.setBackground(new java.awt.Color(0, 255, 255));
         btnTimKiemKH.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnTimKiemKH.setText("Tìm kiếm");
+        btnTimKiemKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemKHActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlThongTinKhachHangLayout = new javax.swing.GroupLayout(pnlThongTinKhachHang);
         pnlThongTinKhachHang.setLayout(pnlThongTinKhachHangLayout);
@@ -676,32 +682,32 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
 
     private void txtMaQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtMaQuanAo);
+        UtilityJTextField.focusGained(txtMaQuanAo, "");
     }//GEN-LAST:event_txtMaQuanAoFocusGained
 
     private void txtTenQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtTenQuanAo);
+        UtilityJTextField.focusGained(txtTenQuanAo, "");
     }//GEN-LAST:event_txtTenQuanAoFocusGained
 
     private void txtSoLuongFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoLuong);
+        UtilityJTextField.focusGained(txtSoLuong, "");
     }//GEN-LAST:event_txtSoLuongFocusGained
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai);
+        UtilityJTextField.focusGained(txtSoDienThoai, "");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtHoTenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtHoTen);
+        UtilityJTextField.focusGained(txtHoTen, "");
     }//GEN-LAST:event_txtHoTenFocusGained
 
     private void txtDiaChiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtDiaChi);
+        UtilityJTextField.focusGained(txtDiaChi, "");
     }//GEN-LAST:event_txtDiaChiFocusGained
 
     private void btnThemQAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQAActionPerformed
@@ -718,6 +724,21 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         // TODO add your handling code here:
         taoDonDatHang();
     }//GEN-LAST:event_btnDatHangActionPerformed
+
+    private void btnTimKiemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemKHActionPerformed
+        // TODO add your handling code here:
+        String soDienThoai = txtSoDienThoai.getText();
+        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        if(khachHang == null){
+            JOptionPane.showMessageDialog(null, "Không tồn tại khách hàng");
+        }
+        else{
+            txtHoTen.setText(khachHang.getHoTen());
+            UtilityJTextField.removePlaceHolderStyle(txtHoTen);
+            txtDiaChi.setText(khachHang.getDiaChi());
+            UtilityJTextField.removePlaceHolderStyle(txtDiaChi);
+        }
+    }//GEN-LAST:event_btnTimKiemKHActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDatHang;

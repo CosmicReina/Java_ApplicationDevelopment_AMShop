@@ -2,7 +2,6 @@ package dao;
 
 import data.UtilityLocalDate;
 import entity.NhanVien;
-import entity_enum.Enum_GioiTinh;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
@@ -37,9 +36,9 @@ public class DAO_NhanVien extends DAO {
             prs.setString(5, nhanVien.getChucVu());
             prs.setDate(6, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setString(7, nhanVien.getCanCuocCongDan());
-            prs.setString(8, nhanVien.getGioiTinh().gioiTinh);
-            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
-            prs.setDate(10, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+            prs.setString(8, nhanVien.getGioiTinh());
+            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
+            prs.setDate(10, UtilityLocalDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
             prs.setDouble(11, nhanVien.getLuong());
             
             n = prs.executeUpdate();
@@ -75,7 +74,7 @@ public class DAO_NhanVien extends DAO {
             prs.setString(4, nhanVien.getChucVu());
             prs.setDate(5, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setString(6, nhanVien.getCanCuocCongDan());
-            prs.setString(7, nhanVien.getGioiTinh().gioiTinh);
+            prs.setString(7, nhanVien.getGioiTinh());
             prs.setDate(8, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setDouble(10, nhanVien.getLuong());
@@ -100,7 +99,7 @@ public class DAO_NhanVien extends DAO {
                 String chucVu = rs.getString(5);
                 LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs.getDate(6));
                 String canCuocCongDan = rs.getString(7);
-                Enum_GioiTinh gioiTinh = Enum_GioiTinh.getEnum(rs.getString(8));
+                String gioiTinh = rs.getString(8);
                 LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs.getDate(9));
                 LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs.getDate(10));
                 double luong = rs.getDouble(11);
@@ -131,21 +130,24 @@ public class DAO_NhanVien extends DAO {
         return null;
     }
 
-    public static String getMaNhanVienCuoi(){
-        String maNhanVienCuoi = null;
+    public static String getMaNhanVienCuoi(String prefix){
+        String searchPrefix = prefix + "%";
         try {
             String sql = ""
                     + "SELECT * "
                     + "FROM NhanVien "
+                    + "WHERE MaNhanVien LIKE ? "
                     + "ORDER BY MaNhanVien DESC";
-            ResultSet rs = getResultSet(sql);
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, searchPrefix);
+            ResultSet rs = prs.executeQuery();
             if(rs.next()){
-                maNhanVienCuoi = rs.getString(1);
+                String maNhanVienCuoi = rs.getString(1);
                 return maNhanVienCuoi;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
-        return maNhanVienCuoi;
+        return null;
     }
 }

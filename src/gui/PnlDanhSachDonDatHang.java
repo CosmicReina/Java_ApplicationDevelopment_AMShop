@@ -7,7 +7,7 @@ import dao.DAO_DonDatHang;
 import dao.DAO_HoaDon;
 import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
-import data.PrintInvoice;
+import data.GenerateInvoice;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
 import entity.CuaHang;
@@ -46,19 +46,21 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         ArrayList<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
         DefaultTableModel model = (DefaultTableModel) tblDanhSachDonDatHang.getModel();
         for(DonDatHang thisDonDatHang : list){
-            if(thisDonDatHang.isTrangThaiThanhToan() == true) break;
-            ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
-            double tongTien = 0;
-            for(ChiTietDonDatHang thisChiTietDonDatHang : listCTDDH){
-                tongTien += (thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+            if(thisDonDatHang.isTrangThaiThanhToan() != true){
+                ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
+                double tongTien = 0;
+                for(ChiTietDonDatHang thisChiTietDonDatHang : listCTDDH){
+                    tongTien += (thisChiTietDonDatHang.getSoLuong() * thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+                }
+                model.addRow(new Object[]{
+                    thisDonDatHang.getMaDonDatHang(),
+                    thisDonDatHang.getNhanVien().getHoTen(),
+                    thisDonDatHang.getKhachHang().getHoTen(),
+                    thisDonDatHang.getThoiGianTao().toString(),
+                    tongTien
+                });
             }
-            model.addRow(new Object[]{
-                thisDonDatHang.getMaDonDatHang(),
-                thisDonDatHang.getNhanVien().getHoTen(),
-                thisDonDatHang.getKhachHang().getHoTen(),
-                thisDonDatHang.getThoiGianTao().toString(),
-                tongTien
-            });
+            
         }
     }
     
@@ -71,7 +73,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         
         String prefix = "KH" + year;
         
-        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi();
+        String maKhachHangCuoi = DAO_KhachHang.getMaKhachHangCuoi(prefix);
         if(maKhachHangCuoi == null){
             soKhachHang = 1;
             maKhachHang = prefix + String.format("%06d", soKhachHang);
@@ -94,7 +96,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         
         String prefix = "HD" + year + month + day;
         
-        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi();
+        String maHoaDonCuoi = DAO_HoaDon.getMaHoaDonCuoi(prefix);
         if(maHoaDonCuoi == null){
             soHoaDon = 1;
             maHoaDon = prefix + String.format("%04d", soHoaDon);
@@ -144,7 +146,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
             try {
                 double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công");
-                PrintInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTienThanhToan, tienKhachDua);
+                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTienThanhToan, tienKhachDua);
                 donDatHangHienTai.setTrangThaiThanhToan(true);
                 DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
             } catch (IOException ex) {

@@ -19,9 +19,17 @@ public class UtilityJTextField {
         txt.setForeground(Color.BLACK);
     }
     
-    public static void focusGained(JTextField txt){
-        txt.setText(null);
+    public static void focusGained(JTextField txt, String string){
+        if(txt.getText().equals(string))
+            txt.setText("");
         txt.requestFocus();
         removePlaceHolderStyle(txt);
+    }
+    
+    public static void focusLost(JTextField txt, String string){
+        if(txt.getText().equals("")){
+            addPlaceHolderStyle(txt);
+            txt.setText(string);
+        }
     }
 }

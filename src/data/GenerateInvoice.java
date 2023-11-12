@@ -25,7 +25,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PrintInvoice {
+public class GenerateInvoice {
     public static void createAMShopInvoice(HoaDon hoaDon, ArrayList<ChiTietHoaDon> list, double tongTien, double tienKhachDua) throws IOException{
         String invoice_file_path = "files//hoaDon//" + hoaDon.getMaHoaDon() + ".pdf";
         PdfWriter pdfWriter = new PdfWriter(invoice_file_path);
@@ -133,13 +133,12 @@ public class PrintInvoice {
                 .setFontSize(6);
 
         tblInvoiceHeader
-                .addCell(new Cell()
+                .addCell(new Cell(1,2)
                                 .add(prgInvoiceID)
                                 .setBorder(Border.NO_BORDER))	
-                .addCell(new Cell()
+                .addCell(new Cell(1,2)
                                 .add(prgInvoiceDate)
-                                .setBorder(Border.NO_BORDER)
-                                .setTextAlignment(TextAlignment.RIGHT))
+                                .setBorder(Border.NO_BORDER))
                 .addCell(new Cell(1,2)
                                 .add(prgInvoiceMaker)
                                 .setBorder(Border.NO_BORDER))
