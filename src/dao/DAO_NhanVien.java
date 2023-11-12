@@ -37,8 +37,8 @@ public class DAO_NhanVien extends DAO {
             prs.setDate(6, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setString(7, nhanVien.getCanCuocCongDan());
             prs.setString(8, nhanVien.getGioiTinh());
-            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
-            prs.setDate(10, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
+            prs.setDate(10, UtilityLocalDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
             prs.setDouble(11, nhanVien.getLuong());
             
             n = prs.executeUpdate();

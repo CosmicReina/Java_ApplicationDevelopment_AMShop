@@ -682,32 +682,32 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
 
     private void txtMaQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtMaQuanAo);
+        UtilityJTextField.focusGained(txtMaQuanAo, "");
     }//GEN-LAST:event_txtMaQuanAoFocusGained
 
     private void txtTenQuanAoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenQuanAoFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtTenQuanAo);
+        UtilityJTextField.focusGained(txtTenQuanAo, "");
     }//GEN-LAST:event_txtTenQuanAoFocusGained
 
     private void txtSoLuongFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoLuong);
+        UtilityJTextField.focusGained(txtSoLuong, "");
     }//GEN-LAST:event_txtSoLuongFocusGained
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai);
+        UtilityJTextField.focusGained(txtSoDienThoai, "");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtHoTenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtHoTen);
+        UtilityJTextField.focusGained(txtHoTen, "");
     }//GEN-LAST:event_txtHoTenFocusGained
 
     private void txtDiaChiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtDiaChi);
+        UtilityJTextField.focusGained(txtDiaChi, "");
     }//GEN-LAST:event_txtDiaChiFocusGained
 
     private void btnThemQAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQAActionPerformed

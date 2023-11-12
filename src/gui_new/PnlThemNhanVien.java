@@ -85,35 +85,78 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         String diaChi = txtDiaChi.getText();
         String tenDangNhap = txtTenDangNhap.getText();
         String matKhau = new String(txtMauKhau.getPassword());
+        LocalDate ngayBatDauLam = LocalDate.now();
+        LocalDate ngayKetThucLam = null;
         
-        double luong = 0;
-        try{
-            luong = Double.parseDouble(luongString);
+        if(hoTen.equals("Họ Tên"))
+            error += "\n- Vui lòng nhập Họ Tên.";
+        else{
+            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")){
+                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
+            }
         }
-        catch(NumberFormatException e){
-            error += "\n- Mức Lương không hợp lệ.";
+        
+        if(canCuocCongDan.equals("Căn Cước Công Dân"))
+            error += "\n- Vui lòng nhập Căn Cước Công Dân.";
+        else{
+            if(!canCuocCongDan.matches("[0-9]{12}"))
+                error += "\n- Vui lòng nhập Căn Cước Công Dân hợp lệ.";
+        }
+            
+        if(soDienThoai.equals("Số Điện Thoại"))
+            error += "\n- Vui lòng nhập Số Điện Thoại.";
+        else{
+            if(!soDienThoai.matches("0{1}[0-9]{9}"))
+                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
         }
         
         LocalDate ngaySinh = null;
-        try{
-            ngaySinh = FormatDate.toLocalDate(ngaySinhString);
+        if(ngaySinhString.equals("Ngày Sinh (DD/MM/YYYY)")){
+            error += "\n- Vui lòng nhập Ngày Sinh.";
         }
-        catch(Exception e){
-            error += "\n- Ngày Sinh không hợp lệ.";
+        else{
+            try{
+                ngaySinh = FormatDate.toLocalDate(ngaySinhString);
+            }
+            catch(Exception e){
+                error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
+            }
         }
         
-        LocalDate ngayBatDauLam = LocalDate.now();
-        LocalDate ngayKetThucLam = null;
+        if(gioiTinh.equals("Giới Tính"))
+            error += "\n- Vui lòng chọn Giới Tính.";
+        
+        if(chucVu.equals("Chức Vụ"))
+            error += "\n- Vui lòng chọn Chức Vụ.";
+        
+        double luong = 0;
+        if(luongString.equals("Mức Lương")){
+            error += "\n- Vui lòng nhập Mức Lương";
+        }
+        else{
+            try{
+                luong = Double.parseDouble(luongString);
+            }
+            catch(NumberFormatException e){
+                error += "\n- Vui lòng nhập Mức Lương hợp lệ.";
+            }
+        }
+        
+        if(diaChi.equals("Địa Chỉ"))
+            error += "\n- Vui lòng nhập Địa Chỉ.";
+        
+        if(matKhau.equals(""))
+            error += "\n- Vui lòng nhập Mật Khẩu.";
         
         if(error.equals("")){
             NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
             if(DAO_NhanVien.createNhanVien(nhanVien) == true){
                 JOptionPane.showMessageDialog(null, "Thêm Nhân Viên thành công.");
+                PnlMain.getInstance().showPanel(newInstance());
             }
             else{
                 JOptionPane.showMessageDialog(null, "Thêm Nhân Viên thất bại.");
             }
-            PnlMain.getInstance().showPanel(newInstance());
         }
         else{
             String throwMessage = "Lỗi: " + error;
@@ -401,32 +444,32 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
 
     private void txtHoTenFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtHoTen);
+        UtilityJTextField.focusGained(txtHoTen, "Họ Tên");
     }//GEN-LAST:event_txtHoTenFocusGained
 
     private void txtCCCDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCCCDFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtCCCD);
+        UtilityJTextField.focusGained(txtCCCD, "Căn Cước Công Dân");
     }//GEN-LAST:event_txtCCCDFocusGained
 
     private void txtSoDienThoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoai);
+        UtilityJTextField.focusGained(txtSoDienThoai, "Số Điện Thoại");
     }//GEN-LAST:event_txtSoDienThoaiFocusGained
 
     private void txtNgaySinhFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNgaySinhFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtNgaySinh);
+        UtilityJTextField.focusGained(txtNgaySinh, "Ngày Sinh (DD/MM/YYYY)");
     }//GEN-LAST:event_txtNgaySinhFocusGained
 
     private void txtLuongFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLuongFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtLuong);
+        UtilityJTextField.focusGained(txtLuong, "Mức Lương");
     }//GEN-LAST:event_txtLuongFocusGained
 
     private void txtDiaChiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiaChiFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtDiaChi);
+        UtilityJTextField.focusGained(txtDiaChi, "Địa Chỉ");
     }//GEN-LAST:event_txtDiaChiFocusGained
 
     private void txtHoTenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHoTenFocusLost

@@ -10,6 +10,7 @@ public class UtilityLocalDateTime {
     }
     
     public static LocalDateTime toLocalDate(Timestamp timestamp){
+        if(timestamp == null) return null;
         return timestamp.toLocalDateTime();
     }
 }
