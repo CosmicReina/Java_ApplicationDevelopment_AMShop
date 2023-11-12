@@ -24,4 +24,11 @@ public class UtilityJTextField {
         txt.requestFocus();
         removePlaceHolderStyle(txt);
     }
+    
+    public static void focusLost(JTextField txt, String string){
+        if(txt.getText().equals("")){
+            addPlaceHolderStyle(txt);
+            txt.setText(string);
+        }
+    }
 }

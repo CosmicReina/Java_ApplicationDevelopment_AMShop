@@ -1,8 +1,10 @@
 package gui_new;
 
 import data.UtilityJButton;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class PnlMain extends javax.swing.JPanel {
     
@@ -40,6 +42,14 @@ public class PnlMain extends javax.swing.JPanel {
         listBtnNhanVien.add(btnThemNhanVien);
         listBtnNhanVien.add(btnCapNhatNhanVien);
         listBtnNhanVien.add(btnThongTinNhanVien);
+    }
+    
+    public void showPanel(JPanel panel){
+        pnlWork.removeAll();
+    	pnlWork.revalidate();
+    	pnlWork.repaint();
+    	pnlWork.setLayout(new BorderLayout());
+    	pnlWork.add(panel, BorderLayout.CENTER);
     }
 
     @SuppressWarnings("unchecked")
@@ -298,6 +308,7 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlThemNhanVien.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
