@@ -27,4 +27,13 @@ public class DAO_CaLamViec extends DAO {
         }
         return list;
     }
+    
+    public static CaLamViec getCaLamViecTheoMaCaLamViec(int maCaLamViec){
+        ArrayList<CaLamViec> list = getAllCaLamViec();
+        for(CaLamViec thisCaLamViec : list){
+            if(thisCaLamViec.getMaCaLamViec() == maCaLamViec)
+                return thisCaLamViec;
+        }
+        return null;
+    }
 }
