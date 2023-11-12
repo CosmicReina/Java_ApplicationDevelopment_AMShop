@@ -1,6 +1,12 @@
 package gui_new;
 
+import dao.DAO_NhanVien;
+import data.FormatDate;
+import data.FormatDouble;
 import data.UtilityJTextField;
+import entity.NhanVien;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class PnlThemNhanVien extends javax.swing.JPanel {
     
@@ -21,6 +27,8 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
+        updateTable();
+        
         txtTenDangNhap.setEditable(false);
         txtMaNhanVien.setEditable(false);
         
@@ -30,6 +38,23 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
         UtilityJTextField.addPlaceHolderStyle(txtLuong);
         UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
+    }
+    
+    private void updateTable(){
+        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        for(NhanVien thisNhanVien : list){
+            model.addRow(new Object[]{
+                thisNhanVien.getMaNhanVien(),
+                thisNhanVien.getHoTen(),
+                thisNhanVien.getCanCuocCongDan(),
+                thisNhanVien.getSoDienThoai(),
+                FormatDate.fromLocalDate(thisNhanVien.getNgaySinh()),
+                thisNhanVien.getGioiTinh(),
+                thisNhanVien.getChucVu(),
+                FormatDouble.toMoney(thisNhanVien.getLuong())
+            });
+        }
     }
     
     private void themNhanVien(){

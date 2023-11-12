@@ -20,7 +20,7 @@ public class UtilityJTextField {
     }
     
     public static void focusGained(JTextField txt){
-        txt.setText(null);
+        txt.setText("");
         txt.requestFocus();
         removePlaceHolderStyle(txt);
     }

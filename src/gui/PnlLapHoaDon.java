@@ -8,7 +8,7 @@ import dao.DAO_HoaDon;
 import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
-import data.PrintInvoice;
+import data.GenerateInvoice;
 import data.UtilityJTextField;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
@@ -222,7 +222,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             try {
                 double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công");
-                PrintInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienKhachDua);
+                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienKhachDua);
                 PnlMain.getInstance().showPanel(new PnlLapHoaDon());
             } catch (IOException ex) {
                 ex.printStackTrace(System.out);

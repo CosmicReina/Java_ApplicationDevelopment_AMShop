@@ -7,7 +7,7 @@ import dao.DAO_DonDatHang;
 import dao.DAO_HoaDon;
 import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
-import data.PrintInvoice;
+import data.GenerateInvoice;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
 import entity.CuaHang;
@@ -146,7 +146,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
             try {
                 double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công");
-                PrintInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTienThanhToan, tienKhachDua);
+                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTienThanhToan, tienKhachDua);
                 donDatHangHienTai.setTrangThaiThanhToan(true);
                 DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
             } catch (IOException ex) {

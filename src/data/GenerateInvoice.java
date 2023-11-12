@@ -25,7 +25,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PrintInvoice {
+public class GenerateInvoice {
     public static void createAMShopInvoice(HoaDon hoaDon, ArrayList<ChiTietHoaDon> list, double tongTien, double tienKhachDua) throws IOException{
         String invoice_file_path = "files//hoaDon//" + hoaDon.getMaHoaDon() + ".pdf";
         PdfWriter pdfWriter = new PdfWriter(invoice_file_path);
