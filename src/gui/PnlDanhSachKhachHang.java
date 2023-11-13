@@ -1,10 +1,30 @@
 package gui;
 
+import dao.DAO_KhachHang;
+import entity.KhachHang;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlDanhSachKhachHang extends javax.swing.JPanel {
     public PnlDanhSachKhachHang() {
         initComponents();
+        showTableListKhachHang();
     }
 
+private void showTableListKhachHang(){
+    ArrayList<KhachHang> list = DAO_KhachHang.getAllKhachHang();
+    DefaultTableModel model = (DefaultTableModel) tblDanhSachKH.getModel();
+    for(KhachHang thisKhachHang : list){
+        model.addRow(new Object[]{
+            thisKhachHang.getMaKhachHang(),
+            thisKhachHang.getHoTen(),
+            thisKhachHang.getSoDienThoai(),
+            thisKhachHang.getDiaChi(),
+            thisKhachHang.getNhomKhachHang()
+        });
+    }
+}
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,17 +50,14 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
 
         tblDanhSachKH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "STT", "Mã khách hàng", "Tên khách hàng", "Giới tính", "CMND", "Số điện thoại", "Ngày sinh"
+                "Mã khách hàng", "Họ tên", "Số điện thoại", "Địa chỉ", "Nhóm khách hàng"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -88,7 +105,7 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
                     .addComponent(txtTimKiemHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnTimKiemKH, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         pnlTimKiem.add(pnlTimKiemKH, java.awt.BorderLayout.CENTER);

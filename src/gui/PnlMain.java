@@ -417,6 +417,7 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnCapNhatKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatKhachHangActionPerformed
         // TODO add your handling code here:
+        showPanel(new PnlDanhSachKhachHang());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnCapNhatKhachHangActionPerformed
 
