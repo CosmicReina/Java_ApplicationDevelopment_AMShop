@@ -88,64 +88,64 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         LocalDate ngayBatDauLam = LocalDate.now();
         LocalDate ngayKetThucLam = null;
         
-        if(hoTen.equals("Họ Tên"))
+        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
             error += "\n- Vui lòng nhập Họ Tên.";
-        else{
-            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")){
+        else
+            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
                 error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
-            }
-        }
         
-        if(canCuocCongDan.equals("Căn Cước Công Dân"))
+        if(canCuocCongDan.equals("Căn Cước Công Dân")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Căn Cước Công Dân.";
-        else{
-            if(!canCuocCongDan.matches("[0-9]{12}"))
+        else
+            if(!canCuocCongDan.matches("[0-9]{12}")) // Kiểm tra biểu thức chính quy
                 error += "\n- Vui lòng nhập Căn Cước Công Dân hợp lệ.";
-        }
+            else
+                if(DAO_NhanVien.getNhanVienTheoCanCuocCongDan(canCuocCongDan) != null) // Kiểm tra đã tồn tại
+                    error += "\n- Số Căn Cước Công Dân đã tồn tại.";
             
-        if(soDienThoai.equals("Số Điện Thoại"))
+        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Số Điện Thoại.";
-        else{
-            if(!soDienThoai.matches("0{1}[0-9]{9}"))
+        else
+            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
                 error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
-        }
+            else
+                if(DAO_NhanVien.getNhanVienTheoSoDienThoai(soDienThoai) != null) // Kiểm tra đã tồn tại
+                    error += "\n- Số Điện Thoại đã tồn tại";
         
         LocalDate ngaySinh = null;
-        if(ngaySinhString.equals("Ngày Sinh (DD/MM/YYYY)")){
+        if(ngaySinhString.equals("Ngày Sinh (DD/MM/YYYY)")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Ngày Sinh.";
-        }
-        else{
+        else
             try{
-                ngaySinh = FormatDate.toLocalDate(ngaySinhString);
+                ngaySinh = FormatDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
             }
             catch(Exception e){
                 error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
             }
-        }
         
-        if(gioiTinh.equals("Giới Tính"))
+        if(gioiTinh.equals("Giới Tính")) // Kiểm tra chọn
             error += "\n- Vui lòng chọn Giới Tính.";
         
-        if(chucVu.equals("Chức Vụ"))
+        if(chucVu.equals("Chức Vụ")) // Kiểm tra chọn
             error += "\n- Vui lòng chọn Chức Vụ.";
         
         double luong = 0;
-        if(luongString.equals("Mức Lương")){
+        if(luongString.equals("Mức Lương")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Mức Lương";
-        }
-        else{
+        else
             try{
-                luong = Double.parseDouble(luongString);
+                luong = Double.parseDouble(luongString); // Kiểm tra chuyển đổi
+                if(luong <= 0)
+                    error += "\n- Vui lòng nhập Mức Lương lớn hơn 0";
             }
             catch(NumberFormatException e){
                 error += "\n- Vui lòng nhập Mức Lương hợp lệ.";
             }
-        }
         
-        if(diaChi.equals("Địa Chỉ"))
+        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Địa Chỉ.";
         
-        if(matKhau.equals(""))
+        if(matKhau.equals("")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Mật Khẩu.";
         
         if(error.equals("")){
@@ -159,7 +159,7 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
             }
         }
         else{
-            String throwMessage = "Lỗi: " + error;
+            String throwMessage = "Lỗi nhập liệu: " + error;
             JOptionPane.showMessageDialog(null, throwMessage);
         }
     }

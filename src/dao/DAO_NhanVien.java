@@ -129,6 +129,24 @@ public class DAO_NhanVien extends DAO {
         }
         return null;
     }
+    
+    public static NhanVien getNhanVienTheoCanCuocCongDan(String canCuocCongDan){
+        ArrayList<NhanVien> list = getAllNhanVien();
+        for(NhanVien thisNhanVien : list){
+            if(thisNhanVien.getCanCuocCongDan().equals(canCuocCongDan))
+                return thisNhanVien;
+        }
+        return null;
+    }
+    
+    public static NhanVien getNhanVienTheoSoDienThoai(String soDienThoai){
+        ArrayList<NhanVien> list = getAllNhanVien();
+        for(NhanVien thisNhanVien : list){
+            if(thisNhanVien.getSoDienThoai().equals(soDienThoai))
+                return thisNhanVien;
+        }
+        return null;
+    }
 
     public static String getMaNhanVienCuoi(String prefix){
         String searchPrefix = prefix + "%";
