@@ -6,11 +6,21 @@ import dao.DAO_GioiTinh;
 import dao.DAO_KichThuoc;
 import dao.DAO_MauSac;
 import dao.DAO_NhaSanXuat;
+import dao.DAO_QuanAo;
+import data.FormatDate;
+import data.FormatDouble;
 import data.GenerateID;
+import data.UtilityImageIcon;
+import entity.QuanAo;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
     
@@ -34,6 +44,8 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
     }
     
     private void initExtra(){
+        updateTable();
+        
         txtMaQuanAo.setText(GenerateID.generateMaQuanAo());
         txtMaQuanAo.setEditable(false);
         
@@ -59,6 +71,26 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
         
         for(String thisKichThuoc : listKichThuoc)
             cmbKichThuoc.addItem(thisKichThuoc);
+    }
+    
+    private void updateTable(){
+        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        for(QuanAo thisQuanAo : list){
+            model.addRow(new Object[]{
+                thisQuanAo.getMaQuanAo(),
+                thisQuanAo.getTenQuanAo(),
+                FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()),
+                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
+                thisQuanAo.getSoLuongTrongKho(),
+                thisQuanAo.getNhaSanXuat(),
+                thisQuanAo.getDanhMuc(),
+                thisQuanAo.getGioiTinh(),
+                thisQuanAo.getMauSac(),
+                thisQuanAo.getKichThuoc(),
+                thisQuanAo.getChatLieu()
+            });
+        }
     }
     
     private void updateNhaSanXuat(){
@@ -102,6 +134,80 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
         String mauSac = cmbMauSac.getSelectedItem().toString();
         String kichThuoc = cmbKichThuoc.getSelectedItem().toString();
         String chatLieu = cmbChatLieu.getSelectedItem().toString();
+        
+        double donGiaNhap = 0;
+        double donGiaBan = 0;
+        int soLuong = 0;
+        ImageIcon hinhAnh = UtilityImageIcon.fromStringPath(imagePath, 196, 270);
+        
+        if(tenQuanAo.equals(""))
+            error += "\n- Vui lòng nhập Tên Quần Áo.";
+        
+        try{
+            donGiaNhap = Double.parseDouble(donGiaNhapString);
+            if(donGiaNhap < 0)
+                error += "\n- Đơn Giá Nhập phải lớn hơn 0.";
+        }
+        catch(NumberFormatException e){
+            error += "\n- Vui lòng nhập Đơn Giá Nhập hợp lệ.";
+        }
+        
+        try{
+            donGiaBan = Double.parseDouble(donGiaBanString);
+            if(donGiaBan < 0)
+                error += "\n- Đơn Giá Bán phải lớn hơn 0.";
+            else
+                if(donGiaBan < donGiaNhap)
+                    error += "\n- Đơn Giá Bán phải lớn hơn Đơn Giá Nhập.";
+        }
+        catch(NumberFormatException e){
+            error += "\n- Vui lòng nhập Đơn Giá Bán hợp lệ.";
+        }
+        
+        try{
+            soLuong = Integer.parseInt(soLuongString);
+            if(soLuong < 0)
+                error += "\n- Số Lượng phải lớn hơn 0.";
+        }
+        catch(NumberFormatException e){
+            error += "\n- Vui lòng nhập Số Lượng hợp lệ.";
+        }
+        
+        if(nhaSanXuat.equals("Nhà Sản Xuất"))
+            error += "\n -Vui lòng chọn Nhà Sản Xuất.";
+        
+        if(danhMuc.equals("Danh Mục"))
+            error += "\n -Vui lòng chọn Danh Mục.";
+        
+        if(chatLieu.equals("Chất Liệu"))
+            error += "\n -Vui lòng chọn Chất Liệu.";
+        
+        if(mauSac.equals("Màu Sắc"))
+            error += "\n -Vui lòng chọn Màu Sắc.";
+        
+        if(kichThuoc.equals("Kích Thước"))
+            error += "\n -Vui lòng chọn Kích Thước.";
+        
+        if(gioiTinh.equals("Giới Tính"))
+            error += "\n -Vui lòng chọn Giới Tính.";
+        
+        if(imagePath.equals(""))
+            error += "\n -Vui lòng chọn Hình Ảnh.";
+        
+        if(error.equals("")){
+            QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donGiaBan, soLuong, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, false);
+            if(DAO_QuanAo.createQuanAo(quanAo) == true){
+                JOptionPane.showMessageDialog(null, "Thêm Quần Áo thành công.");
+                PnlMain.getInstance().showPanel(newInstance());
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Thêm Quần Áo thất bại.");
+            }
+        }
+        else{
+            String throwMessage = "Lỗi nhập liệu: " + error;
+            JOptionPane.showMessageDialog(null, throwMessage);
+        }
     }
     
     private void themNhaSanXuat(){
@@ -198,14 +304,14 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
         cmbNhaSanXuat = new javax.swing.JComboBox<>();
         lblDanhMuc = new javax.swing.JLabel();
         cmbDanhMuc = new javax.swing.JComboBox<>();
-        lblGioiTinh = new javax.swing.JLabel();
-        cmbGioiTinh = new javax.swing.JComboBox<>();
+        lblChatLieu = new javax.swing.JLabel();
+        cmbChatLieu = new javax.swing.JComboBox<>();
         lblMauSac = new javax.swing.JLabel();
         cmbMauSac = new javax.swing.JComboBox<>();
         lblKichThuoc = new javax.swing.JLabel();
         cmbKichThuoc = new javax.swing.JComboBox<>();
-        lblChatLieu = new javax.swing.JLabel();
-        cmbChatLieu = new javax.swing.JComboBox<>();
+        lblGioiTinh = new javax.swing.JLabel();
+        cmbGioiTinh = new javax.swing.JComboBox<>();
         lblHinhAnh = new javax.swing.JLabel();
         btnHinhAnh = new javax.swing.JButton();
         pnlHinhAnh = new javax.swing.JPanel();
@@ -266,12 +372,12 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
         cmbDanhMuc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Danh Mục" }));
 
-        lblGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblGioiTinh.setForeground(new java.awt.Color(255, 255, 255));
-        lblGioiTinh.setText("Giới Tính");
+        lblChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblChatLieu.setForeground(new java.awt.Color(255, 255, 255));
+        lblChatLieu.setText("Chất Liệu");
 
-        cmbGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giới Tính" }));
+        cmbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chất Liệu" }));
 
         lblMauSac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblMauSac.setForeground(new java.awt.Color(255, 255, 255));
@@ -287,12 +393,12 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
         cmbKichThuoc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbKichThuoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Kích Thước" }));
 
-        lblChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblChatLieu.setForeground(new java.awt.Color(255, 255, 255));
-        lblChatLieu.setText("Chất Liệu");
+        lblGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblGioiTinh.setForeground(new java.awt.Color(255, 255, 255));
+        lblGioiTinh.setText("Giới Tính");
 
-        cmbChatLieu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cmbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chất Liệu" }));
+        cmbGioiTinh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giới Tính" }));
 
         lblHinhAnh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblHinhAnh.setForeground(new java.awt.Color(255, 255, 255));
@@ -301,6 +407,11 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
         btnHinhAnh.setBackground(new java.awt.Color(170, 238, 255));
         btnHinhAnh.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnHinhAnh.setText("Chọn Hình Ảnh");
+        btnHinhAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHinhAnhActionPerformed(evt);
+            }
+        });
 
         pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
@@ -364,14 +475,6 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(cmbKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlNorthLayout.createSequentialGroup()
-                                .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlNorthLayout.createSequentialGroup()
                                 .addComponent(lblSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,7 +489,15 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cmbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlNorthLayout.createSequentialGroup()
+                                .addComponent(lblChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(69, 69, 69)
                         .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlNorthLayout.createSequentialGroup()
@@ -438,13 +549,13 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
                                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblDonGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDonGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(lblChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThemQuanAo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -471,6 +582,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
                 return canEdit [columnIndex];
             }
         });
+        tblTable.setRowHeight(40);
         scrTable.setViewportView(tblTable);
         if (tblTable.getColumnModel().getColumnCount() > 0) {
             tblTable.getColumnModel().getColumn(1).setMinWidth(200);
@@ -484,12 +596,29 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
 
     private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
         // TODO add your handling code here:
+        themQuanAo();
     }//GEN-LAST:event_btnThemQuanAoActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
         PnlMain.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnHinhAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhAnhActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter executeFilter = new FileNameExtensionFilter("Image", "jpg", "png");
+        fileChooser.setFileFilter(executeFilter);
+        fileChooser.setMultiSelectionEnabled(false);
+        
+        int prompt = fileChooser.showDialog(this, "Add");
+        if(prompt == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            imagePath = file.getAbsolutePath();
+            lblIMG.setText("");
+            lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
+        }
+    }//GEN-LAST:event_btnHinhAnhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHinhAnh;

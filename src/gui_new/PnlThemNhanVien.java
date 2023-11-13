@@ -118,6 +118,8 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         else
             try{
                 ngaySinh = FormatDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
+                if(LocalDate.now().getYear() - ngaySinh.getYear() < 18)
+                    error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
             }
             catch(Exception e){
                 error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
