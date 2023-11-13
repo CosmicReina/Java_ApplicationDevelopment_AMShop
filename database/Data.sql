@@ -15,8 +15,12 @@ VALUES
 
 INSERT INTO NhaSanXuat
 VALUES
-(N'YAME'),
-(N'Adidas')
+(N'Adidas'),
+(N'Gucci'),
+(N'Hermes'),
+(N'Chanel'),
+(N'Prada'),
+(N'Versace')
 
 INSERT INTO DanhMuc
 VALUES
