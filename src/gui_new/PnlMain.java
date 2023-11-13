@@ -42,6 +42,23 @@ public class PnlMain extends javax.swing.JPanel {
         listBtnNhanVien.add(btnThemNhanVien);
         listBtnNhanVien.add(btnCapNhatNhanVien);
         listBtnNhanVien.add(btnThongTinNhanVien);
+        
+        listBtnKhachHang.add(btnDanhSachKhachHang);
+        listBtnKhachHang.add(btnCapNhatKhachHang);
+        
+        listBtnHoaDon.add(btnDanhSachHoaDon);
+        
+        listBtnQuanAo.add(btnDanhSachQuanAo);
+        listBtnQuanAo.add(btnThemQuanAo);
+        listBtnQuanAo.add(btnCapNhatQuanAo);
+        
+        listBtnLichLamViec.add(btnDanhSachLichLamViec);
+        
+        listBtnThongKe.add(btnThongKeDoanhThu);
+        listBtnThongKe.add(btnThongKeKhachHang);
+        listBtnThongKe.add(btnThongKeQuanAoDaNhap);
+        listBtnThongKe.add(btnThongKeQuanAoDaBan);
+        listBtnThongKe.add(btnThongKeQuanAoDaHet);
     }
     
     public void showPanel(JPanel panel){
@@ -61,6 +78,18 @@ public class PnlMain extends javax.swing.JPanel {
         btnThemNhanVien = new javax.swing.JButton();
         btnCapNhatNhanVien = new javax.swing.JButton();
         btnThongTinNhanVien = new javax.swing.JButton();
+        btnDanhSachKhachHang = new javax.swing.JButton();
+        btnCapNhatKhachHang = new javax.swing.JButton();
+        btnDanhSachHoaDon = new javax.swing.JButton();
+        btnDanhSachQuanAo = new javax.swing.JButton();
+        btnThemQuanAo = new javax.swing.JButton();
+        btnCapNhatQuanAo = new javax.swing.JButton();
+        btnDanhSachLichLamViec = new javax.swing.JButton();
+        btnThongKeDoanhThu = new javax.swing.JButton();
+        btnThongKeKhachHang = new javax.swing.JButton();
+        btnThongKeQuanAoDaNhap = new javax.swing.JButton();
+        btnThongKeQuanAoDaBan = new javax.swing.JButton();
+        btnThongKeQuanAoDaHet = new javax.swing.JButton();
         pnlTitle = new javax.swing.JPanel();
         pnlTitleIcon = new javax.swing.JPanel();
         lblTitleIcon = new javax.swing.JLabel();
@@ -113,6 +142,90 @@ public class PnlMain extends javax.swing.JPanel {
         btnThongTinNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThongTinNhanVienActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachKhachHang.setText("Danh Sách Khách Hàng");
+        btnDanhSachKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachKhachHangActionPerformed(evt);
+            }
+        });
+
+        btnCapNhatKhachHang.setText("Cập Nhật Thông Tin Khách Hàng");
+        btnCapNhatKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatKhachHangActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachHoaDon.setText("Danh Sách Hóa Đơn");
+        btnDanhSachHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachHoaDonActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachQuanAo.setText("Danh Sách Quần Áo");
+        btnDanhSachQuanAo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachQuanAoActionPerformed(evt);
+            }
+        });
+
+        btnThemQuanAo.setText("Thêm Quần Áo");
+        btnThemQuanAo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemQuanAoActionPerformed(evt);
+            }
+        });
+
+        btnCapNhatQuanAo.setText("Cập Nhật Quần Áo");
+        btnCapNhatQuanAo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatQuanAoActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachLichLamViec.setText("Danh Sách Lịch Làm Việc");
+        btnDanhSachLichLamViec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachLichLamViecActionPerformed(evt);
+            }
+        });
+
+        btnThongKeDoanhThu.setText("Thống Kê Doanh Thu");
+        btnThongKeDoanhThu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongKeDoanhThuActionPerformed(evt);
+            }
+        });
+
+        btnThongKeKhachHang.setText("Thống Kê Khách Hàng");
+        btnThongKeKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongKeKhachHangActionPerformed(evt);
+            }
+        });
+
+        btnThongKeQuanAoDaNhap.setText("Thống Kê Quần Áo Đã Nhập");
+        btnThongKeQuanAoDaNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongKeQuanAoDaNhapActionPerformed(evt);
+            }
+        });
+
+        btnThongKeQuanAoDaBan.setText("Thống Kê Quần Áo Đã Bán");
+        btnThongKeQuanAoDaBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongKeQuanAoDaBanActionPerformed(evt);
+            }
+        });
+
+        btnThongKeQuanAoDaHet.setText("Thống Kê Quần Áo Đã Hết");
+        btnThongKeQuanAoDaHet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThongKeQuanAoDaHetActionPerformed(evt);
             }
         });
 
@@ -278,22 +391,27 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
         // TODO add your handling code here:
+        FrmMain.getInstance().createPopupForButton(btnKhachHang, listBtnKhachHang);
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         // TODO add your handling code here:
+        FrmMain.getInstance().createPopupForButton(btnHoaDon, listBtnHoaDon);
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
     private void btnQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanAoActionPerformed
         // TODO add your handling code here:
+        FrmMain.getInstance().createPopupForButton(btnQuanAo, listBtnQuanAo);
     }//GEN-LAST:event_btnQuanAoActionPerformed
 
     private void btnLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLichLamViecActionPerformed
         // TODO add your handling code here:
+        FrmMain.getInstance().createPopupForButton(btnLichLamViec, listBtnLichLamViec);
     }//GEN-LAST:event_btnLichLamViecActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
+        FrmMain.getInstance().createPopupForButton(btnThongKe, listBtnThongKe);
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnLapHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapHoaDonActionPerformed
@@ -323,10 +441,77 @@ public class PnlMain extends javax.swing.JPanel {
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 
+    private void btnDanhSachKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachKhachHangActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachKhachHangActionPerformed
+
+    private void btnCapNhatKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatKhachHangActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnCapNhatKhachHangActionPerformed
+
+    private void btnDanhSachHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachHoaDonActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachHoaDonActionPerformed
+
+    private void btnDanhSachQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachQuanAoActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachQuanAoActionPerformed
+
+    private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
+        // TODO add your handling code here:
+        showPanel(PnlThemQuanAo.newInstance());
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnThemQuanAoActionPerformed
+
+    private void btnCapNhatQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatQuanAoActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnCapNhatQuanAoActionPerformed
+
+    private void btnDanhSachLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachLichLamViecActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachLichLamViecActionPerformed
+
+    private void btnThongKeDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeDoanhThuActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnThongKeDoanhThuActionPerformed
+
+    private void btnThongKeKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeKhachHangActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnThongKeKhachHangActionPerformed
+
+    private void btnThongKeQuanAoDaNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeQuanAoDaNhapActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnThongKeQuanAoDaNhapActionPerformed
+
+    private void btnThongKeQuanAoDaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeQuanAoDaBanActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnThongKeQuanAoDaBanActionPerformed
+
+    private void btnThongKeQuanAoDaHetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeQuanAoDaHetActionPerformed
+        // TODO add your handling code here:
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnThongKeQuanAoDaHetActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapNhatKhachHang;
     private javax.swing.JButton btnCapNhatNhanVien;
+    private javax.swing.JButton btnCapNhatQuanAo;
     private javax.swing.JButton btnDangXuat;
     private javax.swing.JButton btnDanhSachDonDatHang;
+    private javax.swing.JButton btnDanhSachHoaDon;
+    private javax.swing.JButton btnDanhSachKhachHang;
+    private javax.swing.JButton btnDanhSachLichLamViec;
+    private javax.swing.JButton btnDanhSachQuanAo;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnLapHoaDon;
@@ -334,7 +519,13 @@ public class PnlMain extends javax.swing.JPanel {
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnQuanAo;
     private javax.swing.JButton btnThemNhanVien;
+    private javax.swing.JButton btnThemQuanAo;
     private javax.swing.JButton btnThongKe;
+    private javax.swing.JButton btnThongKeDoanhThu;
+    private javax.swing.JButton btnThongKeKhachHang;
+    private javax.swing.JButton btnThongKeQuanAoDaBan;
+    private javax.swing.JButton btnThongKeQuanAoDaHet;
+    private javax.swing.JButton btnThongKeQuanAoDaNhap;
     private javax.swing.JButton btnThongTinNhanVien;
     private javax.swing.JButton btnTrangChu;
     private javax.swing.Box.Filler filler1;
