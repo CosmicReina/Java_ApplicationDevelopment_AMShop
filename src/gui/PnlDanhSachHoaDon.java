@@ -19,6 +19,8 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
         btnTimKiem = new javax.swing.JButton();
         btnXemChiTiet = new javax.swing.JButton();
 
+        setMinimumSize(new java.awt.Dimension(1166, 700));
+        setPreferredSize(new java.awt.Dimension(1166, 700));
         setLayout(new java.awt.BorderLayout());
 
         scrDanhSachHoaDon.setPreferredSize(new java.awt.Dimension(900, 700));
@@ -80,7 +82,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(lblMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
+                        .addComponent(txtMaHoaDon))
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(lblSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -103,7 +105,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(369, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.CENTER);
