@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class DAO_NhanVien extends DAO {
     
-    private static NhanVien nhanVienHienTai = getNhanVienTheoMaNhanVien("NV23111301");
+    private static NhanVien nhanVienHienTai = getNhanVienTheoMaNhanVien("NV23111401");
 
     public static NhanVien getNhanVienHienTai() {
         return nhanVienHienTai;
