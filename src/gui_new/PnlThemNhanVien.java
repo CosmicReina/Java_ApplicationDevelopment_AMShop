@@ -56,6 +56,9 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
     
     private void updateTable(ArrayList<NhanVien> list){
         DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
         for(NhanVien thisNhanVien : list){
             model.addRow(new Object[]{
                 thisNhanVien.getMaNhanVien(),

@@ -59,40 +59,9 @@ public class PnlCapNhatQuanAo extends javax.swing.JPanel implements ItemListener
         updateNhaSanXuat();
         updateDanhMuc();
         updateChatLieu();
-        
-        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
-        ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
-        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
-
-        for(String thisGioiTinh : listGioiTinh)
-            cmbGioiTinh.addItem(thisGioiTinh);
-        
-        
-        for(String thisMauSac : listMauSac)
-            cmbMauSac.addItem(thisMauSac);
-        
-        
-        for(String thisKichThuoc : listKichThuoc)
-            cmbKichThuoc.addItem(thisKichThuoc);
-    }
-    
-    private void updateTable(ArrayList<QuanAo> list){
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
-        for(QuanAo thisQuanAo : list){
-            model.addRow(new Object[]{
-                thisQuanAo.getMaQuanAo(),
-                thisQuanAo.getTenQuanAo(),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()),
-                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
-                thisQuanAo.getSoLuongTrongKho(),
-                thisQuanAo.getNhaSanXuat(),
-                thisQuanAo.getDanhMuc(),
-                thisQuanAo.getGioiTinh(),
-                thisQuanAo.getMauSac(),
-                thisQuanAo.getKichThuoc(),
-                thisQuanAo.getChatLieu()
-            });
-        }
+        updateGioiTinh();
+        updateMauSac();
+        updateKichThuoc();
     }
     
     private void updateNhaSanXuat(){
@@ -120,6 +89,46 @@ public class PnlCapNhatQuanAo extends javax.swing.JPanel implements ItemListener
         for(String thisChatLieu : listChatLieu)
             cmbChatLieu.addItem(thisChatLieu);
         cmbChatLieu.addItem("-- Chất Liệu Mới --");
+    }
+    
+    private void updateGioiTinh(){
+        ArrayList<String> listGioiTinh = DAO_GioiTinh.getAllGioiTinh();
+        for(String thisGioiTinh : listGioiTinh)
+            cmbGioiTinh.addItem(thisGioiTinh);
+    }
+    
+    private void updateMauSac(){
+         ArrayList<String> listMauSac = DAO_MauSac.getAllMauSac();
+         for(String thisMauSac : listMauSac)
+            cmbMauSac.addItem(thisMauSac);
+    }
+    
+    private void updateKichThuoc(){
+        ArrayList<String> listKichThuoc = DAO_KichThuoc.getAllKichThuoc();
+        for(String thisKichThuoc : listKichThuoc)
+            cmbKichThuoc.addItem(thisKichThuoc);
+    }
+    
+    private void updateTable(ArrayList<QuanAo> list){
+        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
+        for(QuanAo thisQuanAo : list){
+            model.addRow(new Object[]{
+                thisQuanAo.getMaQuanAo(),
+                thisQuanAo.getTenQuanAo(),
+                FormatDouble.toMoney(thisQuanAo.getDonGiaNhap()),
+                FormatDouble.toMoney(thisQuanAo.getDonGiaBan()),
+                thisQuanAo.getSoLuongTrongKho(),
+                thisQuanAo.getNhaSanXuat(),
+                thisQuanAo.getDanhMuc(),
+                thisQuanAo.getGioiTinh(),
+                thisQuanAo.getMauSac(),
+                thisQuanAo.getKichThuoc(),
+                thisQuanAo.getChatLieu()
+            });
+        }
     }
     
     private void capNhatQuanAo(){

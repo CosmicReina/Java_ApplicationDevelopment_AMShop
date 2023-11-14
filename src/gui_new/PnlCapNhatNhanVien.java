@@ -57,6 +57,9 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
     
     private void updateTable(ArrayList<NhanVien> list){
         DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
         for(NhanVien thisNhanVien : list){
             model.addRow(new Object[]{
                 thisNhanVien.getMaNhanVien(),
