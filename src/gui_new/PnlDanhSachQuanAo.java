@@ -34,10 +34,6 @@ import javax.swing.table.DefaultTableModel;
 public class PnlDanhSachQuanAo extends javax.swing.JPanel {
     
     private static PnlDanhSachQuanAo instance = new PnlDanhSachQuanAo();
-    
-    private double tongTien = 0;
-    
-    private ArrayList<ChiTietHoaDon> listDonHang = new ArrayList<>();
 
     public static PnlDanhSachQuanAo getInstance() {
         return instance;
