@@ -96,8 +96,6 @@ public class PnlChiTietHoaDon extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrDanhSachQuanAoTrongHoaDon = new javax.swing.JScrollPane();
-        tblDanhSachQuanAoTrongHoaDon = new javax.swing.JTable();
         pnlThongTinHoaDon = new javax.swing.JPanel();
         lblMaHoaDon = new javax.swing.JLabel();
         lblNhanVienLapDon = new javax.swing.JLabel();
@@ -111,63 +109,36 @@ public class PnlChiTietHoaDon extends javax.swing.JPanel {
         txtTongTien = new javax.swing.JTextField();
         btnXemFileHoaDon = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
+        scrDanhSachQuanAoTrongHoaDon = new javax.swing.JScrollPane();
+        tblDanhSachQuanAoTrongHoaDon = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(68, 136, 255));
         setMinimumSize(new java.awt.Dimension(1166, 700));
         setLayout(new java.awt.BorderLayout());
 
-        scrDanhSachQuanAoTrongHoaDon.setBackground(new java.awt.Color(68, 136, 255));
-        scrDanhSachQuanAoTrongHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Trong Hóa Đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
-        scrDanhSachQuanAoTrongHoaDon.setMinimumSize(new java.awt.Dimension(816, 700));
-        scrDanhSachQuanAoTrongHoaDon.setPreferredSize(new java.awt.Dimension(816, 700));
-
-        tblDanhSachQuanAoTrongHoaDon.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Quần áo", "Số lượng", "Đơn giá", "Tổng tiền"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblDanhSachQuanAoTrongHoaDon.setRowHeight(40);
-        scrDanhSachQuanAoTrongHoaDon.setViewportView(tblDanhSachQuanAoTrongHoaDon);
-        if (tblDanhSachQuanAoTrongHoaDon.getColumnModel().getColumnCount() > 0) {
-            tblDanhSachQuanAoTrongHoaDon.getColumnModel().getColumn(0).setPreferredWidth(300);
-        }
-
-        add(scrDanhSachQuanAoTrongHoaDon, java.awt.BorderLayout.CENTER);
-
         pnlThongTinHoaDon.setBackground(new java.awt.Color(68, 136, 255));
-        pnlThongTinHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết hóa đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlThongTinHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi Tiết Hóa Đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlThongTinHoaDon.setPreferredSize(new java.awt.Dimension(350, 700));
 
         lblMaHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblMaHoaDon.setForeground(new java.awt.Color(255, 255, 255));
-        lblMaHoaDon.setText("Mã hóa đơn");
+        lblMaHoaDon.setText("Mã Hóa Đơn");
 
         lblNhanVienLapDon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblNhanVienLapDon.setForeground(new java.awt.Color(255, 255, 255));
-        lblNhanVienLapDon.setText("Nhân viên lập đơn");
+        lblNhanVienLapDon.setText("Nhân Viên Lập Đơn");
 
         lblKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblKhachHang.setForeground(new java.awt.Color(255, 255, 255));
-        lblKhachHang.setText("Khách hàng");
+        lblKhachHang.setText("Khách Hàng");
 
         lblThoiGianTao.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblThoiGianTao.setForeground(new java.awt.Color(255, 255, 255));
-        lblThoiGianTao.setText("Thời gian tạo");
+        lblThoiGianTao.setText("Thời Gian Tạo");
 
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         lblTongTien.setForeground(new java.awt.Color(255, 255, 255));
-        lblTongTien.setText("Tổng tiền");
+        lblTongTien.setText("Tổng Tiền");
 
         txtMaHoaDon.setEditable(false);
         txtMaHoaDon.setBackground(new java.awt.Color(204, 204, 204));
@@ -215,28 +186,23 @@ public class PnlChiTietHoaDon extends javax.swing.JPanel {
             .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
-                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                    .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
-                        .addComponent(lblMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaHoaDon))
-                    .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
-                        .addComponent(lblNhanVienLapDon, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNhanVienLapDon))
-                    .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
-                        .addComponent(lblThoiGianTao, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtThoiGianTao))
-                    .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
-                        .addComponent(lblKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtKhachHang))
                     .addComponent(btnQuayLai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnXemFileHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnXemFileHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlThongTinHoaDonLayout.createSequentialGroup()
+                        .addGroup(pnlThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblMaHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblNhanVienLapDon)
+                                .addComponent(lblKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblThoiGianTao, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlThongTinHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                            .addComponent(txtThoiGianTao)
+                            .addComponent(txtMaHoaDon)
+                            .addComponent(txtKhachHang)
+                            .addComponent(txtNhanVienLapDon))))
                 .addContainerGap())
         );
         pnlThongTinHoaDonLayout.setVerticalGroup(
@@ -270,6 +236,35 @@ public class PnlChiTietHoaDon extends javax.swing.JPanel {
         );
 
         add(pnlThongTinHoaDon, java.awt.BorderLayout.WEST);
+
+        scrDanhSachQuanAoTrongHoaDon.setBackground(new java.awt.Color(68, 136, 255));
+        scrDanhSachQuanAoTrongHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Trong Hóa Đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        scrDanhSachQuanAoTrongHoaDon.setMinimumSize(new java.awt.Dimension(816, 700));
+        scrDanhSachQuanAoTrongHoaDon.setPreferredSize(new java.awt.Dimension(816, 700));
+
+        tblDanhSachQuanAoTrongHoaDon.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Quần áo", "Số lượng", "Đơn giá", "Tổng tiền"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachQuanAoTrongHoaDon.setRowHeight(40);
+        scrDanhSachQuanAoTrongHoaDon.setViewportView(tblDanhSachQuanAoTrongHoaDon);
+        if (tblDanhSachQuanAoTrongHoaDon.getColumnModel().getColumnCount() > 0) {
+            tblDanhSachQuanAoTrongHoaDon.getColumnModel().getColumn(0).setPreferredWidth(300);
+        }
+
+        add(scrDanhSachQuanAoTrongHoaDon, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemFileHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemFileHoaDonActionPerformed

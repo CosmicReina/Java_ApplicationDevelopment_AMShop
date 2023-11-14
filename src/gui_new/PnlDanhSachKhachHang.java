@@ -65,7 +65,16 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
     }
 
     private void xemChiTietKhachHang(){
+        int i = tblTable.getSelectedRow();
+        if(i < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Khách Hàng.");
+            return;
+        }
+        String maKhachHang = tblTable.getValueAt(i, 0).toString();
         
+        PnlMain.getInstance().showPanel(PnlChiTietKhachHang.newInstance());
+        PnlChiTietKhachHang.getInstance().setPnlBefore(this);
+        PnlChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
     }
     
     @SuppressWarnings("unchecked")

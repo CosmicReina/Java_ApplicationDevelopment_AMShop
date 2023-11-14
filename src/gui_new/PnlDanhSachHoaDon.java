@@ -50,7 +50,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
         }
     }
     
-    private void xemThongTinHoaDon(){
+    private void xemChiTietHoaDon(){
         int i = tblDanhSachHoaDon.getSelectedRow();
         if(i < 0){
             JOptionPane.showConfirmDialog(null, "Vui lòng chọn một Hóa Đơn");
@@ -230,7 +230,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
 
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
-        xemThongTinHoaDon();
+        xemChiTietHoaDon();
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
