@@ -32,7 +32,7 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTable();
+        updateTable(DAO_NhanVien.getAllNhanVien());
         
         txtTenDangNhap.setEditable(false);
         txtMaNhanVien.setEditable(false);
@@ -54,9 +54,11 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
     }
     
-    private void updateTable(){
-        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+    private void updateTable(ArrayList<NhanVien> list){
         DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
         for(NhanVien thisNhanVien : list){
             model.addRow(new Object[]{
                 thisNhanVien.getMaNhanVien(),
@@ -118,6 +120,8 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         else
             try{
                 ngaySinh = FormatDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
+                if(LocalDate.now().getYear() - ngaySinh.getYear() < 18)
+                    error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
             }
             catch(Exception e){
                 error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";

@@ -34,7 +34,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
     }
     
     private void initExtra(){
-        updateTable();
+        updateTable(DAO_NhanVien.getAllNhanVien());
         
         txtTenDangNhap.setEditable(false);
         txtMaNhanVien.setEditable(false);
@@ -55,9 +55,11 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         
     }
     
-    private void updateTable(){
-        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+    private void updateTable(ArrayList<NhanVien> list){
         DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+        model.getDataVector().removeAllElements();
+        tblTable.revalidate();
+        tblTable.repaint();
         for(NhanVien thisNhanVien : list){
             model.addRow(new Object[]{
                 thisNhanVien.getMaNhanVien(),
@@ -73,6 +75,11 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
     }
     
     private void capNhatNhanVien(){
+        if(tblTable.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên.");
+            return;
+        }
+        
         String error = "";
         
         String maNhanVien = txtMaNhanVien.getText();
@@ -123,6 +130,8 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         else
             try{
                 ngaySinh = FormatDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
+                if(LocalDate.now().getYear() - ngaySinh.getYear() < 18)
+                    error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
             }
             catch(Exception e){
                 error += "\n- Vui lòng nhập Ngày Sinh hợp lệ.";
@@ -201,7 +210,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         txtDiaChi = new javax.swing.JTextField();
         btnCapNhat = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
-        btnTimKiem = new javax.swing.JButton();
+        btnTimKiemTheoMa = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -384,11 +393,11 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
             }
         });
 
-        btnTimKiem.setBackground(new java.awt.Color(170, 238, 255));
-        btnTimKiem.setText("Tìm Kiếm");
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+        btnTimKiemTheoMa.setBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemTheoMa.setText("Tìm Kiếm Theo Mã");
+        btnTimKiemTheoMa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
+                btnTimKiemTheoMaTheoMaActionPerformed(evt);
             }
         });
 
@@ -425,8 +434,8 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
                         .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         pnlNhanVienLayout.setVerticalGroup(
@@ -454,7 +463,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
                 .addGroup(pnlNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -533,14 +542,14 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         UtilityJTextField.focusLost(txtDiaChi, "Địa Chỉ");
     }//GEN-LAST:event_txtDiaChiFocusLost
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void btnTimKiemTheoMaTheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoMaTheoMaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+    }//GEN-LAST:event_btnTimKiemTheoMaTheoMaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
-    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnTimKiemTheoMa;
     private javax.swing.JCheckBox chkNghiLam;
     private javax.swing.JComboBox<String> cmbChucVu;
     private javax.swing.JComboBox<String> cmbGioiTinh;
