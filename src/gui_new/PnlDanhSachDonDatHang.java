@@ -191,8 +191,8 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
     private void updateTableDanhSachDonDatHang(ArrayList<DonDatHang> list){
         DefaultTableModel model = (DefaultTableModel) tblDonDatHang.getModel();
         model.getDataVector().removeAllElements();
-        tblDonHang.revalidate();
-        tblDonHang.repaint();
+        tblDonDatHang.revalidate();
+        tblDonDatHang.repaint();
         for(DonDatHang thisDonDatHang : list){
             if(thisDonDatHang.isTrangThaiThanhToan() == false){
                 ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
@@ -252,13 +252,14 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         }
         
         ArrayList<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
-        for(int i = 0; i <= list.size(); i++){
+        ArrayList<DonDatHang> listRemove = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
             DonDatHang thisDonDatHang = list.get(i);
             String soDienThoaiKhachHang = thisDonDatHang.getKhachHang().getSoDienThoai();
             if(!soDienThoaiKhachHang.equals(soDienThoai))
-                list.remove(i);
+                listRemove.add(thisDonDatHang);
         }
-        System.out.println(list);
+        list.removeAll(listRemove);
         updateTableDanhSachDonDatHang(list);
     }
 

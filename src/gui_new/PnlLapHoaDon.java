@@ -385,12 +385,13 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
     
     private void timKiemQuanAo(){
         ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+        ArrayList<QuanAo> listRemove = new ArrayList<>();
         
         if(!txtMaQuanAo.getText().equals("Mã Quần Áo")){
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getMaQuanAo().equals(txtMaQuanAo.getText()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -398,7 +399,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getTenQuanAo().toLowerCase().contains(txtTenQuanAo.getText().toLowerCase()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -406,7 +407,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -414,7 +415,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getDanhMuc().equals(cmbDanhMuc.getSelectedItem().toString()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -422,7 +423,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getGioiTinh().equals(cmbGioiTinh.getSelectedItem().toString()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -430,7 +431,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getMauSac().equals(cmbMauSac.getSelectedItem().toString()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -438,7 +439,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getKichThuoc().equals(cmbKichThuoc.getSelectedItem().toString()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
@@ -446,10 +447,11 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             for(int i = 0; i < list.size(); i ++){
                 QuanAo thisQuanAo = list.get(i);
                 if(!thisQuanAo.getChatLieu().equals(cmbChatLieu.getSelectedItem().toString()))
-                    list.remove(thisQuanAo);
+                    listRemove.add(thisQuanAo);
             }
         }
         
+        list.removeAll(listRemove);
         updateTableQuanAo(list);
     }
     
