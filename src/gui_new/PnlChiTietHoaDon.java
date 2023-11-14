@@ -158,7 +158,7 @@ public class PnlChiTietHoaDon extends javax.swing.JPanel {
 
         txtTongTien.setEditable(false);
         txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
-        txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnXemFileHoaDon.setBackground(new java.awt.Color(0, 255, 255));
         btnXemFileHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N

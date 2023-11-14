@@ -1,5 +1,6 @@
 package gui_new;
 
+import dao.DAO_NhanVien;
 import data.UtilityJButton;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class PnlMain extends javax.swing.JPanel {
     private void addBtnToList(){
         listBtnNhanVien.add(btnLapHoaDon);
         listBtnNhanVien.add(btnDanhSachDonDatHang);
+        listBtnNhanVien.add(btnDanhSachNhanVien);
         listBtnNhanVien.add(btnThemNhanVien);
         listBtnNhanVien.add(btnCapNhatNhanVien);
         listBtnNhanVien.add(btnThongTinNhanVien);
@@ -84,6 +86,7 @@ public class PnlMain extends javax.swing.JPanel {
 
         btnLapHoaDon = new javax.swing.JButton();
         btnDanhSachDonDatHang = new javax.swing.JButton();
+        btnDanhSachNhanVien = new javax.swing.JButton();
         btnThemNhanVien = new javax.swing.JButton();
         btnCapNhatNhanVien = new javax.swing.JButton();
         btnThongTinNhanVien = new javax.swing.JButton();
@@ -130,6 +133,13 @@ public class PnlMain extends javax.swing.JPanel {
         btnDanhSachDonDatHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDanhSachDonDatHangActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachNhanVien.setText("Danh Sách Nhân Viên");
+        btnDanhSachNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachNhanVienActionPerformed(evt);
             }
         });
 
@@ -449,6 +459,8 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnThongTinNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTinNhanVienActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlChiTietNhanVien.newInstance());
+        PnlChiTietNhanVien.getInstance().showChiTietNhanVien(DAO_NhanVien.getNhanVienHienTai().getMaNhanVien());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 
@@ -518,6 +530,12 @@ public class PnlMain extends javax.swing.JPanel {
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongKeQuanAoDaHetActionPerformed
 
+    private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
+        // TODO add your handling code here:
+        showPanel(PnlDanhSachNhanVien.newInstance());
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhatKhachHang;
     private javax.swing.JButton btnCapNhatNhanVien;
@@ -527,6 +545,7 @@ public class PnlMain extends javax.swing.JPanel {
     private javax.swing.JButton btnDanhSachHoaDon;
     private javax.swing.JButton btnDanhSachKhachHang;
     private javax.swing.JButton btnDanhSachLichLamViec;
+    private javax.swing.JButton btnDanhSachNhanVien;
     private javax.swing.JButton btnDanhSachQuanAo;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;

@@ -154,6 +154,7 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         
         if(error.equals("")){
             NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
+            System.out.println(nhanVien);
             if(DAO_NhanVien.createNhanVien(nhanVien) == true){
                 JOptionPane.showMessageDialog(null, "Thêm Nhân Viên thành công.");
                 PnlMain.getInstance().showPanel(newInstance());
