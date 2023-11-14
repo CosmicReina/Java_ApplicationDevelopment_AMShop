@@ -292,6 +292,21 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
             }
         }
     }
+    
+    private void chonHinhAnh(){
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter executeFilter = new FileNameExtensionFilter("Image", "jpg", "png");
+        fileChooser.setFileFilter(executeFilter);
+        fileChooser.setMultiSelectionEnabled(false);
+        
+        int prompt = fileChooser.showDialog(this, "Add");
+        if(prompt == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            imagePath = file.getAbsolutePath();
+            lblIMG.setText("");
+            lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -614,18 +629,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
 
     private void btnHinhAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHinhAnhActionPerformed
         // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser();
-        FileNameExtensionFilter executeFilter = new FileNameExtensionFilter("Image", "jpg", "png");
-        fileChooser.setFileFilter(executeFilter);
-        fileChooser.setMultiSelectionEnabled(false);
-        
-        int prompt = fileChooser.showDialog(this, "Add");
-        if(prompt == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            imagePath = file.getAbsolutePath();
-            lblIMG.setText("");
-            lblIMG.setIcon(UtilityImageIcon.fromStringPath(imagePath, 194, 270));
-        }
+        chonHinhAnh();
     }//GEN-LAST:event_btnHinhAnhActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
