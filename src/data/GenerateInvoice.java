@@ -91,7 +91,7 @@ public class GenerateInvoice {
 
                 //Invoice Header
         float[] tblInvoiceHeaderSize = {90, 90};
-        Table tblInvoiceHeader = new Table(tblInvoiceHeaderSize);
+//        Table tblInvoiceHeader = new Table(tblInvoiceHeaderSize);
         Paragraph prgInvoiceID = new Paragraph();
         Text textInvoiceIDHeader = new Text("Mã hóa đơn: ");
         textInvoiceIDHeader
@@ -103,7 +103,7 @@ public class GenerateInvoice {
                 .setFontSize(6);
 
         Paragraph prgInvoiceDate = new Paragraph();
-        Text textInvoiceDateHeader = new Text("Thời gian: ");
+        Text textInvoiceDateHeader = new Text("Thời gian lập đơn: ");
         textInvoiceDateHeader
                 .setBold();
         Text textInvoiceDateDetail = new Text(hoaDon.getThoiGianTao().toString());
@@ -132,23 +132,23 @@ public class GenerateInvoice {
                 .add(textInvoiceCustomerDetail)
                 .setFontSize(6);
 
-        tblInvoiceHeader
-                .addCell(new Cell(1,2)
-                                .add(prgInvoiceID)
-                                .setBorder(Border.NO_BORDER))	
-                .addCell(new Cell(1,2)
-                                .add(prgInvoiceDate)
-                                .setBorder(Border.NO_BORDER))
-                .addCell(new Cell(1,2)
-                                .add(prgInvoiceMaker)
-                                .setBorder(Border.NO_BORDER))
-                .addCell(new Cell(1,2)
-                                .add(prgInvoiceCustomer)
-                                .setBorder(Border.NO_BORDER));
-
-        tblInvoiceHeader
-                .setMargin(0)
-                .setHorizontalAlignment(HorizontalAlignment.CENTER);
+//        tblInvoiceHeader
+//                .addCell(new Cell(1,2)
+//                                .add(prgInvoiceID)
+//                                .setBorder(Border.NO_BORDER))	
+//                .addCell(new Cell(1,2)
+//                                .add(prgInvoiceDate)
+//                                .setBorder(Border.NO_BORDER))
+//                .addCell(new Cell(1,2)
+//                                .add(prgInvoiceMaker)
+//                                .setBorder(Border.NO_BORDER))
+//                .addCell(new Cell(1,2)
+//                                .add(prgInvoiceCustomer)
+//                                .setBorder(Border.NO_BORDER));
+//
+//        tblInvoiceHeader
+//                .setMargin(0)
+//                .setHorizontalAlignment(HorizontalAlignment.CENTER);
 
                 //Div
         Div div_02 = new Div();
@@ -271,7 +271,11 @@ public class GenerateInvoice {
         document.add(prgShopDetail);
         document.add(div_01);
         document.add(prgInvoice);
-        document.add(tblInvoiceHeader);
+//        document.add(tblInvoiceHeader);
+        document.add(prgInvoiceID);
+        document.add(prgInvoiceDate);
+        document.add(prgInvoiceMaker);
+        document.add(prgInvoiceCustomer);
         document.add(div_02);
         document.add(tblInvoiceDetail);
         document.add(tblInvoiceResult);

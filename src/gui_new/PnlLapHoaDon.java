@@ -1,18 +1,32 @@
 package gui_new;
 
 import dao.DAO_ChatLieu;
+import dao.DAO_ChiTietHoaDon;
+import dao.DAO_CuaHang;
 import dao.DAO_DanhMuc;
 import dao.DAO_GioiTinh;
+import dao.DAO_HoaDon;
+import dao.DAO_KhachHang;
 import dao.DAO_KichThuoc;
 import dao.DAO_MauSac;
 import dao.DAO_NhaSanXuat;
+import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
 import data.FormatDouble;
+import data.GenerateID;
+import data.GenerateInvoice;
 import data.UtilityJTextField;
+import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
+import entity.CuaHang;
+import entity.HoaDon;
+import entity.KhachHang;
+import entity.NhanVien;
 import entity.QuanAo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -160,6 +174,90 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         tblQuanAo.clearSelection();
         updateTableDonHang(listDonHang);
     }
+    
+    private void thanhToanChoDonHang(){
+        String error = "";
+        
+        String maHoaDon = GenerateID.generateMaHoaDon();
+        
+        String hoTen = txtHoTen.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        String diaChi = txtDiaChi.getText();
+        
+        String tienDuaString = txtTienDua.getText();
+        double tienDua = 0;
+        
+        if(listDonHang.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Vui lòng thêm ít nhất một Quần Áo vào đơn hàng.");
+            return;
+        }
+        
+        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
+            error += "\n- Vui lòng nhập Họ Tên.";
+        else
+            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
+                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
+        
+        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
+            error += "\n- Vui lòng nhập Số Điện Thoại.";
+        else
+            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
+                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
+        
+        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
+            error += "\n- Vui lòng nhập Địa Chỉ.";
+        
+        if(tienDuaString.equals(""))
+            error += "\n- Vui lòng nhập Tiền Khách Đưa.";
+        else{
+            try{
+                tienDua = Double.parseDouble(tienDuaString);
+                if(tienDua < tongTien){
+                    error += "\n- Tiền Khách Đưa phải lớn hơn hoặc bằng Tổng Tiền.";
+                }
+            }
+            catch(NumberFormatException e){
+                error += "\n- Vui lòng nhập Tiền Khách Đưa hợp lệ.";
+            }
+        }
+        
+        if(!error.equals("")){
+            String throwMessage = "Lỗi nhập liệu: " + error;
+            JOptionPane.showMessageDialog(null, throwMessage);
+            return;
+        }
+        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        if(khachHang == null){
+            String maKhachHang = GenerateID.generateMaKhachHang();
+            String nhomKhachHang = "Thường";
+            khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
+            DAO_KhachHang.createKhachHang(khachHang);
+        }
+
+        CuaHang cuaHang = DAO_CuaHang.getCuaHang();
+        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        LocalDateTime thoiGianTao = LocalDateTime.now();
+
+        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+
+        boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
+
+        for(ChiTietHoaDon thisChiTietHoaDon : listDonHang){
+            thisChiTietHoaDon.setHoaDon(hoaDon);
+            DAO_ChiTietHoaDon.createChiTietHoaDon(thisChiTietHoaDon);
+        }
+        
+        if(themHoaDon){
+            try {
+                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienDua);
+                JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
+                PnlMain.getInstance().showPanel(newInstance());
+                //Show ChiTietHoaDon
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Gặp Lỗi Khi In Hóa Đơn.");
+            }
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -289,32 +387,25 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         pnlTimKiemLayout.setHorizontalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTimKiemLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTimKiemLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(cmbKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaQuanAo)
+                    .addComponent(txtTenQuanAo)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMaQuanAo)
-                            .addComponent(txtTenQuanAo)
-                            .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                                .addComponent(cmbNhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cmbNhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSoLuong)))
@@ -453,6 +544,11 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         btnTimKiemSDT.setBackground(new java.awt.Color(170, 238, 255));
         btnTimKiemSDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTimKiemSDT.setText("Tìm Kiếm Theo SĐT");
+        btnTimKiemSDT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemSDTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlKhachHangLayout = new javax.swing.GroupLayout(pnlKhachHang);
         pnlKhachHang.setLayout(pnlKhachHangLayout);
@@ -513,6 +609,11 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
 
         btnThanhToan.setBackground(new java.awt.Color(170, 238, 255));
         btnThanhToan.setText("Thanh Toán");
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlThanhToanLayout = new javax.swing.GroupLayout(pnlThanhToan);
         pnlThanhToan.setLayout(pnlThanhToanLayout);
@@ -636,6 +737,26 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         // TODO add your handling code here:
         themQuanAoVaoDonHang();
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        // TODO add your handling code here:
+        thanhToanChoDonHang();
+    }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void btnTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSDTActionPerformed
+        // TODO add your handling code here:
+        String soDienThoai = txtSoDienThoai.getText();
+        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        if(khachHang == null){
+            JOptionPane.showMessageDialog(null, "Không tồn tại Khách Hàng với Số Điện Thoại này.");
+        }
+        else{
+            txtHoTen.setText(khachHang.getHoTen());
+            UtilityJTextField.removePlaceHolderStyle(txtHoTen);
+            txtDiaChi.setText(khachHang.getDiaChi());
+            UtilityJTextField.removePlaceHolderStyle(txtDiaChi);
+        }
+    }//GEN-LAST:event_btnTimKiemSDTActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTaoDonDatHang;
