@@ -1,9 +1,11 @@
 package gui_new;
 
 import dao.DAO_ChatLieu;
+import dao.DAO_ChiTietDonDatHang;
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_CuaHang;
 import dao.DAO_DanhMuc;
+import dao.DAO_DonDatHang;
 import dao.DAO_GioiTinh;
 import dao.DAO_HoaDon;
 import dao.DAO_KhachHang;
@@ -19,25 +21,29 @@ import data.UtilityJTextField;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
 import entity.CuaHang;
+import entity.DonDatHang;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
 import entity.QuanAo;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
-public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
+public class PnlLapHoaDon extends javax.swing.JPanel {
     
     private static PnlLapHoaDon instance = new PnlLapHoaDon();
     
     private double tongTien = 0;
     
-    private ArrayList<ChiTietHoaDon> listDonHang = new ArrayList<>();
+    private final ArrayList<ChiTietHoaDon> listDonHang = new ArrayList<>();
 
     public static PnlLapHoaDon getInstance() {
         return instance;
@@ -97,6 +103,24 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         for(String thisChatLieu : listChatLieu){
             cmbChatLieu.addItem(thisChatLieu);
         }
+        
+        txtTienDua.getDocument().addDocumentListener(new DocumentListener(){
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateTienThua();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateTienThua();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateTienThua();
+            }
+        });
+        
     }
     
     private void updateTableQuanAo(ArrayList<QuanAo> list){
@@ -132,7 +156,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
                 thisChiTietHoaDon.getQuanAo().getMaQuanAo(),
                 thisChiTietHoaDon.getQuanAo().getTenQuanAo(),
                 thisChiTietHoaDon.getSoLuong(),
-                thisChiTietHoaDon.getDonGia(),
+                FormatDouble.toMoney(thisChiTietHoaDon.getDonGia()),
                 FormatDouble.toMoney(thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia())
             });
         }
@@ -147,7 +171,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         }
             
         String soLuongString = txtSoLuong.getText();
-        int soLuong = 0;
+        int soLuong;
         if(soLuongString.equals("Số Lượng"))
             soLuong = 1;
         else{
@@ -166,12 +190,27 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(null, quanAo, soLuong, quanAo.getDonGiaBan());
         if(listDonHang.contains(chiTietHoaDon)){
             ChiTietHoaDon cthd = listDonHang.get(listDonHang.indexOf(chiTietHoaDon));
-            cthd.setSoLuong(cthd.getSoLuong() + chiTietHoaDon.getSoLuong());
+            int soLuongNew = cthd.getSoLuong() + chiTietHoaDon.getSoLuong();
+            if(soLuongNew > quanAo.getSoLuongTrongKho()){
+                JOptionPane.showMessageDialog(null, "Số Lượng Nhập vượt quá số lượng trong kho.");
+                return;
+            }
+            else{
+                cthd.setSoLuong(soLuongNew);
+            }
         }
         else{
-            listDonHang.add(chiTietHoaDon);
+            if(soLuong > quanAo.getSoLuongTrongKho()){
+                JOptionPane.showMessageDialog(null, "Số Lượng Nhập vượt quá số lượng trong kho.");
+                return;
+            }
+            else{
+                listDonHang.add(chiTietHoaDon);
+            }
         }
         tblQuanAo.clearSelection();
+        txtSoLuong.setText("");
+        UtilityJTextField.focusLost(txtSoLuong, "Số Lượng");
         updateTableDonHang(listDonHang);
     }
     
@@ -188,7 +227,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         double tienDua = 0;
         
         if(listDonHang.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Vui lòng thêm ít nhất một Quần Áo vào đơn hàng.");
+            JOptionPane.showMessageDialog(null, "Không có Quần Áo trong đơn hàng.");
             return;
         }
         
@@ -226,6 +265,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
             JOptionPane.showMessageDialog(null, throwMessage);
             return;
         }
+        
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
             String maKhachHang = GenerateID.generateMaKhachHang();
@@ -245,6 +285,10 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         for(ChiTietHoaDon thisChiTietHoaDon : listDonHang){
             thisChiTietHoaDon.setHoaDon(hoaDon);
             DAO_ChiTietHoaDon.createChiTietHoaDon(thisChiTietHoaDon);
+            
+            QuanAo quanAo = thisChiTietHoaDon.getQuanAo();
+            quanAo.setSoLuongTrongKho(quanAo.getSoLuongTrongKho() - thisChiTietHoaDon.getSoLuong());
+            DAO_QuanAo.updateQuanAo(quanAo);
         }
         
         if(themHoaDon){
@@ -257,6 +301,214 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
                 JOptionPane.showMessageDialog(null, "Gặp Lỗi Khi In Hóa Đơn.");
             }
         }
+    }
+    
+    private void taoDonDatHang(){
+        String error = "";
+        
+        String maDonDatHang = GenerateID.generateMaDonDatHang();
+        
+        String hoTen = txtHoTen.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        String diaChi = txtDiaChi.getText();
+        
+        if(listDonHang.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Không có Quần Áo trong đơn hàng.");
+            return;
+        }
+        
+        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
+            error += "\n- Vui lòng nhập Họ Tên.";
+        else
+            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
+                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
+        
+        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
+            error += "\n- Vui lòng nhập Số Điện Thoại.";
+        else
+            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
+                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
+        
+        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
+            error += "\n- Vui lòng nhập Địa Chỉ.";
+        
+        if(!error.equals("")){
+            String throwMessage = "Lỗi nhập liệu: " + error;
+            JOptionPane.showMessageDialog(null, throwMessage);
+            return;
+        }
+        
+        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        if(khachHang == null){
+            String maKhachHang = GenerateID.generateMaKhachHang();
+            String nhomKhachHang = "Thường";
+            khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
+            DAO_KhachHang.createKhachHang(khachHang);
+        }
+
+        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        LocalDateTime thoiGianTao = LocalDateTime.now();
+
+        DonDatHang donDatHang = new DonDatHang(maDonDatHang, nhanVien, khachHang, thoiGianTao, false);
+
+        boolean themDonDatHang = DAO_DonDatHang.createDonDatHang(donDatHang);
+
+        for(ChiTietHoaDon thisChiTietHoaDon : listDonHang){
+            ChiTietDonDatHang chiTietDonDatHang = new ChiTietDonDatHang(donDatHang, thisChiTietHoaDon.getQuanAo(), thisChiTietHoaDon.getSoLuong());
+            DAO_ChiTietDonDatHang.createChiTietDonDatHang(chiTietDonDatHang);
+            
+            QuanAo quanAo = thisChiTietHoaDon.getQuanAo();
+            quanAo.setSoLuongTrongKho(quanAo.getSoLuongTrongKho() - thisChiTietHoaDon.getSoLuong());
+            DAO_QuanAo.updateQuanAo(quanAo);
+        }
+        
+        if(themDonDatHang == true){
+            JOptionPane.showMessageDialog(null, "Tạo Đơn Đặt Hàng Thành Công");
+            PnlMain.getInstance().showPanel(newInstance());
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Tạo Đơn Đặt Hàng Thất Bại");
+        }
+    }
+    
+    private void xoaQuanAoKhoiDonHang(){
+        int i = tblDonHang.getSelectedRow();
+        if(i < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng Chọn Quần Áo cần xóa.");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) tblDonHang.getModel();
+        model.removeRow(i);
+        tblDonHang.revalidate();
+        tblDonHang.repaint();
+    }
+    
+    private void timKiemQuanAo(){
+        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+        
+        if(!txtMaQuanAo.getText().equals("Mã Quần Áo")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getMaQuanAo().equals(txtMaQuanAo.getText()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!txtTenQuanAo.getText().equals("Tên Quần Áo")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getTenQuanAo().toLowerCase().contains(txtTenQuanAo.getText().toLowerCase()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbNhaSanXuat.getSelectedItem().toString().equals("Nhà Sản Xuất")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbDanhMuc.getSelectedItem().toString().equals("Danh Mục")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getDanhMuc().equals(cmbDanhMuc.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbGioiTinh.getSelectedItem().toString().equals("Giới Tính")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getGioiTinh().equals(cmbGioiTinh.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbMauSac.getSelectedItem().toString().equals("Màu Sắc")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getMauSac().equals(cmbMauSac.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbKichThuoc.getSelectedItem().toString().equals("Kích Thước")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getKichThuoc().equals(cmbKichThuoc.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbChatLieu.getSelectedItem().toString().equals("Chất Liệu")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getChatLieu().equals(cmbChatLieu.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        updateTableQuanAo(list);
+    }
+    
+    private void updateTienThua(){
+        if(listDonHang.isEmpty()){
+            txtTienThua.setText("Đơn hàng trống");
+            txtTienThua.setForeground(Color.RED);
+            return;
+        }
+        String tienDuaString = txtTienDua.getText();
+        double tienDua;
+        try{
+            tienDua = Double.parseDouble(tienDuaString);
+            double tienThua = tienDua - tongTien;
+            txtTienThua.setText(FormatDouble.toMoney(tienThua));
+            txtTienThua.setForeground(Color.BLACK);
+        }
+        catch(NumberFormatException e){
+            txtTienThua.setText("Lỗi nhập tiền");
+            txtTienThua.setForeground(Color.RED);
+        }
+    }
+    
+    private void timKiemSDT(){
+        String soDienThoai = txtSoDienThoai.getText();
+        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
+        if(khachHang == null){
+            JOptionPane.showMessageDialog(null, "Không tồn tại Khách Hàng với Số Điện Thoại này.");
+        }
+        else{
+            txtHoTen.setText(khachHang.getHoTen());
+            txtDiaChi.setText(khachHang.getDiaChi());
+            UtilityJTextField.removePlaceHolderStyle(txtHoTen);
+            UtilityJTextField.removePlaceHolderStyle(txtDiaChi);
+        }
+    }
+    
+    private void lamMoiTimKiem(){
+        txtMaQuanAo.setText("");
+        txtTenQuanAo.setText("");
+        cmbNhaSanXuat.setSelectedItem("Nhà Sản Xuất");
+        cmbDanhMuc.setSelectedItem("Danh Mục");
+        cmbGioiTinh.setSelectedItem("Giới Tính");
+        cmbMauSac.setSelectedItem("Màu Sắc");
+        cmbKichThuoc.setSelectedItem("Kích Thước");
+        cmbChatLieu.setSelectedItem("Chất Liệu");
+        
+        UtilityJTextField.focusLost(txtMaQuanAo, "Mã Quần Áo");
+        UtilityJTextField.focusLost(txtTenQuanAo, "Tên Quần Áo");
+    }
+    
+    private void updateHinhAnh(){
+        int i = tblQuanAo.getSelectedRow();
+        if(i < 0) return;
+        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
+        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
+
+        lblHinhAnh.setText("");
+        lblHinhAnh.setIcon(quanAo.getHinhAnh());
     }
 
     @SuppressWarnings("unchecked")
@@ -273,6 +525,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         cmbKichThuoc = new javax.swing.JComboBox<>();
         cmbChatLieu = new javax.swing.JComboBox<>();
         btnTimKiem = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         txtSoLuong = new javax.swing.JTextField();
@@ -298,7 +551,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         lblTienDua = new javax.swing.JLabel();
         txtTienDua = new javax.swing.JTextField();
         lblTienThua = new javax.swing.JLabel();
-        txtThienThua = new javax.swing.JTextField();
+        txtTienThua = new javax.swing.JTextField();
         btnTaoDonDatHang = new javax.swing.JButton();
         btnThanhToan = new javax.swing.JButton();
 
@@ -351,6 +604,15 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
             }
         });
 
+        btnLamMoi.setBackground(new java.awt.Color(170, 238, 255));
+        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLamMoi.setText("Làm Mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+
         btnThem.setBackground(new java.awt.Color(170, 238, 255));
         btnThem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnThem.setText("Thêm");
@@ -363,6 +625,11 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         btnXoa.setBackground(new java.awt.Color(170, 238, 255));
         btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         txtSoLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtSoLuong.setText("Số Lượng");
@@ -400,15 +667,18 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
                         .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtMaQuanAo)
                     .addComponent(txtTenQuanAo)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(cmbNhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnTimKiem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnThem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSoLuong)))
+                        .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSoLuong)
+                            .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -434,7 +704,9 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
                     .addComponent(cmbKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -471,10 +743,25 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         });
         tblQuanAo.setRowHeight(40);
         tblQuanAo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblQuanAo.getTableHeader().setReorderingAllowed(false);
+        tblQuanAo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblQuanAoMouseClicked(evt);
+            }
+        });
         scrQuanAo.setViewportView(tblQuanAo);
         if (tblQuanAo.getColumnModel().getColumnCount() > 0) {
-            tblQuanAo.getColumnModel().getColumn(1).setMinWidth(200);
+            tblQuanAo.getColumnModel().getColumn(0).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(1).setResizable(false);
             tblQuanAo.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblQuanAo.getColumnModel().getColumn(2).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(3).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(4).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(5).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(6).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(7).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(8).setResizable(false);
+            tblQuanAo.getColumnModel().getColumn(9).setResizable(false);
         }
 
         pnlQuanAo.add(scrQuanAo, java.awt.BorderLayout.CENTER);
@@ -493,10 +780,26 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
             new String [] {
                 "Mã Quần Áo", "Tên Quần Áo", "Số Lượng", "Đơn Giá", "Tổng Tiền"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblDonHang.setRowHeight(40);
         tblDonHang.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblDonHang.getTableHeader().setReorderingAllowed(false);
         scrDonHang.setViewportView(tblDonHang);
+        if (tblDonHang.getColumnModel().getColumnCount() > 0) {
+            tblDonHang.getColumnModel().getColumn(0).setResizable(false);
+            tblDonHang.getColumnModel().getColumn(1).setResizable(false);
+            tblDonHang.getColumnModel().getColumn(2).setResizable(false);
+            tblDonHang.getColumnModel().getColumn(3).setResizable(false);
+            tblDonHang.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         pnlDonHang.add(scrDonHang, java.awt.BorderLayout.CENTER);
 
@@ -601,11 +904,16 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
         lblTienThua.setForeground(new java.awt.Color(255, 255, 255));
         lblTienThua.setText("Tiền Thừa");
 
-        txtThienThua.setBackground(new java.awt.Color(204, 204, 204));
-        txtThienThua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
+        txtTienThua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btnTaoDonDatHang.setBackground(new java.awt.Color(170, 238, 255));
         btnTaoDonDatHang.setText("Tạo Đơn Đặt Hàng");
+        btnTaoDonDatHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoDonDatHangActionPerformed(evt);
+            }
+        });
 
         btnThanhToan.setBackground(new java.awt.Color(170, 238, 255));
         btnThanhToan.setText("Thanh Toán");
@@ -637,7 +945,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
                     .addGroup(pnlThanhToanLayout.createSequentialGroup()
                         .addComponent(lblTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtThienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         pnlThanhToanLayout.setVerticalGroup(
@@ -656,7 +964,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtThienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 65, Short.MAX_VALUE))
         );
 
@@ -731,6 +1039,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
+        timKiemQuanAo();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -745,20 +1054,31 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
 
     private void btnTimKiemSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemSDTActionPerformed
         // TODO add your handling code here:
-        String soDienThoai = txtSoDienThoai.getText();
-        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
-        if(khachHang == null){
-            JOptionPane.showMessageDialog(null, "Không tồn tại Khách Hàng với Số Điện Thoại này.");
-        }
-        else{
-            txtHoTen.setText(khachHang.getHoTen());
-            UtilityJTextField.removePlaceHolderStyle(txtHoTen);
-            txtDiaChi.setText(khachHang.getDiaChi());
-            UtilityJTextField.removePlaceHolderStyle(txtDiaChi);
-        }
+        timKiemSDT();
     }//GEN-LAST:event_btnTimKiemSDTActionPerformed
 
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        xoaQuanAoKhoiDonHang();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        lamMoiTimKiem();
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void tblQuanAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanAoMouseClicked
+        // TODO add your handling code here:
+        updateHinhAnh();
+    }//GEN-LAST:event_tblQuanAoMouseClicked
+
+    private void btnTaoDonDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoDonDatHangActionPerformed
+        // TODO add your handling code here:
+        taoDonDatHang();
+    }//GEN-LAST:event_btnTaoDonDatHangActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTaoDonDatHang;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThem;
@@ -794,29 +1114,9 @@ public class PnlLapHoaDon extends javax.swing.JPanel implements MouseListener{
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenQuanAo;
-    private javax.swing.JTextField txtThienThua;
     private javax.swing.JTextField txtTienDua;
+    private javax.swing.JTextField txtTienThua;
     private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
 
 }

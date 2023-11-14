@@ -34,7 +34,7 @@ public class GenerateInvoice {
         
         String font_path = "files//font//Inconsolata-VariableFont_wdth,wght.ttf";
         
-        pdfDocument.setDefaultPageSize(new PageSize(200, 800));
+        pdfDocument.setDefaultPageSize(new PageSize(200, 600));
         document.setMargins(5, 5, 0, 5);
         document.setFont(PdfFontFactory.createFont(font_path, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
         
@@ -91,64 +91,42 @@ public class GenerateInvoice {
 
                 //Invoice Header
         float[] tblInvoiceHeaderSize = {90, 90};
-//        Table tblInvoiceHeader = new Table(tblInvoiceHeaderSize);
-        Paragraph prgInvoiceID = new Paragraph();
+        Paragraph prgInvoiceHeader = new Paragraph();
         Text textInvoiceIDHeader = new Text("Mã hóa đơn: ");
         textInvoiceIDHeader
                 .setBold();
         Text textInvoiceIDDetail = new Text(hoaDon.getMaHoaDon());
-        prgInvoiceID
+        prgInvoiceHeader
                 .add(textInvoiceIDHeader)
                 .add(textInvoiceIDDetail)
                 .setFontSize(6);
 
-        Paragraph prgInvoiceDate = new Paragraph();
-        Text textInvoiceDateHeader = new Text("Thời gian lập đơn: ");
+        Text textInvoiceDateHeader = new Text("\nThời gian lập đơn: ");
         textInvoiceDateHeader
                 .setBold();
-        Text textInvoiceDateDetail = new Text(hoaDon.getThoiGianTao().toString());
-        prgInvoiceDate
+        Text textInvoiceDateDetail = new Text(UtilityLocalDateTime.toFormattedLocalDateTime(hoaDon.getThoiGianTao()));
+        prgInvoiceHeader
                 .add(textInvoiceDateHeader)
                 .add(textInvoiceDateDetail)
                 .setFontSize(6);
 
-        Paragraph prgInvoiceMaker = new Paragraph();
-        Text textInvoiceMakerHeader = new Text("Nhân viên: ");
+        Text textInvoiceMakerHeader = new Text("\nNhân viên: ");
         textInvoiceMakerHeader
                 .setBold();
         Text textInvoiceMakerDetail = new Text(hoaDon.getNhanVien().getHoTen());
-        prgInvoiceMaker
+        prgInvoiceHeader
                 .add(textInvoiceMakerHeader)
                 .add(textInvoiceMakerDetail)
                 .setFontSize(6);
 
-        Paragraph prgInvoiceCustomer = new Paragraph();
-        Text textInvoiceCustomerHeader = new Text("Khách hàng: ");
+        Text textInvoiceCustomerHeader = new Text("\nKhách hàng: ");
         textInvoiceCustomerHeader
                 .setBold();
         Text textInvoiceCustomerDetail = new Text(hoaDon.getKhachHang().getHoTen());
-        prgInvoiceCustomer
+        prgInvoiceHeader
                 .add(textInvoiceCustomerHeader)
                 .add(textInvoiceCustomerDetail)
                 .setFontSize(6);
-
-//        tblInvoiceHeader
-//                .addCell(new Cell(1,2)
-//                                .add(prgInvoiceID)
-//                                .setBorder(Border.NO_BORDER))	
-//                .addCell(new Cell(1,2)
-//                                .add(prgInvoiceDate)
-//                                .setBorder(Border.NO_BORDER))
-//                .addCell(new Cell(1,2)
-//                                .add(prgInvoiceMaker)
-//                                .setBorder(Border.NO_BORDER))
-//                .addCell(new Cell(1,2)
-//                                .add(prgInvoiceCustomer)
-//                                .setBorder(Border.NO_BORDER));
-//
-//        tblInvoiceHeader
-//                .setMargin(0)
-//                .setHorizontalAlignment(HorizontalAlignment.CENTER);
 
                 //Div
         Div div_02 = new Div();
@@ -161,16 +139,11 @@ public class GenerateInvoice {
                 //Invoice Detail
         float tblInvoiceDetailSize[] = {30, 60, 60};
         String[] tblInvoiceHeaderList = {
-                        "Số lượng",
-                        "Đơn giá",
-//                        "VAT",
-                        "Thành tiền"
+            "Số lượng",
+            "Đơn giá",
+            "Thành tiền"
         };
-//        String[][] tblInvoiceProductList = {
-//                        {"Áo thi đấu CKTG LEVI 20232023", "1", "250000", "10"},
-//                        {"Áo đá banh hình Ronaldo", "1", "200000", "10"},
-//                        {"Áo đá banh hình Messi", "1", "400000", "10"}
-//        };
+
         Table tblInvoiceDetail = new Table(tblInvoiceDetailSize);
         for(String thisString : tblInvoiceHeaderList) {
                 tblInvoiceDetail.addCell(new Cell()
@@ -186,8 +159,6 @@ public class GenerateInvoice {
 
         for(ChiTietHoaDon thisChiTietHoaDon : list) {
                 Double price = thisChiTietHoaDon.getDonGia() * thisChiTietHoaDon.getSoLuong();
-                NumberFormat nbf = NumberFormat.getCurrencyInstance(new Locale("vi", "vn"));
-//                moneyTotal += price;
                 tblInvoiceDetail
                         .addCell(new Cell(1,4)
                                 .add(new Paragraph(thisChiTietHoaDon.getQuanAo().getTenQuanAo())
@@ -197,15 +168,11 @@ public class GenerateInvoice {
                                                 .setFontSize(6)
                                                 .setTextAlignment(TextAlignment.RIGHT)))
                         .addCell(new Cell()
-                                .add(new Paragraph(Double.toString(thisChiTietHoaDon.getDonGia()))
+                                .add(new Paragraph(FormatDouble.toMoney(thisChiTietHoaDon.getDonGia()))
                                                 .setFontSize(6)
                                                 .setTextAlignment(TextAlignment.RIGHT)))
-//                        .addCell(new Cell()
-//                                .add(new Paragraph(thisStringArray[3])
-//                                                .setFontSize(6)
-//                                                .setTextAlignment(TextAlignment.RIGHT)))
                         .addCell(new Cell()
-                                .add(new Paragraph(nbf.format(price))
+                                .add(new Paragraph(FormatDouble.toMoney(price))
                                                 .setFontSize(6)
                                                 .setTextAlignment(TextAlignment.RIGHT)));
         }
@@ -222,7 +189,7 @@ public class GenerateInvoice {
                                                 .setFontSize(6))
                                 .setBorder(Border.NO_BORDER))
                 .addCell(new Cell()
-                                .add(new Paragraph(Double.toString(tongTien))
+                                .add(new Paragraph(FormatDouble.toMoney(tongTien))
                                                 .setFontSize(6))
                                 .setTextAlignment(TextAlignment.RIGHT)
                                 .setBorder(Border.NO_BORDER))
@@ -232,7 +199,7 @@ public class GenerateInvoice {
                                                 .setFontSize(6))
                                 .setBorder(Border.NO_BORDER))
                 .addCell(new Cell()
-                                .add(new Paragraph(Double.toString(tienKhachDua))
+                                .add(new Paragraph(FormatDouble.toMoney(tienKhachDua))
                                                 .setFontSize(6))
                                 .setTextAlignment(TextAlignment.RIGHT)
                                 .setBorder(Border.NO_BORDER))
@@ -242,7 +209,7 @@ public class GenerateInvoice {
                                                 .setFontSize(6))
                                 .setBorder(Border.NO_BORDER))
                 .addCell(new Cell()
-                                .add(new Paragraph(Double.toString(tienKhachDua-tongTien))
+                                .add(new Paragraph(FormatDouble.toMoney(tienKhachDua-tongTien))
                                                 .setFontSize(6))
                                 .setTextAlignment(TextAlignment.RIGHT)
                                 .setBorder(Border.NO_BORDER));
@@ -271,11 +238,7 @@ public class GenerateInvoice {
         document.add(prgShopDetail);
         document.add(div_01);
         document.add(prgInvoice);
-//        document.add(tblInvoiceHeader);
-        document.add(prgInvoiceID);
-        document.add(prgInvoiceDate);
-        document.add(prgInvoiceMaker);
-        document.add(prgInvoiceCustomer);
+        document.add(prgInvoiceHeader);
         document.add(div_02);
         document.add(tblInvoiceDetail);
         document.add(tblInvoiceResult);

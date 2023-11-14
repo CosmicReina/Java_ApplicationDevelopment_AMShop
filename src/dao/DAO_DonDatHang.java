@@ -26,7 +26,7 @@ public class DAO_DonDatHang extends DAO {
             prs.setString(1, donDatHang.getMaDonDatHang());
             prs.setString(2, donDatHang.getNhanVien().getMaNhanVien());
             prs.setString(3, donDatHang.getKhachHang().getMaKhachHang());
-            prs.setTimestamp(4, UtilityLocalDateTime.fromLocalDate(donDatHang.getThoiGianTao()));
+            prs.setTimestamp(4, UtilityLocalDateTime.fromLocalDateTime(donDatHang.getThoiGianTao()));
             prs.setBoolean(5, donDatHang.isTrangThaiThanhToan());
                     
             n = prs.executeUpdate();
@@ -51,7 +51,7 @@ public class DAO_DonDatHang extends DAO {
             prs.setString(5, donDatHang.getMaDonDatHang());
             prs.setString(1, donDatHang.getNhanVien().getMaNhanVien());
             prs.setString(2, donDatHang.getKhachHang().getMaKhachHang());
-            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDate(donDatHang.getThoiGianTao()));
+            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDateTime(donDatHang.getThoiGianTao()));
             prs.setBoolean(4, donDatHang.isTrangThaiThanhToan());
             
             n = prs.executeUpdate();
@@ -70,7 +70,7 @@ public class DAO_DonDatHang extends DAO {
                 String maDonDatHang = rs.getString(1);
                 String maNhanVien = rs.getString(2);
                 String maKhachHang = rs.getString(3);
-                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDate(rs.getTimestamp(4));
+                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(4));
                 boolean trangThaiThanhToan = rs.getBoolean(5);
                 
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
