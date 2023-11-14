@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListener{
+public class PnlDanhSachQuanAo extends javax.swing.JPanel {
     
     private static PnlDanhSachQuanAo instance = new PnlDanhSachQuanAo();
     
@@ -116,6 +116,86 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         }
     }
     
+    private void timKiemQuanAo(){
+        ArrayList<QuanAo> list = DAO_QuanAo.getAllQuanAo();
+        
+        if(!txtMaQuanAo.getText().equals("Mã Quần Áo")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getMaQuanAo().equals(txtMaQuanAo.getText()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!txtTenQuanAo.getText().equals("Tên Quần Áo")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getTenQuanAo().toLowerCase().contains(txtTenQuanAo.getText().toLowerCase()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbNhaSanXuat.getSelectedItem().toString().equals("Nhà Sản Xuất")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getNhaSanXuat().equals(cmbNhaSanXuat.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbDanhMuc.getSelectedItem().toString().equals("Danh Mục")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getDanhMuc().equals(cmbDanhMuc.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbGioiTinh.getSelectedItem().toString().equals("Giới Tính")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getGioiTinh().equals(cmbGioiTinh.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbMauSac.getSelectedItem().toString().equals("Màu Sắc")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getMauSac().equals(cmbMauSac.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbKichThuoc.getSelectedItem().toString().equals("Kích Thước")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getKichThuoc().equals(cmbKichThuoc.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        if(!cmbChatLieu.getSelectedItem().toString().equals("Chất Liệu")){
+            for(int i = 0; i < list.size(); i ++){
+                QuanAo thisQuanAo = list.get(i);
+                if(!thisQuanAo.getChatLieu().equals(cmbChatLieu.getSelectedItem().toString()))
+                    list.remove(thisQuanAo);
+            }
+        }
+        
+        updateTableQuanAo(list);
+    }
+    
+    private void updateHinhAnh(){
+        int i = tblQuanAo.getSelectedRow();
+        if(i < 0) return;
+        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
+        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
+
+        lblHinhAnh.setText("");
+        lblHinhAnh.setIcon(quanAo.getHinhAnh());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -133,6 +213,7 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         cmbKichThuoc = new javax.swing.JComboBox<>();
         cmbChatLieu = new javax.swing.JComboBox<>();
         btnTimKiem = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         pnlHinhAnh = new javax.swing.JPanel();
         lblHinhAnh = new javax.swing.JLabel();
 
@@ -163,6 +244,11 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         tblQuanAo.setPreferredSize(new java.awt.Dimension(916, 700));
         tblQuanAo.setRowHeight(40);
         tblQuanAo.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblQuanAo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblQuanAoMouseClicked(evt);
+            }
+        });
         scrQuanAo.setViewportView(tblQuanAo);
         if (tblQuanAo.getColumnModel().getColumnCount() > 0) {
             tblQuanAo.getColumnModel().getColumn(1).setMinWidth(200);
@@ -220,6 +306,15 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
             }
         });
 
+        btnLamMoi.setBackground(new java.awt.Color(170, 238, 255));
+        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLamMoi.setText("Làm Mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+
         pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
         pnlHinhAnh.setPreferredSize(new java.awt.Dimension(196, 270));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
@@ -248,12 +343,13 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(cmbNhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTimKiemLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(20, 20, 20))
         );
         pnlTimKiemLayout.setVerticalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,9 +371,11 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
                     .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.EAST);
@@ -305,9 +403,21 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
+        timKiemQuanAo();
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        PnlMain.getInstance().showPanel(newInstance());
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void tblQuanAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQuanAoMouseClicked
+        // TODO add your handling code here:
+        updateHinhAnh();
+    }//GEN-LAST:event_tblQuanAoMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JComboBox<String> cmbChatLieu;
     private javax.swing.JComboBox<String> cmbDanhMuc;
@@ -324,25 +434,5 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
     private javax.swing.JTextField txtMaQuanAo;
     private javax.swing.JTextField txtTenQuanAo;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
 
 }
