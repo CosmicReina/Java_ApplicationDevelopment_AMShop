@@ -6,6 +6,7 @@ import data.FormatDate;
 import data.FormatDouble;
 import data.GenerateID;
 import data.UtilityJTextField;
+import data.UtilityLocalDate;
 import entity.NhanVien;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -201,6 +202,50 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         String canCuocCongDan = txtCCCD.getText();
         String soDienThoai = txtSoDienThoai.getText();
         String ngaySinh = txtNgaySinh.getText();
+        String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
+        String chucVu = cmbChucVu.getSelectedItem().toString();
+        
+        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+        ArrayList<NhanVien> listRemove = new ArrayList<>();
+        
+        if(!hoTen.equals("Họ Tên")){
+            for(int i = 0; i < list.size(); i ++){
+                NhanVien thisNhanVien = list.get(i);
+                if(!thisNhanVien.getHoTen().toLowerCase().contains(hoTen.toLowerCase()))
+                    listRemove.add(thisNhanVien);
+            }
+        }
+        if(!canCuocCongDan.equals("Căn Cước Công Dân")){
+            for(int i = 0; i < list.size(); i ++){
+                NhanVien thisNhanVien = list.get(i);
+                if(!thisNhanVien.getCanCuocCongDan().equals(canCuocCongDan))
+                    listRemove.add(thisNhanVien);
+            }
+        }
+        if(!soDienThoai.equals("Số Điện Thoại")){
+            for(int i = 0; i < list.size(); i ++){
+                NhanVien thisNhanVien = list.get(i);
+                if(!thisNhanVien.getSoDienThoai().equals(soDienThoai))
+                    listRemove.add(thisNhanVien);
+            }
+        }
+        if(!gioiTinh.equals("Giới Tính")){
+            for(int i = 0; i < list.size(); i ++){
+                NhanVien thisNhanVien = list.get(i);
+                if(!thisNhanVien.getGioiTinh().equals(gioiTinh))
+                    listRemove.add(thisNhanVien);
+            }
+        }
+        if(!chucVu.equals("Chức Vụ")){
+            for(int i = 0; i < list.size(); i ++){
+                NhanVien thisNhanVien = list.get(i);
+                if(!thisNhanVien.getChucVu().equals(chucVu))
+                    listRemove.add(thisNhanVien);
+            }
+        }
+        
+        list.removeAll(listRemove);
+        updateTable(list);
     }
     
     @SuppressWarnings("unchecked")
@@ -461,13 +506,13 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
                         .addComponent(txtDiaChi))
                     .addGroup(pnlNhanVienLayout.createSequentialGroup()
                         .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnTimKiemTheoMa1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                        .addComponent(btnTimKiemTheoMa1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         pnlNhanVienLayout.setVerticalGroup(
             pnlNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
