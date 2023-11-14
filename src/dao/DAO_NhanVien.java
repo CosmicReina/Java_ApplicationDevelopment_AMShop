@@ -87,6 +87,8 @@ public class DAO_NhanVien extends DAO {
             prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setDouble(10, nhanVien.getLuong());
             
+            DAO_TaiKhoan.updateTaiKhoan(nhanVien.getTenDangNhap(), nhanVien.getMatKhau());
+            
             n = prs.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

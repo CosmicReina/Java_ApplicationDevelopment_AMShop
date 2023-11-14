@@ -183,6 +183,26 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         }
     }
 
+    private void timKiemTheoMa(){
+        String maNhanVien = JOptionPane.showInputDialog(null, "Nhập Mã Nhân Viên", "Tìm Kiếm Nhân Viên", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(maNhanVien == null || maNhanVien.equals("")) return;
+        ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+        ArrayList<NhanVien> listRemove = DAO_NhanVien.getAllNhanVien();
+        for(NhanVien thisNhanVien : list){
+            if(!thisNhanVien.getMaNhanVien().equals(maNhanVien))
+                listRemove.add(thisNhanVien);
+        }
+        list.removeAll(listRemove);
+        updateTable(list);
+    }
+    
+    private void timKiemTheoThongTin(){
+        String hoTen = txtHoTen.getText();
+        String canCuocCongDan = txtCCCD.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        String ngaySinh = txtNgaySinh.getText();
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -211,6 +231,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         btnCapNhat = new javax.swing.JButton();
         btnLamMoi = new javax.swing.JButton();
         btnTimKiemTheoMa = new javax.swing.JButton();
+        btnTimKiemTheoMa1 = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -401,6 +422,14 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
             }
         });
 
+        btnTimKiemTheoMa1.setBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemTheoMa1.setText("Tìm Kiếm Theo Thông Tin");
+        btnTimKiemTheoMa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemTheoMa1TheoMaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlNhanVienLayout = new javax.swing.GroupLayout(pnlNhanVien);
         pnlNhanVien.setLayout(pnlNhanVienLayout);
         pnlNhanVienLayout.setHorizontalGroup(
@@ -435,8 +464,10 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
                         .addGap(18, 18, 18)
                         .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                        .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnTimKiemTheoMa1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         pnlNhanVienLayout.setVerticalGroup(
             pnlNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -463,7 +494,8 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
                 .addGroup(pnlNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCapNhat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiemTheoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTimKiemTheoMa1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -544,12 +576,19 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
 
     private void btnTimKiemTheoMaTheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoMaTheoMaActionPerformed
         // TODO add your handling code here:
+        timKiemTheoMa();
     }//GEN-LAST:event_btnTimKiemTheoMaTheoMaActionPerformed
+
+    private void btnTimKiemTheoMa1TheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemTheoMa1TheoMaActionPerformed
+        // TODO add your handling code here:
+        timKiemTheoThongTin();
+    }//GEN-LAST:event_btnTimKiemTheoMa1TheoMaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiemTheoMa;
+    private javax.swing.JButton btnTimKiemTheoMa1;
     private javax.swing.JCheckBox chkNghiLam;
     private javax.swing.JComboBox<String> cmbChucVu;
     private javax.swing.JComboBox<String> cmbGioiTinh;
