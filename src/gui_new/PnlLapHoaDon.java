@@ -296,7 +296,10 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
                 GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienDua);
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
                 PnlMain.getInstance().showPanel(newInstance());
-                //Show ChiTietHoaDon
+
+                PnlMain.getInstance().showPanel(PnlChiTietHoaDon.newInstance());
+                PnlChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
+                PnlChiTietHoaDon.getInstance().setPnlBefore(newInstance());
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Gặp Lỗi Khi In Hóa Đơn.");
             }

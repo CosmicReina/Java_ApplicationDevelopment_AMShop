@@ -7,6 +7,7 @@ import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlDanhSachHoaDon extends javax.swing.JPanel {
@@ -24,28 +25,76 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
     
     public PnlDanhSachHoaDon() {
         initComponents();
-        showTableListHoaDon();
+        showTableListHoaDon(DAO_HoaDon.getAllHoaDon());
     }
 
-private void showTableListHoaDon(){
-    ArrayList<HoaDon> list = DAO_HoaDon.getAllHoaDon();
-    DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
-    for(HoaDon thisHoaDon : list){
-        ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
-        double tongTienThanhPhan = 0;
-        for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
-            tongTienThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+    private void showTableListHoaDon(ArrayList<HoaDon> list){
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
+        model.getDataVector().removeAllElements();
+        tblDanhSachHoaDon.revalidate();
+        tblDanhSachHoaDon.repaint();
+        for(HoaDon thisHoaDon : list){
+            ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
+            double tongTienThanhPhan = 0;
+            for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
+                tongTienThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+            }
+            model.addRow(new Object[]{
+                thisHoaDon.getMaHoaDon(),
+                thisHoaDon.getNhanVien().getHoTen(),
+                thisHoaDon.getKhachHang().getHoTen(),
+                thisHoaDon.getKhachHang().getSoDienThoai(),
+                UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                FormatDouble.toMoney(tongTienThanhPhan)
+            });
         }
-        model.addRow(new Object[]{
-            thisHoaDon.getMaHoaDon(),
-            thisHoaDon.getNhanVien().getHoTen(),
-            thisHoaDon.getKhachHang().getHoTen(),
-            thisHoaDon.getKhachHang().getSoDienThoai(),
-            UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
-            FormatDouble.toMoney(tongTienThanhPhan)
-        });
     }
-}
+    
+    private void xemThongTinHoaDon(){
+        int i = tblDanhSachHoaDon.getSelectedRow();
+        if(i < 0){
+            JOptionPane.showConfirmDialog(null, "Vui lòng chọn một Hóa Đơn");
+            return;
+        }
+        String maHoaDon = tblDanhSachHoaDon.getValueAt(i, 0).toString();
+        
+        PnlMain.getInstance().showPanel(PnlChiTietHoaDon.newInstance());
+        PnlChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
+        PnlChiTietHoaDon.getInstance().setPnlBefore(this);
+    }
+    
+    private void timKiemHoaDon(){
+        String maHoaDon = txtMaHoaDon.getText();
+        String soDienThoai = txtSoDienThoai.getText();
+        
+        if(maHoaDon.equals("") && soDienThoai.equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm.");
+        }
+        
+        ArrayList<HoaDon> list = DAO_HoaDon.getAllHoaDon();
+        ArrayList<HoaDon> listRemove = new ArrayList<>();
+        
+        if(!maHoaDon.equals("")){
+            for(int i = 0; i < list.size(); i++){
+                HoaDon thisHoaDon = list.get(i);
+                if(!thisHoaDon.getMaHoaDon().equals(maHoaDon))
+                    listRemove.add(thisHoaDon);
+            }
+            list.removeAll(listRemove);
+            showTableListHoaDon(list);
+            return;
+        }
+        
+        if(!soDienThoai.equals("")){
+            for(int i = 0; i < list.size(); i++){
+                HoaDon thisHoaDon = list.get(i);
+                if(!thisHoaDon.getKhachHang().getSoDienThoai().equals(soDienThoai))
+                    listRemove.add(thisHoaDon);
+            }
+            list.removeAll(listRemove);
+            showTableListHoaDon(list);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -59,6 +108,7 @@ private void showTableListHoaDon(){
         txtMaHoaDon = new javax.swing.JTextField();
         txtSoDienThoai = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
+        btnLamMoi = new javax.swing.JButton();
         btnXemChiTiet = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(1166, 700));
@@ -72,7 +122,7 @@ private void showTableListHoaDon(){
 
             },
             new String [] {
-                "Mã Hóa Đơn", "Nhân Viên", "Khách Hàng", "Số điện thoại", "Ngày Lập Hóa Đơn", "Tổng tiền"
+                "Mã Hóa Đơn", "Nhân Viên", "Khách Hàng", "Số Điện Thoại", "Ngày Lập Hóa Đơn", "Tổng Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -103,13 +153,32 @@ private void showTableListHoaDon(){
 
         txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnTimKiem.setBackground(new java.awt.Color(0, 255, 255));
+        btnTimKiem.setBackground(new java.awt.Color(170, 238, 255));
         btnTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnTimKiem.setText("Tìm Kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
-        btnXemChiTiet.setBackground(new java.awt.Color(0, 255, 255));
+        btnLamMoi.setBackground(new java.awt.Color(170, 238, 255));
+        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnLamMoi.setText("Làm Mới");
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+
+        btnXemChiTiet.setBackground(new java.awt.Color(170, 238, 255));
         btnXemChiTiet.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnXemChiTiet.setText("Xem Chi Tiết Hóa Đơn");
+        btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemChiTietActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTimKiemLayout = new javax.swing.GroupLayout(pnlTimKiem);
         pnlTimKiem.setLayout(pnlTimKiemLayout);
@@ -118,22 +187,23 @@ private void showTableListHoaDon(){
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnXemChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(lblMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaHoaDon))
+                        .addComponent(txtMaHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(lblSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSoDienThoai))
-                    .addComponent(btnXemChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlTimKiemLayout.setVerticalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtMaHoaDon)
                     .addComponent(lblMaHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
@@ -141,17 +211,35 @@ private void showTableListHoaDon(){
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblSoDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                     .addComponent(txtSoDienThoai))
-                .addGap(87, 87, 87)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(421, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+        timKiemHoaDon();
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
+        // TODO add your handling code here:
+        xemThongTinHoaDon();
+    }//GEN-LAST:event_btnXemChiTietActionPerformed
+
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        PnlMain.getInstance().showPanel(newInstance());
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXemChiTiet;
     private javax.swing.JLabel lblMaHoaDon;
