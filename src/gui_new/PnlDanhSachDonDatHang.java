@@ -37,28 +37,28 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
-public class PnlLapHoaDon extends javax.swing.JPanel {
+public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
     
-    private static PnlLapHoaDon instance = new PnlLapHoaDon();
+    private static PnlDanhSachDonDatHang instance = new PnlDanhSachDonDatHang();
     
     private double tongTien = 0;
     
     private final ArrayList<ChiTietHoaDon> listDonHang = new ArrayList<>();
 
-    public static PnlLapHoaDon getInstance() {
+    public static PnlDanhSachDonDatHang getInstance() {
         return instance;
     }
     
-    public static PnlLapHoaDon newInstance() {
-        instance = new PnlLapHoaDon();
+    public static PnlDanhSachDonDatHang newInstance() {
+        instance = new PnlDanhSachDonDatHang();
         return instance;
     }
 
-    public static void setInstance(PnlLapHoaDon instance) {
-        PnlLapHoaDon.instance = instance;
+    public static void setInstance(PnlDanhSachDonDatHang instance) {
+        PnlDanhSachDonDatHang.instance = instance;
     }
 
-    public PnlLapHoaDon() {
+    public PnlDanhSachDonDatHang() {
         initComponents();
         initExtra();
     }
