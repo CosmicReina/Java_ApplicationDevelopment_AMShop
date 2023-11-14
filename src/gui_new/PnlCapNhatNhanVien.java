@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListener {
+public class PnlCapNhatNhanVien extends javax.swing.JPanel {
     
     private static PnlCapNhatNhanVien instance = new PnlCapNhatNhanVien();
 
@@ -44,8 +44,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         for(String thisChucVu : listChucVu)
             cmbChucVu.addItem(thisChucVu);
         
-        tblTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tblTable.addMouseListener(this);
+        tblTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);;
         
         UtilityJTextField.addPlaceHolderStyle(txtHoTen);
         UtilityJTextField.addPlaceHolderStyle(txtCCCD);
@@ -188,7 +187,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         String maNhanVien = JOptionPane.showInputDialog(null, "Nhập Mã Nhân Viên", "Tìm Kiếm Nhân Viên", JOptionPane.YES_NO_CANCEL_OPTION);
         if(maNhanVien == null || maNhanVien.equals("")) return;
         ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
-        ArrayList<NhanVien> listRemove = DAO_NhanVien.getAllNhanVien();
+        ArrayList<NhanVien> listRemove = new ArrayList<>();
         for(NhanVien thisNhanVien : list){
             if(!thisNhanVien.getMaNhanVien().equals(maNhanVien))
                 listRemove.add(thisNhanVien);
@@ -201,7 +200,6 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         String hoTen = txtHoTen.getText();
         String canCuocCongDan = txtCCCD.getText();
         String soDienThoai = txtSoDienThoai.getText();
-        String ngaySinh = txtNgaySinh.getText();
         String gioiTinh = cmbGioiTinh.getSelectedItem().toString();
         String chucVu = cmbChucVu.getSelectedItem().toString();
         
@@ -246,6 +244,35 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         
         list.removeAll(listRemove);
         updateTable(list);
+    }
+    
+    private void updateField(){
+        int i = tblTable.getSelectedRow();
+            String maNhanVien = tblTable.getValueAt(i, 0).toString();
+            NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
+            
+            txtMaNhanVien.setText(nhanVien.getMaNhanVien());
+            txtHoTen.setText(nhanVien.getHoTen());
+            txtCCCD.setText(nhanVien.getCanCuocCongDan());
+            txtSoDienThoai.setText(nhanVien.getSoDienThoai());
+            txtNgaySinh.setText(FormatDate.fromLocalDate(nhanVien.getNgaySinh()));
+            cmbGioiTinh.setSelectedItem(nhanVien.getGioiTinh());
+            cmbChucVu.setSelectedItem(nhanVien.getChucVu());
+            txtLuong.setText(String.format("%.0f", nhanVien.getLuong()));
+            txtDiaChi.setText(nhanVien.getDiaChi());
+            txtTenDangNhap.setText(nhanVien.getTenDangNhap());
+            txtMauKhau.setText(nhanVien.getMatKhau());
+            if(nhanVien.getNgayKetThucLam() != null)
+                chkNghiLam.setSelected(false);
+            else
+                chkNghiLam.setSelected(true);
+            
+            UtilityJTextField.addPlaceHolderStyle(txtHoTen);
+            UtilityJTextField.addPlaceHolderStyle(txtCCCD);
+            UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
+            UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
+            UtilityJTextField.addPlaceHolderStyle(txtLuong);
+            UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
     }
     
     @SuppressWarnings("unchecked")
@@ -300,6 +327,11 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
             }
         });
         tblTable.setRowHeight(40);
+        tblTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTableMouseClicked(evt);
+            }
+        });
         scrTable.setViewportView(tblTable);
 
         pnlTable.add(scrTable, java.awt.BorderLayout.CENTER);
@@ -629,6 +661,11 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
         timKiemTheoThongTin();
     }//GEN-LAST:event_btnTimKiemTheoMa1TheoMaActionPerformed
 
+    private void tblTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTableMouseClicked
+        // TODO add your handling code here:
+        updateField();
+    }//GEN-LAST:event_tblTableMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnLamMoi;
@@ -656,54 +693,5 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel implements MouseListe
     private javax.swing.JTextField txtSoDienThoai;
     private javax.swing.JTextField txtTenDangNhap;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        Object o = e.getSource();
-        if(o == tblTable){
-            int i = tblTable.getSelectedRow();
-            String maNhanVien = tblTable.getValueAt(i, 0).toString();
-            NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
-            
-            txtMaNhanVien.setText(nhanVien.getMaNhanVien());
-            txtHoTen.setText(nhanVien.getHoTen());
-            txtCCCD.setText(nhanVien.getCanCuocCongDan());
-            txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-            txtNgaySinh.setText(FormatDate.fromLocalDate(nhanVien.getNgaySinh()));
-            cmbGioiTinh.setSelectedItem(nhanVien.getGioiTinh());
-            cmbChucVu.setSelectedItem(nhanVien.getChucVu());
-            txtLuong.setText(String.format("%.0f", nhanVien.getLuong()));
-            txtDiaChi.setText(nhanVien.getDiaChi());
-            txtTenDangNhap.setText(nhanVien.getTenDangNhap());
-            txtMauKhau.setText(nhanVien.getMatKhau());
-            if(nhanVien.getNgayKetThucLam() != null)
-                chkNghiLam.setSelected(false);
-            else
-                chkNghiLam.setSelected(true);
-            
-            UtilityJTextField.addPlaceHolderStyle(txtHoTen);
-            UtilityJTextField.addPlaceHolderStyle(txtCCCD);
-            UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-            UtilityJTextField.addPlaceHolderStyle(txtNgaySinh);
-            UtilityJTextField.addPlaceHolderStyle(txtLuong);
-            UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
 
 }
