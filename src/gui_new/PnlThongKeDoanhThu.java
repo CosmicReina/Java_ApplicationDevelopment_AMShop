@@ -3,28 +3,98 @@ package gui_new;
 import gui.*;
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
+import data.FormatDate;
+import data.FormatDouble;
+import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlThongKeDoanhThu extends javax.swing.JPanel {
-    public PnlThongKeDoanhThu() {
-        initComponents();
-        showTableListThongKeDoanhThu("");
-    }
+    
+    private static PnlThongKeDoanhThu instance = new PnlThongKeDoanhThu();
 
-private void showTableListThongKeDoanhThu(String maHoaDon){
-    ArrayList<HoaDon> listA = DAO_HoaDon.getAllHoaDon();
-    ArrayList<ChiTietHoaDon> listB = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
-    DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
-    for(HoaDon thisHoaDon : listA){
-        model.addRow(new Object[]{
-            thisHoaDon.getMaHoaDon() 
-        });
+    public static PnlThongKeDoanhThu getInstance() {
+        return instance;
     }
     
-}    
+    public static PnlThongKeDoanhThu newInstance() {
+        instance = new PnlThongKeDoanhThu();
+        return instance;
+    }
+    
+    public PnlThongKeDoanhThu() {
+        initComponents();
+        
+    }
+    
+    private void updateTable(){
+        String ngayBatDauString = txtNgayBatDau.getText();
+        String ngayKetThucString = txtNgayKetThuc.getText();
+        
+        LocalDate ngayBatDau = LocalDate.now();
+        LocalDate ngayKetThuc = LocalDate.now();
+        
+        String error = "";
+        
+        if(ngayBatDauString.isBlank())
+            error += "\n- Vui lòng nhập Ngày Bắt Đầu thống kê.";
+        else{
+            try{
+                ngayBatDau = FormatDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
+            }
+            catch(Exception e){
+                error += "\n- Vui lòng nhập Ngày Bắt Đầu hợp lệ (DD/MM/YYYY).";
+            }
+        }
+        
+        if(ngayKetThucString.isBlank())
+            error += "\n- Vui lòng nhập Ngày Kết Thúc thống kê.";
+        else{
+            try{
+                ngayKetThuc = FormatDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
+                if(ngayBatDau.isAfter(ngayKetThuc))
+                    error += "\n- Ngày Kết Thúc Thống kê phải lớn hơn Ngày Bắt Đầu.";
+            }
+            catch(Exception e){
+                error += "\n- Vui lòng nhập Ngày Kết Thúc hợp lệ (DD/MM/YYYY).";
+            }
+        }
+        
+        if(error.equals("")){
+            DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
+            model.getDataVector().removeAllElements();
+            tblDanhSachHoaDon.revalidate();
+            tblDanhSachHoaDon.repaint();
+            
+            ArrayList<HoaDon> listHD = DAO_HoaDon.getAllHoaDonTrongKhoangNgay(ngayBatDau, ngayKetThuc);
+            double tongDoanhThu = 0;
+            for(HoaDon thisHoaDon : listHD){
+                ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
+                double doanhThuThanhPhan = 0;
+                for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
+                    doanhThuThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+                }
+                model.addRow(new Object[]{
+                    thisHoaDon.getMaHoaDon(),
+                    thisHoaDon.getNhanVien().getHoTen(),
+                    thisHoaDon.getKhachHang().getHoTen(),
+                    UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                    FormatDouble.toMoney(doanhThuThanhPhan)
+                });
+                tongDoanhThu += doanhThuThanhPhan;
+            }
+            txtTongSoHoaDon.setText(Integer.toString(listHD.size()));
+            txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
+        }
+        else{
+            String throwMessage = "Lỗi nhập liệu: " + error;
+            JOptionPane.showMessageDialog(null, throwMessage);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -44,6 +114,7 @@ private void showTableListThongKeDoanhThu(String maHoaDon){
         btnThongKe = new javax.swing.JButton();
         btnInBaoCao = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(68, 136, 255));
         setLayout(new java.awt.BorderLayout());
 
         scrDanhSachHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách hóa đơn bán hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
@@ -51,10 +122,7 @@ private void showTableListThongKeDoanhThu(String maHoaDon){
 
         tblDanhSachHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Mã hóa đơn", "Tên nhân viên", "Khách hàng", "Ngày lập hóa đơn", "Tổng tiền"
@@ -68,26 +136,27 @@ private void showTableListThongKeDoanhThu(String maHoaDon){
                 return canEdit [columnIndex];
             }
         });
+        tblDanhSachHoaDon.setRowHeight(40);
         scrDanhSachHoaDon.setViewportView(tblDanhSachHoaDon);
 
         add(scrDanhSachHoaDon, java.awt.BorderLayout.WEST);
 
-        pnlThongKe.setBackground(new java.awt.Color(79, 137, 255));
+        pnlThongKe.setBackground(new java.awt.Color(68, 136, 255));
         pnlThongKe.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thống kê doanh thu", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        lblNgayBatDau.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNgayBatDau.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNgayBatDau.setForeground(new java.awt.Color(255, 255, 255));
         lblNgayBatDau.setText("Ngày bắt đầu");
 
-        lblNgayKetThuc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblNgayKetThuc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNgayKetThuc.setForeground(new java.awt.Color(255, 255, 255));
         lblNgayKetThuc.setText("Ngày kết thúc");
 
-        lblTongSoHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTongSoHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTongSoHoaDon.setForeground(new java.awt.Color(255, 255, 255));
         lblTongSoHoaDon.setText("Tổng số hóa đơn");
 
-        lblTongSoDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTongSoDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblTongSoDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
         lblTongSoDoanhThu.setText("Tổng số doanh thu");
 
@@ -95,11 +164,13 @@ private void showTableListThongKeDoanhThu(String maHoaDon){
 
         txtNgayKetThuc.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        txtTongSoHoaDon.setEditable(false);
+        txtTongSoHoaDon.setBackground(new java.awt.Color(204, 204, 204));
         txtTongSoHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtTongSoHoaDon.setEnabled(false);
 
+        txtTongSoDoanhThu.setEditable(false);
+        txtTongSoDoanhThu.setBackground(new java.awt.Color(204, 204, 204));
         txtTongSoDoanhThu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtTongSoDoanhThu.setEnabled(false);
 
         btnThongKe.setBackground(new java.awt.Color(0, 255, 255));
         btnThongKe.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -121,22 +192,21 @@ private void showTableListThongKeDoanhThu(String maHoaDon){
             .addGroup(pnlThongKeLayout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnInBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                    .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlThongKeLayout.createSequentialGroup()
-                            .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblTongSoHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblNgayKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblNgayBatDau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblTongSoDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtNgayBatDau)
-                                .addComponent(txtNgayKetThuc)
-                                .addComponent(txtTongSoHoaDon)
-                                .addComponent(txtTongSoDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addComponent(btnInBaoCao, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                    .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlThongKeLayout.createSequentialGroup()
+                        .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblTongSoHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNgayKetThuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNgayBatDau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblTongSoDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNgayBatDau)
+                            .addComponent(txtNgayKetThuc)
+                            .addComponent(txtTongSoHoaDon)
+                            .addComponent(txtTongSoDoanhThu, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         pnlThongKeLayout.setVerticalGroup(
             pnlThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,6 +239,7 @@ private void showTableListThongKeDoanhThu(String maHoaDon){
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
+        updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

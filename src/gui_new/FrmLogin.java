@@ -38,9 +38,9 @@ public class FrmLogin extends javax.swing.JFrame {
         boolean kiemTraDangNhap = DAO_TaiKhoan.kiemTraDangNhap(tenDangNhap, matKhau);
         if(kiemTraDangNhap){
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
-            NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(matKhau);
+            NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(tenDangNhap);
             DAO_NhanVien.setNhanVienHienTai(nhanVien);
-            FrmMain frmMain = FrmMain.getInstance();
+            FrmMain frmMain = FrmMain.newInstance();
             frmMain.setVisible(true);
             dispose();
         }

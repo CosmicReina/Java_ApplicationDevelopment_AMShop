@@ -5,6 +5,7 @@ import dao.DAO_HoaDon;
 import dao.DAO_NhanVien;
 import data.FormatDate;
 import data.FormatDouble;
+import data.UtilityLocalDate;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -53,7 +54,10 @@ public class PnlChiTietNhanVien extends javax.swing.JPanel {
         txtCCCD.setText(nhanVien.getCanCuocCongDan());
         txtGioiTinh.setText(nhanVien.getGioiTinh());
         txtNgayBatDauLam.setText(FormatDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
-        txtNgayKetThucLam.setText(FormatDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
+        if(nhanVien.getNgayKetThucLam() != null)
+            txtNgayKetThucLam.setText(FormatDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
+        else
+            txtNgayKetThucLam.setText("");
         txtLuong.setText(FormatDouble.toMoney(nhanVien.getLuong()));
         
         ArrayList<HoaDon> listHD = DAO_HoaDon.getAllHoaDon();

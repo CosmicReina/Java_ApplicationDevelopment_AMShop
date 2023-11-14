@@ -2,6 +2,7 @@ package gui_new;
 
 import dao.DAO_NhanVien;
 import data.UtilityJButton;
+import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -36,32 +37,53 @@ public class PnlMain extends javax.swing.JPanel {
     private void initExtra(){
         UtilityJButton.removeFocusPainted(UtilityJButton.getAllJButtons(this));
         addBtnToList();
+        showPanel(PnlTrangChu.newInstance());
     }
     
     private void addBtnToList(){
-        listBtnNhanVien.add(btnLapHoaDon);
-        listBtnNhanVien.add(btnDanhSachDonDatHang);
-        listBtnNhanVien.add(btnDanhSachNhanVien);
-        listBtnNhanVien.add(btnThemNhanVien);
-        listBtnNhanVien.add(btnCapNhatNhanVien);
-        listBtnNhanVien.add(btnThongTinNhanVien);
+        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        if(nhanVien.getChucVu().equals("Người Quản Lý")){
+            listBtnNhanVien.add(btnLapHoaDon);
+            listBtnNhanVien.add(btnDanhSachDonDatHang);
+            listBtnNhanVien.add(btnDanhSachNhanVien);
+            listBtnNhanVien.add(btnThemNhanVien);
+            listBtnNhanVien.add(btnCapNhatNhanVien);
+            listBtnNhanVien.add(btnThongTinNhanVien);
+
+            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnCapNhatKhachHang);
+
+            listBtnHoaDon.add(btnDanhSachHoaDon);
+
+            listBtnQuanAo.add(btnDanhSachQuanAo);
+            listBtnQuanAo.add(btnThemQuanAo);
+            listBtnQuanAo.add(btnCapNhatQuanAo);
+
+            listBtnLichLamViec.add(btnDanhSachLichLamViec);
+
+            listBtnThongKe.add(btnThongKeDoanhThu);
+            listBtnThongKe.add(btnThongKeKhachHang);
+            listBtnThongKe.add(btnThongKeQuanAoDaNhap);
+            listBtnThongKe.add(btnThongKeQuanAoDaBan);
+            listBtnThongKe.add(btnThongKeQuanAoDaHet);
+        }
+        else{
+            listBtnNhanVien.add(btnLapHoaDon);
+            listBtnNhanVien.add(btnDanhSachDonDatHang);
+            listBtnNhanVien.add(btnThongTinNhanVien);
+            
+            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnCapNhatKhachHang);
+            
+            listBtnHoaDon.add(btnDanhSachHoaDon);
+            
+            listBtnQuanAo.add(btnDanhSachQuanAo);
+            
+            btnLichLamViec.setEnabled(false);
+            
+            btnThongKe.setEnabled(false);
+        }
         
-        listBtnKhachHang.add(btnDanhSachKhachHang);
-        listBtnKhachHang.add(btnCapNhatKhachHang);
-        
-        listBtnHoaDon.add(btnDanhSachHoaDon);
-        
-        listBtnQuanAo.add(btnDanhSachQuanAo);
-        listBtnQuanAo.add(btnThemQuanAo);
-        listBtnQuanAo.add(btnCapNhatQuanAo);
-        
-        listBtnLichLamViec.add(btnDanhSachLichLamViec);
-        
-        listBtnThongKe.add(btnThongKeDoanhThu);
-        listBtnThongKe.add(btnThongKeKhachHang);
-        listBtnThongKe.add(btnThongKeQuanAoDaNhap);
-        listBtnThongKe.add(btnThongKeQuanAoDaBan);
-        listBtnThongKe.add(btnThongKeQuanAoDaHet);
     }
     
     public void showPanel(JPanel panel){
@@ -401,6 +423,7 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangChuActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlTrangChu.newInstance());
     }//GEN-LAST:event_btnTrangChuActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
@@ -508,6 +531,7 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnThongKeDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeDoanhThuActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlThongKeDoanhThu.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongKeDoanhThuActionPerformed
 

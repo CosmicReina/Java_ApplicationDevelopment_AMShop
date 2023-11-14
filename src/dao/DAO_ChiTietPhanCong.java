@@ -39,16 +39,15 @@ public class DAO_ChiTietPhanCong extends DAO {
             String sql = ""
                     + "UPDATE ChiTietPhanCong "
                     + "SET "
-                    + "MaNhanVien = ?, "
                     + "ThoiGianVaoCa = ?, "
                     + "ThoiGianRaCa = ? "
-                    + "WHERE MaLichLamViec = ?";
+                    + "WHERE MaLichLamViec = ? AND MaNhanVien = ?";
             
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(4, chiTietPhanCong.getLichLamViec().getMaLichLamViec());
-            prs.setString(1, chiTietPhanCong.getNhanVien().getMaNhanVien());
-            prs.setTimestamp(2, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianVaoCa()));
-            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianRaCa()));
+            prs.setString(3, chiTietPhanCong.getLichLamViec().getMaLichLamViec());
+            prs.setString(4, chiTietPhanCong.getNhanVien().getMaNhanVien());
+            prs.setTimestamp(1, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianVaoCa()));
+            prs.setTimestamp(2, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianRaCa()));
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
