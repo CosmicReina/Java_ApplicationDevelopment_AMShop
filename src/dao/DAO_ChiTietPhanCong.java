@@ -57,6 +57,23 @@ public class DAO_ChiTietPhanCong extends DAO {
         return n > 0;
     }
     
+    public static boolean removeChiTietPhanCong(ChiTietPhanCong chiTietPhanCong){
+        int n = 0;
+        try {
+            String sql = ""
+                    + "DELETE FROM ChiTietPhanCong "
+                    + "WHERE MaLichLamViec = ? AND MaNhanVien = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, chiTietPhanCong.getLichLamViec().getMaLichLamViec());
+            prs.setString(2, chiTietPhanCong.getNhanVien().getMaNhanVien());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
+    }
+    
     public static ArrayList<ChiTietPhanCong> getAllChiTietPhanCongTheoMaLichLamViec(String maLichLamViec){
         ArrayList<ChiTietPhanCong> list = new ArrayList<>();
         try {

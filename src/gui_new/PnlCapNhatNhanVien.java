@@ -262,7 +262,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel {
             txtDiaChi.setText(nhanVien.getDiaChi());
             txtTenDangNhap.setText(nhanVien.getTenDangNhap());
             txtMauKhau.setText(nhanVien.getMatKhau());
-            if(nhanVien.getNgayKetThucLam() != null)
+            if(nhanVien.getNgayKetThucLam() == null)
                 chkNghiLam.setSelected(false);
             else
                 chkNghiLam.setSelected(true);

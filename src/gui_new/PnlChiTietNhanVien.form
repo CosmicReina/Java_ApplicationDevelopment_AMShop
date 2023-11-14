@@ -30,7 +30,6 @@
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder justification="2" position="2" title="Danh S&#xe1;ch H&#xf3;a &#x110;&#x1a1;n Nh&#xe2;n Vi&#xea;n &#x110;&#xe3; L&#x1ead;p">
               <Font PropertyName="font" name="Segoe UI" size="24" style="0"/>
-              <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -99,10 +98,6 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="btnQuayLai" min="-2" pref="151" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="lblNgayKetThucLam" pref="140" max="32767" attributes="0"/>
@@ -138,6 +133,10 @@
                                       <Component id="txtMaNhanVien" alignment="1" max="32767" attributes="0"/>
                                       <Component id="txtChucVu" max="32767" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnQuayLai" min="-2" pref="170" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>

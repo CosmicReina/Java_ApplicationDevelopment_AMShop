@@ -53,7 +53,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
     private void xemChiTietHoaDon(){
         int i = tblDanhSachHoaDon.getSelectedRow();
         if(i < 0){
-            JOptionPane.showConfirmDialog(null, "Vui lòng chọn một Hóa Đơn");
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Hóa Đơn");
             return;
         }
         String maHoaDon = tblDanhSachHoaDon.getValueAt(i, 0).toString();
