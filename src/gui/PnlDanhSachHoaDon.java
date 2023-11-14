@@ -1,10 +1,30 @@
 package gui;
 
+import dao.DAO_HoaDon;
+import entity.HoaDon;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlDanhSachHoaDon extends javax.swing.JPanel {
     public PnlDanhSachHoaDon() {
         initComponents();
+        showTableListHoaDon();
     }
 
+private void showTableListHoaDon(){
+    ArrayList<HoaDon> list = DAO_HoaDon.getAllHoaDon();
+    DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
+    for(HoaDon thisHoaDon : list){
+        model.addRow(new Object[]{
+            thisHoaDon.getMaHoaDon(),
+            thisHoaDon.getNhanVien().getHoTen(),
+            thisHoaDon.getKhachHang().getHoTen(),
+            thisHoaDon.getKhachHang().getSoDienThoai(),
+            thisHoaDon.getThoiGianTao()
+        });
+    }
+}
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -33,7 +53,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hóa Đơn", "Nhân Viên", "Khách Hàng", "Số Điện Thoại", "Ngày Lập Hóa Đơn", "Tổng tiền"
+                "Mã Hóa Đơn", "Nhân Viên", "Khách Hàng", "Số điện thoại", "Ngày Lập Hóa Đơn", "Tổng tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {

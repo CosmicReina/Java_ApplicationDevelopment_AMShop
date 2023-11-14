@@ -82,22 +82,20 @@
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnInBaoCao" pref="261" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnThongKe" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblTongSoHoaDon" max="32767" attributes="0"/>
-                                  <Component id="lblNgayKetThuc" max="32767" attributes="0"/>
-                                  <Component id="lblNgayBatDau" max="32767" attributes="0"/>
-                                  <Component id="lblTongSoDoanhThu" alignment="0" pref="125" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtNgayBatDau" max="32767" attributes="0"/>
-                                  <Component id="txtNgayKetThuc" max="32767" attributes="0"/>
-                                  <Component id="txtTongSoHoaDon" max="32767" attributes="0"/>
-                                  <Component id="txtTongSoDoanhThu" pref="130" max="32767" attributes="0"/>
-                              </Group>
+                      <Component id="btnThongKe" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblTongSoHoaDon" max="32767" attributes="0"/>
+                              <Component id="lblNgayKetThuc" max="32767" attributes="0"/>
+                              <Component id="lblNgayBatDau" max="32767" attributes="0"/>
+                              <Component id="lblTongSoDoanhThu" alignment="0" pref="125" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtNgayBatDau" max="32767" attributes="0"/>
+                              <Component id="txtNgayKetThuc" max="32767" attributes="0"/>
+                              <Component id="txtTongSoHoaDon" max="32767" attributes="0"/>
+                              <Component id="txtTongSoDoanhThu" pref="130" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

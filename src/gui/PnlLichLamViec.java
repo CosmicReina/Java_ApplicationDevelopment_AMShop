@@ -1,10 +1,58 @@
 package gui;
 
+import dao.DAO_ChiTietPhanCong;
+import dao.DAO_LichLamViec;
+import dao.DAO_NhanVien;
+import entity.ChiTietPhanCong;
+import entity.LichLamViec;
+import entity.NhanVien;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlLichLamViec extends javax.swing.JPanel {
     public PnlLichLamViec() {
         initComponents();
+        showTableListLichLamViec();
+        showTableListNhanVien();
+        showTableListNhanVienTrongCa("");
     }
 
+private void showTableListLichLamViec(){
+    ArrayList<LichLamViec> list = DAO_LichLamViec.getAllLichLamViec();
+    DefaultTableModel model = (DefaultTableModel) tblDanhSachLichLamViec.getModel();
+    for(LichLamViec thisLichLamViec : list){
+        model.addRow(new Object[]{
+            thisLichLamViec.getMaLichLamViec(),
+            thisLichLamViec.getCaLamViec().getTenCaLamViec(),
+            thisLichLamViec.getNgayLamViec()
+        });
+    }
+}    
+
+private void showTableListNhanVien(){
+    ArrayList<NhanVien> list = DAO_NhanVien.getAllNhanVien();
+    DefaultTableModel model = (DefaultTableModel) tblDanhSachNhanVien.getModel();
+    for(NhanVien thisNhanVien : list){
+        model.addRow(new Object[]{
+            thisNhanVien.getMaNhanVien(),
+            thisNhanVien.getHoTen()
+        });
+    }
+}    
+
+private void showTableListNhanVienTrongCa(String maLichLamViec){
+    ArrayList<ChiTietPhanCong> list = DAO_ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec(maLichLamViec);
+    DefaultTableModel model = (DefaultTableModel) tblDanhSachNhanVienTrongCa.getModel();
+    for(ChiTietPhanCong thisChiTietPhanCong : list){
+        model.addRow(new Object[]{
+            thisChiTietPhanCong.getNhanVien().getMaNhanVien(),
+            thisChiTietPhanCong.getNhanVien().getHoTen(),
+            thisChiTietPhanCong.getThoiGianVaoCa(),
+            thisChiTietPhanCong.getThoiGianRaCa()
+        });
+    }
+}    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,17 +131,14 @@ public class PnlLichLamViec extends javax.swing.JPanel {
 
         tblDanhSachNhanVienTrongCa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên"
+                "Mã Nhân Viên", "Tên Nhân Viên", "Thời gian vào ca", "Thời gian ra ca"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
