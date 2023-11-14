@@ -364,6 +364,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         if(themDonDatHang == true){
             JOptionPane.showMessageDialog(null, "Tạo Đơn Đặt Hàng Thành Công");
+            PnlMain.getInstance().showPanel(newInstance());
         }
         else{
             JOptionPane.showMessageDialog(null, "Tạo Đơn Đặt Hàng Thất Bại");

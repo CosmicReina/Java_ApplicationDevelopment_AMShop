@@ -69,7 +69,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTableDanhSachDonDatHang();
+        updateTableDanhSachDonDatHang(DAO_DonDatHang.getAllDonDatHang());
         
         UtilityJTextField.addPlaceHolderStyle(txtSoDienThoaiTimKiem);
         UtilityJTextField.addPlaceHolderStyle(txtHoTen);
@@ -151,6 +151,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         for(ChiTietDonDatHang thisChiTietDonDatHang : listChiTietDonDatHang){
             ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon, thisChiTietDonDatHang.getQuanAo(), thisChiTietDonDatHang.getSoLuong(), thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
             listChiTietHoaDon.add(chiTietHoaDon);
+            DAO_ChiTietHoaDon.createChiTietHoaDon(chiTietHoaDon);
         }
         
         if(themHoaDon){
@@ -187,9 +188,11 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         }
     }
     
-    private void updateTableDanhSachDonDatHang(){
-        ArrayList<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
+    private void updateTableDanhSachDonDatHang(ArrayList<DonDatHang> list){
         DefaultTableModel model = (DefaultTableModel) tblDonDatHang.getModel();
+        model.getDataVector().removeAllElements();
+        tblDonHang.revalidate();
+        tblDonHang.repaint();
         for(DonDatHang thisDonDatHang : list){
             if(thisDonDatHang.isTrangThaiThanhToan() == false){
                 ArrayList<ChiTietDonDatHang> listCTDDH = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(thisDonDatHang.getMaDonDatHang());
@@ -199,7 +202,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
                 model.addRow(new Object[]{
                     thisDonDatHang.getMaDonDatHang(),
                     thisDonDatHang.getNhanVien().getHoTen(),
-                    thisDonDatHang.getKhachHang().getMaKhachHang(),
+                    thisDonDatHang.getKhachHang().getHoTen(),
                     thisDonDatHang.getKhachHang().getSoDienThoai(),
                     UtilityLocalDateTime.toFormattedLocalDateTime(thisDonDatHang.getThoiGianTao()),
                     FormatDouble.toMoney(tongTienThanhPhan)
@@ -241,6 +244,23 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         
         txtTongTien.setText(FormatDouble.toMoney(tongTien));
     }
+    
+    private void timKiemDonDatHang(){
+        String soDienThoai = txtSoDienThoaiTimKiem.getText();
+        if(soDienThoai.equals("Số Điện Thoại Khách Hàng")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập Số Điện Thoại khách hàng.");
+        }
+        
+        ArrayList<DonDatHang> list = DAO_DonDatHang.getAllDonDatHang();
+        for(int i = 0; i <= list.size(); i++){
+            DonDatHang thisDonDatHang = list.get(i);
+            String soDienThoaiKhachHang = thisDonDatHang.getKhachHang().getSoDienThoai();
+            if(!soDienThoaiKhachHang.equals(soDienThoai))
+                list.remove(i);
+        }
+        System.out.println(list);
+        updateTableDanhSachDonDatHang(list);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -280,7 +300,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         pnlTimKiem.setPreferredSize(new java.awt.Dimension(250, 700));
 
         txtSoDienThoaiTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSoDienThoaiTimKiem.setText("Số Điện Thoại");
+        txtSoDienThoaiTimKiem.setText("Số Điện Thoại Khách Hàng");
         txtSoDienThoaiTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSoDienThoaiTimKiemFocusGained(evt);
@@ -300,6 +320,11 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         txtTimKiem.setBackground(new java.awt.Color(170, 238, 255));
         txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtTimKiem.setText("Tìm Kiếm");
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTimKiemLayout = new javax.swing.GroupLayout(pnlTimKiem);
         pnlTimKiem.setLayout(pnlTimKiemLayout);
@@ -543,12 +568,12 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
 
     private void txtSoDienThoaiTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiTimKiemFocusGained
         // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoDienThoaiTimKiem, "Số Điện Thoại");
+        UtilityJTextField.focusGained(txtSoDienThoaiTimKiem, "Số Điện Thoại Khách Hàng");
     }//GEN-LAST:event_txtSoDienThoaiTimKiemFocusGained
 
     private void txtSoDienThoaiTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoDienThoaiTimKiemFocusLost
         // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoDienThoaiTimKiem, "Số Điện Thoại");
+        UtilityJTextField.focusLost(txtSoDienThoaiTimKiem, "Số Điện Thoại Khách Hàng");
     }//GEN-LAST:event_txtSoDienThoaiTimKiemFocusLost
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
@@ -560,6 +585,11 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         updateTableChiTietDonHang();
     }//GEN-LAST:event_tblDonDatHangMouseClicked
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        // TODO add your handling code here:
+        timKiemDonDatHang();
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThanhToan;
