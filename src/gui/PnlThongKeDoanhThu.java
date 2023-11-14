@@ -1,10 +1,30 @@
 package gui;
 
+import dao.DAO_ChiTietHoaDon;
+import dao.DAO_HoaDon;
+import entity.ChiTietHoaDon;
+import entity.HoaDon;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 public class PnlThongKeDoanhThu extends javax.swing.JPanel {
     public PnlThongKeDoanhThu() {
         initComponents();
+        showTableListThongKeDoanhThu("");
     }
 
+private void showTableListThongKeDoanhThu(String maHoaDon){
+    ArrayList<HoaDon> listA = DAO_HoaDon.getAllHoaDon();
+    ArrayList<ChiTietHoaDon> listB = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
+    DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
+    for(HoaDon thisHoaDon : listA){
+        model.addRow(new Object[]{
+            thisHoaDon.getMaHoaDon() 
+        });
+    }
+    
+}    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
