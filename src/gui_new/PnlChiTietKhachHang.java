@@ -15,9 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 public class PnlChiTietKhachHang extends javax.swing.JPanel {
+    
     private static PnlChiTietKhachHang instance = new PnlChiTietKhachHang();
     
-    private JPanel pnlBefore;
+    private JPanel pnlBefore = null;
 
     public JPanel getPnlBefore() {
         return pnlBefore;

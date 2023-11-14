@@ -4,6 +4,7 @@ import data.UtilityJButton;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class PnlMain extends javax.swing.JPanel {
@@ -67,6 +68,14 @@ public class PnlMain extends javax.swing.JPanel {
     	pnlWork.repaint();
     	pnlWork.setLayout(new BorderLayout());
     	pnlWork.add(panel, BorderLayout.CENTER);
+    }
+    
+    private void dangXuat(){
+        int i = JOptionPane.showConfirmDialog(null, "Đăng Xuất Chương Trình?", "Đăng Xuất", JOptionPane.YES_NO_OPTION);
+        if(i == JOptionPane.YES_OPTION){
+            FrmLogin.newInstance().setVisible(true);
+            FrmMain.getInstance().dispose();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -377,7 +386,7 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
-        FrmMain.getInstance().dispose();
+        dangXuat();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangChuActionPerformed
@@ -480,6 +489,7 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnDanhSachLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachLichLamViecActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlLichLamViec.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachLichLamViecActionPerformed
 

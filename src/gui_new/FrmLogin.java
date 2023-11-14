@@ -1,5 +1,6 @@
 package gui_new;
 
+import connect.ConnectDB;
 import dao.DAO_NhanVien;
 import dao.DAO_TaiKhoan;
 import entity.NhanVien;
@@ -62,6 +63,7 @@ public class FrmLogin extends javax.swing.JFrame {
         txtMatKhau = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         pnlDangNhap.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -134,8 +136,8 @@ public class FrmLogin extends javax.swing.JFrame {
             pnlDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDangNhapLayout.createSequentialGroup()
                 .addGap(85, 85, 85)
-                .addComponent(lblDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addComponent(lblDangNhap)
+                .addGap(54, 54, 54)
                 .addComponent(lblTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,6 +165,8 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
         dispose();
+        ConnectDB.getInstance().disconnectDatabase();
+        System.exit(0);
     }//GEN-LAST:event_btnThoatActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
