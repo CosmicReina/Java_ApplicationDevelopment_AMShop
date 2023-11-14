@@ -174,7 +174,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel {
                 PnlMain.getInstance().showPanel(newInstance());
             }
             else{
-                JOptionPane.showMessageDialog(null, "Thêm Nhân Viên thất bại.");
+                JOptionPane.showMessageDialog(null, "Cập Nhật Nhân Viên thất bại.");
             }
         }
         else{
