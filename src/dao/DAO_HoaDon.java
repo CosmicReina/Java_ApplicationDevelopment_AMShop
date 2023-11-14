@@ -27,7 +27,7 @@ public class DAO_HoaDon extends DAO {
             prs.setString(2, hoaDon.getCuaHang().getMaCuaHang());
             prs.setString(3, hoaDon.getNhanVien().getMaNhanVien());
             prs.setString(4, hoaDon.getKhachHang().getMaKhachHang());
-            prs.setTimestamp(5, UtilityLocalDateTime.fromLocalDate(hoaDon.getThoiGianTao()));
+            prs.setTimestamp(5, UtilityLocalDateTime.fromLocalDateTime(hoaDon.getThoiGianTao()));
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -45,7 +45,7 @@ public class DAO_HoaDon extends DAO {
                 String maHoaDon = rs.getString(1);
                 String maNhanVien = rs.getString(3);
                 String maKhachHang = rs.getString(4);
-                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDate(rs.getTimestamp(5));
+                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
                 
                 CuaHang cuaHang = DAO_CuaHang.getCuaHang();
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);

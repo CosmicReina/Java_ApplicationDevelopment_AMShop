@@ -23,8 +23,8 @@ public class DAO_ChiTietPhanCong extends DAO {
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, chiTietPhanCong.getLichLamViec().getMaLichLamViec());
             prs.setString(2, chiTietPhanCong.getNhanVien().getMaNhanVien());
-            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDate(chiTietPhanCong.getThoiGianVaoCa()));
-            prs.setTimestamp(4, UtilityLocalDateTime.fromLocalDate(chiTietPhanCong.getThoiGianRaCa()));
+            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianVaoCa()));
+            prs.setTimestamp(4, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianRaCa()));
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -47,8 +47,8 @@ public class DAO_ChiTietPhanCong extends DAO {
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(4, chiTietPhanCong.getLichLamViec().getMaLichLamViec());
             prs.setString(1, chiTietPhanCong.getNhanVien().getMaNhanVien());
-            prs.setTimestamp(2, UtilityLocalDateTime.fromLocalDate(chiTietPhanCong.getThoiGianVaoCa()));
-            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDate(chiTietPhanCong.getThoiGianRaCa()));
+            prs.setTimestamp(2, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianVaoCa()));
+            prs.setTimestamp(3, UtilityLocalDateTime.fromLocalDateTime(chiTietPhanCong.getThoiGianRaCa()));
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -69,8 +69,8 @@ public class DAO_ChiTietPhanCong extends DAO {
             ResultSet rs = prs.executeQuery();
             while(rs.next()){
                 String maNhanVien = rs.getString(2);
-                LocalDateTime thoiGianVaoCa = UtilityLocalDateTime.toLocalDate(rs.getTimestamp(3));
-                LocalDateTime thoiGianRaCa = UtilityLocalDateTime.toLocalDate(rs.getTimestamp(4));
+                LocalDateTime thoiGianVaoCa = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(3));
+                LocalDateTime thoiGianRaCa = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(4));
                 
                 LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);

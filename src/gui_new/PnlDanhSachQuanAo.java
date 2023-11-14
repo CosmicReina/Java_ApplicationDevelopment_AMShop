@@ -62,10 +62,6 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         
         UtilityJTextField.addPlaceHolderStyle(txtMaQuanAo);
         UtilityJTextField.addPlaceHolderStyle(txtTenQuanAo);
-        UtilityJTextField.addPlaceHolderStyle(txtSoLuong);
-        UtilityJTextField.addPlaceHolderStyle(txtHoTen);
-        UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
-        UtilityJTextField.addPlaceHolderStyle(txtDiaChi);
         
         ArrayList<String> listNhaSanXuat = DAO_NhaSanXuat.getAllNhaSanXuat();
         ArrayList<String> listDanhMuc = DAO_DanhMuc.getAllDanhMuc();
@@ -120,145 +116,6 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         }
     }
     
-    private void updateTableDonHang(ArrayList<ChiTietHoaDon> list){
-        tongTien = 0;
-        DefaultTableModel model = (DefaultTableModel) tblDonHang.getModel();
-        model.getDataVector().removeAllElements();
-        tblDonHang.revalidate();
-        tblDonHang.repaint();
-        for(ChiTietHoaDon thisChiTietHoaDon : list){
-            tongTien += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
-            model.addRow(new Object[]{
-                thisChiTietHoaDon.getQuanAo().getMaQuanAo(),
-                thisChiTietHoaDon.getQuanAo().getTenQuanAo(),
-                thisChiTietHoaDon.getSoLuong(),
-                thisChiTietHoaDon.getDonGia(),
-                FormatDouble.toMoney(thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia())
-            });
-        }
-        txtTongTien.setText(FormatDouble.toMoney(tongTien));
-    }
-    
-    private void themQuanAoVaoDonHang(){
-        int i = tblQuanAo.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một sản phẩm.");
-            return;
-        }
-            
-        String soLuongString = txtSoLuong.getText();
-        int soLuong = 0;
-        if(soLuongString.equals("Số Lượng"))
-            soLuong = 1;
-        else{
-            try{
-                soLuong = Integer.parseInt(soLuongString);
-            }
-            catch(NumberFormatException e){
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập Số Lượng hợp lệ.");
-                return;
-            }
-        }
-        
-        String maQuanAo = tblQuanAo.getValueAt(i, 0).toString();
-        QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
-        
-        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(null, quanAo, soLuong, quanAo.getDonGiaBan());
-        if(listDonHang.contains(chiTietHoaDon)){
-            ChiTietHoaDon cthd = listDonHang.get(listDonHang.indexOf(chiTietHoaDon));
-            cthd.setSoLuong(cthd.getSoLuong() + chiTietHoaDon.getSoLuong());
-        }
-        else{
-            listDonHang.add(chiTietHoaDon);
-        }
-        tblQuanAo.clearSelection();
-        updateTableDonHang(listDonHang);
-    }
-    
-    private void thanhToanChoDonHang(){
-        String error = "";
-        
-        String maHoaDon = GenerateID.generateMaHoaDon();
-        
-        String hoTen = txtHoTen.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        String diaChi = txtDiaChi.getText();
-        
-        String tienDuaString = txtTienDua.getText();
-        double tienDua = 0;
-        
-        if(listDonHang.isEmpty()){
-            JOptionPane.showMessageDialog(null, "Vui lòng thêm ít nhất một Quần Áo vào đơn hàng.");
-            return;
-        }
-        
-        if(hoTen.equals("Họ Tên")) //Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Họ Tên.";
-        else
-            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$")) //Kiểm tra Biểu thức chính quy
-                error += "\n- Vui lòng nhập Họ Tên hợp lệ.";
-        
-        if(soDienThoai.equals("Số Điện Thoại")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Số Điện Thoại.";
-        else
-            if(!soDienThoai.matches("0{1}[0-9]{9}")) // Kiểm tra biểu thức chính quy
-                error += "\n- Vui lòng nhập Số Điện Thoại hợp lệ.";
-        
-        if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
-            error += "\n- Vui lòng nhập Địa Chỉ.";
-        
-        if(tienDuaString.equals(""))
-            error += "\n- Vui lòng nhập Tiền Khách Đưa.";
-        else{
-            try{
-                tienDua = Double.parseDouble(tienDuaString);
-                if(tienDua < tongTien){
-                    error += "\n- Tiền Khách Đưa phải lớn hơn hoặc bằng Tổng Tiền.";
-                }
-            }
-            catch(NumberFormatException e){
-                error += "\n- Vui lòng nhập Tiền Khách Đưa hợp lệ.";
-            }
-        }
-        
-        if(!error.equals("")){
-            String throwMessage = "Lỗi nhập liệu: " + error;
-            JOptionPane.showMessageDialog(null, throwMessage);
-            return;
-        }
-        KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
-        if(khachHang == null){
-            String maKhachHang = GenerateID.generateMaKhachHang();
-            String nhomKhachHang = "Thường";
-            khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
-            DAO_KhachHang.createKhachHang(khachHang);
-        }
-
-        CuaHang cuaHang = DAO_CuaHang.getCuaHang();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
-        LocalDateTime thoiGianTao = LocalDateTime.now();
-
-        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
-
-        boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
-
-        for(ChiTietHoaDon thisChiTietHoaDon : listDonHang){
-            thisChiTietHoaDon.setHoaDon(hoaDon);
-            DAO_ChiTietHoaDon.createChiTietHoaDon(thisChiTietHoaDon);
-        }
-        
-        if(themHoaDon){
-            try {
-                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienDua);
-                JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
-                PnlMain.getInstance().showPanel(newInstance());
-                //Show ChiTietHoaDon
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Gặp Lỗi Khi In Hóa Đơn.");
-            }
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -276,9 +133,6 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         cmbKichThuoc = new javax.swing.JComboBox<>();
         cmbChatLieu = new javax.swing.JComboBox<>();
         btnTimKiem = new javax.swing.JButton();
-        btnThem = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
-        txtSoLuong = new javax.swing.JTextField();
         pnlHinhAnh = new javax.swing.JPanel();
         lblHinhAnh = new javax.swing.JLabel();
 
@@ -366,30 +220,6 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
             }
         });
 
-        btnThem.setBackground(new java.awt.Color(170, 238, 255));
-        btnThem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-
-        btnXoa.setBackground(new java.awt.Color(170, 238, 255));
-        btnXoa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnXoa.setText("Xóa");
-
-        txtSoLuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtSoLuong.setText("Số Lượng");
-        txtSoLuong.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSoLuongFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtSoLuongFocusLost(evt);
-            }
-        });
-
         pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
         pnlHinhAnh.setPreferredSize(new java.awt.Dimension(196, 270));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
@@ -404,10 +234,9 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(cmbGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(cmbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(cmbKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -419,16 +248,12 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
                     .addGroup(pnlTimKiemLayout.createSequentialGroup()
                         .addComponent(cmbNhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSoLuong)))
+                        .addComponent(cmbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTimKiemLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         pnlTimKiemLayout.setVerticalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,15 +275,9 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
                     .addComponent(cmbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.EAST);
@@ -474,11 +293,6 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         UtilityJTextField.focusGained(txtTenQuanAo, "Tên Quần Áo");
     }//GEN-LAST:event_txtTenQuanAoFocusGained
 
-    private void txtSoLuongFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusGained
-        // TODO add your handling code here:
-        UtilityJTextField.focusGained(txtSoLuong, "Số Lượng");
-    }//GEN-LAST:event_txtSoLuongFocusGained
-
     private void txtMaQuanAoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaQuanAoFocusLost
         // TODO add your handling code here:
         UtilityJTextField.focusLost(txtMaQuanAo, "Mã Quần Áo");
@@ -489,24 +303,12 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
         UtilityJTextField.focusLost(txtTenQuanAo, "Tên Quần Áo");
     }//GEN-LAST:event_txtTenQuanAoFocusLost
 
-    private void txtSoLuongFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSoLuongFocusLost
-        // TODO add your handling code here:
-        UtilityJTextField.focusLost(txtSoLuong, "Số Lượng");
-    }//GEN-LAST:event_txtSoLuongFocusLost
-
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        themQuanAoVaoDonHang();
-    }//GEN-LAST:event_btnThemActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cmbChatLieu;
     private javax.swing.JComboBox<String> cmbDanhMuc;
     private javax.swing.JComboBox<String> cmbGioiTinh;
@@ -520,7 +322,6 @@ public class PnlDanhSachQuanAo extends javax.swing.JPanel implements MouseListen
     private javax.swing.JScrollPane scrQuanAo;
     private javax.swing.JTable tblQuanAo;
     private javax.swing.JTextField txtMaQuanAo;
-    private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenQuanAo;
     // End of variables declaration//GEN-END:variables
 
