@@ -287,6 +287,11 @@ public class PnlLichLamViec extends javax.swing.JPanel {
             chiTietPhanCongUpdate = listPC.get(listPC.indexOf(chiTietPhanCong));
         if(chiTietPhanCongUpdate == null) return;
         
+        if(chiTietPhanCongUpdate.getThoiGianVaoCa() == null){
+            JOptionPane.showMessageDialog(null, "Vui lòng chấm công vào ca cho nhân viên trước");
+            return;
+        }
+        
         LocalDateTime thoiGianRaCa = LocalDateTime.now();
         chiTietPhanCongUpdate.setThoiGianRaCa(thoiGianRaCa);
 
