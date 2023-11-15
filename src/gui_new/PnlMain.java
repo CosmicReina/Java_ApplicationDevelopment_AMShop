@@ -66,6 +66,10 @@ public class PnlMain extends javax.swing.JPanel {
 //            listBtnThongKe.add(btnThongKeQuanAoDaNhap);
 //            listBtnThongKe.add(btnThongKeQuanAoDaBan);
 //            listBtnThongKe.add(btnThongKeQuanAoDaHet);
+
+            btnLichLamViec.setEnabled(true);
+
+            btnThongKe.setEnabled(true);
         }
         else{
             listBtnNhanVien.add(btnLapHoaDon);
