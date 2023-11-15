@@ -5,9 +5,11 @@ import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import data.FormatDate;
 import data.FormatDouble;
+import data.GenerateBaoCaoDoanhThu;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 public class PnlThongKeDoanhThu extends javax.swing.JPanel {
     
     private static PnlThongKeDoanhThu instance = new PnlThongKeDoanhThu();
+    
+    private ArrayList<HoaDon> listHoaDon = new ArrayList<>();
+    private LocalDate ngayBatDau;
+    private LocalDate ngayKetThuc;
 
     public static PnlThongKeDoanhThu getInstance() {
         return instance;
@@ -89,11 +95,32 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
             }
             txtTongSoHoaDon.setText(Integer.toString(listHD.size()));
             txtTongSoDoanhThu.setText(FormatDouble.toMoney(tongDoanhThu));
+            listHoaDon = listHD;
+            this.ngayBatDau = ngayBatDau;
+            this.ngayKetThuc = ngayKetThuc;
         }
         else{
             String throwMessage = "Lỗi nhập liệu: " + error;
             JOptionPane.showMessageDialog(null, throwMessage);
         }
+    }
+    
+    private void inBaoCaoThongKe(){
+        try {
+            if(listHoaDon.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Vui lòng tạo thống kê trước.");
+                return;
+            }
+            if(GenerateBaoCaoDoanhThu.createBaoCaoDoanhThu(listHoaDon, ngayBatDau, ngayKetThuc) == true){
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thành công.");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thất bại.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -184,6 +211,11 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
         btnInBaoCao.setBackground(new java.awt.Color(0, 255, 255));
         btnInBaoCao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnInBaoCao.setText("In báo cáo");
+        btnInBaoCao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInBaoCaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlThongKeLayout = new javax.swing.GroupLayout(pnlThongKe);
         pnlThongKe.setLayout(pnlThongKeLayout);
@@ -241,6 +273,11 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
         // TODO add your handling code here:
         updateTable();
     }//GEN-LAST:event_btnThongKeActionPerformed
+
+    private void btnInBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInBaoCaoActionPerformed
+        // TODO add your handling code here:
+        inBaoCaoThongKe();
+    }//GEN-LAST:event_btnInBaoCaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInBaoCao;

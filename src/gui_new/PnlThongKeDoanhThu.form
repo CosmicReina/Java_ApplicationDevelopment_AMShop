@@ -278,6 +278,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="In b&#xe1;o c&#xe1;o"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInBaoCaoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
