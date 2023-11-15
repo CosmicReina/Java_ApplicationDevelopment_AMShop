@@ -149,7 +149,11 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
 
         for(ChiTietDonDatHang thisChiTietDonDatHang : listChiTietDonDatHang){
-            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon, thisChiTietDonDatHang.getQuanAo(), thisChiTietDonDatHang.getSoLuong(), thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
+            ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(
+                    hoaDon, 
+                    thisChiTietDonDatHang.getQuanAo(), 
+                    thisChiTietDonDatHang.getSoLuong(), 
+                    thisChiTietDonDatHang.getQuanAo().getDonGiaBan());
             listChiTietHoaDon.add(chiTietHoaDon);
             DAO_ChiTietHoaDon.createChiTietHoaDon(chiTietHoaDon);
         }
@@ -159,9 +163,12 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
                 GenerateInvoice.createAMShopInvoice(hoaDon, listChiTietHoaDon, tongTien, tienDua);
                 donDatHangHienTai.setTrangThaiThanhToan(true);
                 DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
-                JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
+                JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công.");
                 PnlMain.getInstance().showPanel(newInstance());
-                // TODO: Show ChiTietHoaDon
+                
+                PnlMain.getInstance().showPanel(PnlChiTietHoaDon.newInstance());
+                PnlChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
+                PnlChiTietHoaDon.getInstance().setPnlBefore(newInstance());
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, "Gặp Lỗi Khi In Hóa Đơn.");
             }

@@ -1,11 +1,13 @@
 package dao;
 
+import data.UtilityLocalDate;
 import data.UtilityLocalDateTime;
 import entity.CuaHang;
 import entity.HoaDon;
 import entity.KhachHang;
 import entity.NhanVien;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -41,6 +43,38 @@ public class DAO_HoaDon extends DAO {
         try {
             String sql = "SELECT * FROM HoaDon";
             ResultSet rs = getResultSet(sql);
+            while(rs.next()) {
+                String maHoaDon = rs.getString(1);
+                String maNhanVien = rs.getString(3);
+                String maKhachHang = rs.getString(4);
+                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                
+                CuaHang cuaHang = DAO_CuaHang.getCuaHang();
+                NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
+                KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
+                
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+                
+                list.add(hoaDon);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return list;
+    }
+    
+    public static ArrayList<HoaDon> getAllHoaDonTrongKhoangNgay(LocalDate ngayBatDau, LocalDate ngayKetThuc){
+        ArrayList<HoaDon> list = new ArrayList<>();
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM HoaDon "
+                    + "WHERE ThoiGianTao BETWEEN ? AND ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setDate(1, UtilityLocalDate.fromLocalDate(ngayBatDau));
+            prs.setDate(2, UtilityLocalDate.fromLocalDate(ngayKetThuc));
+            
+            ResultSet rs = prs.executeQuery();
             while(rs.next()) {
                 String maHoaDon = rs.getString(1);
                 String maNhanVien = rs.getString(3);

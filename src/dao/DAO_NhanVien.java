@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class DAO_NhanVien extends DAO {
     
-    private static NhanVien nhanVienHienTai = getNhanVienTheoMaNhanVien("NV23111401");
+    private static NhanVien nhanVienHienTai = getNhanVienTheoMaNhanVien("NV12312312");
 
     public static NhanVien getNhanVienHienTai() {
         return nhanVienHienTai;
@@ -83,8 +83,8 @@ public class DAO_NhanVien extends DAO {
             prs.setDate(5, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             prs.setString(6, nhanVien.getCanCuocCongDan());
             prs.setString(7, nhanVien.getGioiTinh());
-            prs.setDate(8, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
-            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
+            prs.setDate(8, UtilityLocalDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
+            prs.setDate(9, UtilityLocalDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
             prs.setDouble(10, nhanVien.getLuong());
             
             DAO_TaiKhoan.updateTaiKhoan(nhanVien.getTenDangNhap(), nhanVien.getMatKhau());

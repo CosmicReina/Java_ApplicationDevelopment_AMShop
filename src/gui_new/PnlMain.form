@@ -19,6 +19,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDanhSachDonDatHangActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JButton" name="btnDanhSachNhanVien">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Danh S&#xe1;ch Nh&#xe2;n Vi&#xea;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDanhSachNhanVienActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="btnThemNhanVien">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m Nh&#xe2;n Vi&#xea;n"/>

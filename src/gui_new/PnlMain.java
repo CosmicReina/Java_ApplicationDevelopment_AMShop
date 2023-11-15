@@ -1,9 +1,12 @@
 package gui_new;
 
+import dao.DAO_NhanVien;
 import data.UtilityJButton;
+import entity.NhanVien;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class PnlMain extends javax.swing.JPanel {
@@ -34,31 +37,53 @@ public class PnlMain extends javax.swing.JPanel {
     private void initExtra(){
         UtilityJButton.removeFocusPainted(UtilityJButton.getAllJButtons(this));
         addBtnToList();
+        showPanel(PnlTrangChu.newInstance());
     }
     
     private void addBtnToList(){
-        listBtnNhanVien.add(btnLapHoaDon);
-        listBtnNhanVien.add(btnDanhSachDonDatHang);
-        listBtnNhanVien.add(btnThemNhanVien);
-        listBtnNhanVien.add(btnCapNhatNhanVien);
-        listBtnNhanVien.add(btnThongTinNhanVien);
+        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        if(nhanVien.getChucVu().equals("Người Quản Lý")){
+            listBtnNhanVien.add(btnLapHoaDon);
+            listBtnNhanVien.add(btnDanhSachDonDatHang);
+            listBtnNhanVien.add(btnDanhSachNhanVien);
+            listBtnNhanVien.add(btnThemNhanVien);
+            listBtnNhanVien.add(btnCapNhatNhanVien);
+            listBtnNhanVien.add(btnThongTinNhanVien);
+
+            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnCapNhatKhachHang);
+
+            listBtnHoaDon.add(btnDanhSachHoaDon);
+
+            listBtnQuanAo.add(btnDanhSachQuanAo);
+            listBtnQuanAo.add(btnThemQuanAo);
+            listBtnQuanAo.add(btnCapNhatQuanAo);
+
+            listBtnLichLamViec.add(btnDanhSachLichLamViec);
+
+            listBtnThongKe.add(btnThongKeDoanhThu);
+//            listBtnThongKe.add(btnThongKeKhachHang);
+//            listBtnThongKe.add(btnThongKeQuanAoDaNhap);
+//            listBtnThongKe.add(btnThongKeQuanAoDaBan);
+//            listBtnThongKe.add(btnThongKeQuanAoDaHet);
+        }
+        else{
+            listBtnNhanVien.add(btnLapHoaDon);
+            listBtnNhanVien.add(btnDanhSachDonDatHang);
+            listBtnNhanVien.add(btnThongTinNhanVien);
+            
+            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnCapNhatKhachHang);
+            
+            listBtnHoaDon.add(btnDanhSachHoaDon);
+            
+            listBtnQuanAo.add(btnDanhSachQuanAo);
+            
+            btnLichLamViec.setEnabled(false);
+            
+            btnThongKe.setEnabled(false);
+        }
         
-        listBtnKhachHang.add(btnDanhSachKhachHang);
-        listBtnKhachHang.add(btnCapNhatKhachHang);
-        
-        listBtnHoaDon.add(btnDanhSachHoaDon);
-        
-        listBtnQuanAo.add(btnDanhSachQuanAo);
-        listBtnQuanAo.add(btnThemQuanAo);
-        listBtnQuanAo.add(btnCapNhatQuanAo);
-        
-        listBtnLichLamViec.add(btnDanhSachLichLamViec);
-        
-        listBtnThongKe.add(btnThongKeDoanhThu);
-        listBtnThongKe.add(btnThongKeKhachHang);
-        listBtnThongKe.add(btnThongKeQuanAoDaNhap);
-        listBtnThongKe.add(btnThongKeQuanAoDaBan);
-        listBtnThongKe.add(btnThongKeQuanAoDaHet);
     }
     
     public void showPanel(JPanel panel){
@@ -68,6 +93,14 @@ public class PnlMain extends javax.swing.JPanel {
     	pnlWork.setLayout(new BorderLayout());
     	pnlWork.add(panel, BorderLayout.CENTER);
     }
+    
+    private void dangXuat(){
+        int i = JOptionPane.showConfirmDialog(null, "Đăng Xuất Chương Trình?", "Đăng Xuất", JOptionPane.YES_NO_OPTION);
+        if(i == JOptionPane.YES_OPTION){
+            FrmLogin.newInstance().setVisible(true);
+            FrmMain.getInstance().dispose();
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -75,6 +108,7 @@ public class PnlMain extends javax.swing.JPanel {
 
         btnLapHoaDon = new javax.swing.JButton();
         btnDanhSachDonDatHang = new javax.swing.JButton();
+        btnDanhSachNhanVien = new javax.swing.JButton();
         btnThemNhanVien = new javax.swing.JButton();
         btnCapNhatNhanVien = new javax.swing.JButton();
         btnThongTinNhanVien = new javax.swing.JButton();
@@ -121,6 +155,13 @@ public class PnlMain extends javax.swing.JPanel {
         btnDanhSachDonDatHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDanhSachDonDatHangActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachNhanVien.setText("Danh Sách Nhân Viên");
+        btnDanhSachNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachNhanVienActionPerformed(evt);
             }
         });
 
@@ -377,11 +418,12 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
         // TODO add your handling code here:
-        FrmMain.getInstance().dispose();
+        dangXuat();
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     private void btnTrangChuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrangChuActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlTrangChu.newInstance());
     }//GEN-LAST:event_btnTrangChuActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
@@ -440,16 +482,20 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnThongTinNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTinNhanVienActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlChiTietNhanVien.newInstance());
+        PnlChiTietNhanVien.getInstance().showChiTietNhanVien(DAO_NhanVien.getNhanVienHienTai().getMaNhanVien());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 
     private void btnDanhSachKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachKhachHangActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlDanhSachKhachHang.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachKhachHangActionPerformed
 
     private void btnCapNhatKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatKhachHangActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlCapNhatKhachHang.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnCapNhatKhachHangActionPerformed
 
@@ -479,11 +525,13 @@ public class PnlMain extends javax.swing.JPanel {
 
     private void btnDanhSachLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachLichLamViecActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlLichLamViec.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachLichLamViecActionPerformed
 
     private void btnThongKeDoanhThuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeDoanhThuActionPerformed
         // TODO add your handling code here:
+        showPanel(PnlThongKeDoanhThu.newInstance());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongKeDoanhThuActionPerformed
 
@@ -507,6 +555,12 @@ public class PnlMain extends javax.swing.JPanel {
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongKeQuanAoDaHetActionPerformed
 
+    private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
+        // TODO add your handling code here:
+        showPanel(PnlDanhSachNhanVien.newInstance());
+        FrmMain.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhatKhachHang;
     private javax.swing.JButton btnCapNhatNhanVien;
@@ -516,6 +570,7 @@ public class PnlMain extends javax.swing.JPanel {
     private javax.swing.JButton btnDanhSachHoaDon;
     private javax.swing.JButton btnDanhSachKhachHang;
     private javax.swing.JButton btnDanhSachLichLamViec;
+    private javax.swing.JButton btnDanhSachNhanVien;
     private javax.swing.JButton btnDanhSachQuanAo;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;

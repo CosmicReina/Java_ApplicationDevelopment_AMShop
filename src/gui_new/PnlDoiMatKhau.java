@@ -1,7 +1,7 @@
 package gui_new;
 
-public class PnlMatKhau extends javax.swing.JPanel {
-    public PnlMatKhau() {
+public class PnlDoiMatKhau extends javax.swing.JPanel {
+    public PnlDoiMatKhau() {
         initComponents();
     }
 

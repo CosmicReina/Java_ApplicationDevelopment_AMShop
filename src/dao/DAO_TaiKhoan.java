@@ -57,4 +57,23 @@ public class DAO_TaiKhoan extends DAO {
         }
         return null;
     }
+    
+    public static boolean kiemTraDangNhap(String tenDangNhap, String matKhau){
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM TaiKhoan "
+                    + "WHERE TenDangNhap = ? AND MatKhau = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, tenDangNhap);
+            prs.setString(2, matKhau);
+            
+            ResultSet rs = prs.executeQuery();
+            if(rs.next()) return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+            return false;
+        }
+        return false;
+    }
 }
