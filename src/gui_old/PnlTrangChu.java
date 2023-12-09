@@ -1,4 +1,4 @@
-package gui_new;
+package gui_old;
 
 public class PnlTrangChu extends javax.swing.JPanel {
     

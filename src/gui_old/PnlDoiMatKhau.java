@@ -1,4 +1,4 @@
-package gui_new;
+package gui_old;
 
 public class PnlDoiMatKhau extends javax.swing.JPanel {
     public PnlDoiMatKhau() {

@@ -1,4 +1,4 @@
-package gui_new;
+package gui_old;
 
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;

@@ -1,7 +1,7 @@
 package initiate;
 
 import connect.ConnectDB;
-import gui_new.FrmLogin;
+import gui_old.FrmLogin;
 
 public class Initiate {
     public static void main(String[] args) {
