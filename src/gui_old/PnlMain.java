@@ -41,7 +41,7 @@ public class PnlMain extends javax.swing.JPanel {
     }
     
     private void addBtnToList(){
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
         if(nhanVien.getChucVu().equals("Người Quản Lý")){
             listBtnNhanVien.add(btnLapHoaDon);
             listBtnNhanVien.add(btnDanhSachDonDatHang);
@@ -487,7 +487,7 @@ public class PnlMain extends javax.swing.JPanel {
     private void btnThongTinNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTinNhanVienActionPerformed
         // TODO add your handling code here:
         showPanel(PnlChiTietNhanVien.newInstance());
-        PnlChiTietNhanVien.getInstance().showChiTietNhanVien(DAO_NhanVien.getNhanVienHienTai().getMaNhanVien());
+        PnlChiTietNhanVien.getInstance().showChiTietNhanVien(DAO_NhanVien.nhanVienHienTai.getMaNhanVien());
         FrmMain.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 

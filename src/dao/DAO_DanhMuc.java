@@ -45,8 +45,8 @@ public class DAO_DanhMuc {
                     + "WHERE DanhMuc = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, danhMuc);
-            ResultSet rs = prs.executeQuery();
             
+            ResultSet rs = prs.executeQuery();
             if(rs.next())
                 return true;
         } catch (SQLException ex) {

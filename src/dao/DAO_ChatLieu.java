@@ -45,8 +45,8 @@ public class DAO_ChatLieu {
                     + "WHERE ChatLieu = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, chatLieu);
-            ResultSet rs = prs.executeQuery();
             
+            ResultSet rs = prs.executeQuery();
             if(rs.next())
                 return true;
         } catch (SQLException ex) {

@@ -48,7 +48,6 @@ public class DAO_ChiTietDonDatHang extends DAO {
                 QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
                 
                 ChiTietDonDatHang chiTietDonDatHang = new ChiTietDonDatHang(donDatHang, quanAo, soLuong);
-                
                 list.add(chiTietDonDatHang);
             }
         } catch (SQLException ex) {

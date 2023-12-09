@@ -64,7 +64,6 @@ public class DAO_LichLamViec extends DAO {
                 CaLamViec caLamViec = DAO_CaLamViec.getCaLamViecTheoMaCaLamViec(maCaLamViec);
                 
                 LichLamViec lichLamViec = new LichLamViec(maLichLamViec, ngayLamViec, caLamViec);
-                
                 list.add(lichLamViec);
             }
         } catch (SQLException ex) {
@@ -81,6 +80,7 @@ public class DAO_LichLamViec extends DAO {
                     + "WHERE MaLichLamViec = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, maLichLamViec);
+            
             ResultSet rs = prs.executeQuery();
             while(rs.next()){
                 LocalDate ngayLamViec = UtilityLocalDate.toLocalDate(rs.getDate(2));
@@ -89,7 +89,6 @@ public class DAO_LichLamViec extends DAO {
                 CaLamViec caLamViec = DAO_CaLamViec.getCaLamViecTheoMaCaLamViec(maCaLamViec);
                 
                 LichLamViec lichLamViec = new LichLamViec(maLichLamViec, ngayLamViec, caLamViec);
-                
                 return lichLamViec;
             }
         } catch (SQLException ex) {

@@ -57,7 +57,7 @@ public class FrmMain extends javax.swing.JFrame {
     private void initiateLayeredPane(){
         pnlMain.setBounds(0, 0, 1366, 768);
         pnlMain.setLayout(new BorderLayout());
-        pnlMain.add(PnlMain.getInstance(), BorderLayout.CENTER);
+        pnlMain.add(PnlMain.newInstance(), BorderLayout.CENTER);
         lypMain.add(pnlMain, Integer.valueOf(1));
         
         pnlPopup = null;

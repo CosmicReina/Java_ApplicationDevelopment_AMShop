@@ -39,10 +39,10 @@ public class FrmLogin extends javax.swing.JFrame {
         if(kiemTraDangNhap){
             JOptionPane.showMessageDialog(null, "Đăng nhập thành công.");
             NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(tenDangNhap);
-            DAO_NhanVien.setNhanVienHienTai(nhanVien);
-            FrmMain frmMain = FrmMain.newInstance();
-            frmMain.setVisible(true);
-            dispose();
+            DAO_NhanVien.nhanVienHienTai = nhanVien;
+            FrmMain.newInstance();
+            FrmMain.getInstance().setVisible(true);
+            this.dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin tài khoản.");

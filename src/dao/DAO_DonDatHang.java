@@ -8,8 +8,6 @@ import entity.NhanVien;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DAO_DonDatHang extends DAO {
     public static boolean createDonDatHang(DonDatHang donDatHang){
@@ -66,7 +64,6 @@ public class DAO_DonDatHang extends DAO {
     public static boolean deleteDonDatHangTheoMaDonDatHang(String maDonDatHang){
         int n = 0;
         try {
-            
             String sql = ""
                     + "DELETE FROM DonDatHang "
                     + "WHERE MaDonDatHang = ?";
@@ -96,7 +93,6 @@ public class DAO_DonDatHang extends DAO {
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
                 DonDatHang donDatHang = new DonDatHang(maDonDatHang, nhanVien, khachHang, thoiGianTao, trangThaiThanhToan);
-                
                 list.add(donDatHang);
             }
         } catch (SQLException ex) {
@@ -113,8 +109,9 @@ public class DAO_DonDatHang extends DAO {
                     + "WHERE MaDonDatHang = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, maDonDatHang);
+            
             ResultSet rs = prs.executeQuery();
-            while(rs.next()){
+            if(rs.next()){
                 String maNhanVien = rs.getString(2);
                 String maKhachHang = rs.getString(3);
                 LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(4));
@@ -124,10 +121,8 @@ public class DAO_DonDatHang extends DAO {
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
                 DonDatHang donDatHang = new DonDatHang(maDonDatHang, nhanVien, khachHang, thoiGianTao, trangThaiThanhToan);
-                
                 return donDatHang;
             }
-            
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
@@ -144,6 +139,7 @@ public class DAO_DonDatHang extends DAO {
                     + "ORDER BY MaDonDatHang DESC";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, searchPrefix);
+            
             ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String maDonDatHangCuoi = rs.getString(1);

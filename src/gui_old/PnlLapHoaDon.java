@@ -27,8 +27,6 @@ import entity.KhachHang;
 import entity.NhanVien;
 import entity.QuanAo;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -275,7 +273,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         }
 
         CuaHang cuaHang = DAO_CuaHang.getCuaHang();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
         LocalDateTime thoiGianTao = LocalDateTime.now();
 
         HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
@@ -349,7 +347,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
             DAO_KhachHang.createKhachHang(khachHang);
         }
 
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
         LocalDateTime thoiGianTao = LocalDateTime.now();
 
         DonDatHang donDatHang = new DonDatHang(maDonDatHang, nhanVien, khachHang, thoiGianTao, false);

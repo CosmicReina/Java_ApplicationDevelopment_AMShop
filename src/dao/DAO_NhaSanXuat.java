@@ -44,8 +44,8 @@ public class DAO_NhaSanXuat extends DAO {
                     + "WHERE NhaSanXuat = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, nhaSanXuat);
-            ResultSet rs = prs.executeQuery();
             
+            ResultSet rs = prs.executeQuery();
             if(rs.next())
                 return true;
         } catch (SQLException ex) {

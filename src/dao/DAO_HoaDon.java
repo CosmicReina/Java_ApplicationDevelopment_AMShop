@@ -10,8 +10,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DAO_HoaDon extends DAO {
     public static boolean createHoaDon(HoaDon hoaDon){
@@ -58,7 +56,6 @@ public class DAO_HoaDon extends DAO {
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
                 HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
-                
                 list.add(hoaDon);
             }
         } catch (SQLException ex) {
@@ -91,7 +88,6 @@ public class DAO_HoaDon extends DAO {
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
                 HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
-                
                 list.add(hoaDon);
             }
         } catch (SQLException ex) {
@@ -108,8 +104,9 @@ public class DAO_HoaDon extends DAO {
                     + "WHERE MaHoaDon = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, maHoaDon);
+            
             ResultSet rs = prs.executeQuery();
-            while(rs.next()) {
+            if(rs.next()) {
                 String maNhanVien = rs.getString(3);
                 String maKhachHang = rs.getString(4);
                 LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
@@ -120,7 +117,6 @@ public class DAO_HoaDon extends DAO {
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
                 HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
-                
                 return hoaDon;
             }
             
@@ -140,6 +136,7 @@ public class DAO_HoaDon extends DAO {
                     + "ORDER BY MaHoaDon DESC";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, searchPrefix);
+            
             ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String maHoaDonCuoi = rs.getString(1);

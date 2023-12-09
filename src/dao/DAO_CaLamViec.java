@@ -19,7 +19,6 @@ public class DAO_CaLamViec extends DAO {
                 LocalTime thoiGianKetThuc = UtilityLocalTime.toLocalTime(rs.getTime(4));
                 
                 CaLamViec caLamViec = new CaLamViec(maCaLamViec, tenCaLamViec, thoiGianBatDau, thoiGianKetThuc);
-                
                 list.add(caLamViec);
             }
         } catch (SQLException ex) {
@@ -36,6 +35,7 @@ public class DAO_CaLamViec extends DAO {
                     + "WHERE MaCaLamViec = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setInt(1, maCaLamViec);
+            
             ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String tenCaLamViec = rs.getString(2);
@@ -43,7 +43,6 @@ public class DAO_CaLamViec extends DAO {
                 LocalTime thoiGianKetThuc = UtilityLocalTime.toLocalTime(rs.getTime(4));
                 
                 CaLamViec caLamViec = new CaLamViec(maCaLamViec, tenCaLamViec, thoiGianBatDau, thoiGianKetThuc);
-                
                 return caLamViec;
             }
         } catch (SQLException ex) {

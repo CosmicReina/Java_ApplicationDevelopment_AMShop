@@ -82,6 +82,7 @@ public class DAO_ChiTietPhanCong extends DAO {
                     + "WHERE MaLichLamViec = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, maLichLamViec);
+            
             ResultSet rs = prs.executeQuery();
             while(rs.next()){
                 String maNhanVien = rs.getString(2);
@@ -92,7 +93,6 @@ public class DAO_ChiTietPhanCong extends DAO {
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 
                 ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, thoiGianVaoCa, thoiGianRaCa);
-                
                 list.add(chiTietPhanCong);
             }
         } catch (SQLException ex) {

@@ -8,15 +8,9 @@ import java.time.LocalDate;
 
 public class DAO_NhanVien extends DAO {
     
-    private static NhanVien nhanVienHienTai = null;
+    public static NhanVien nhanVienHienTai = null;
 
-    public static NhanVien getNhanVienHienTai() {
-        return nhanVienHienTai;
-    }
 
-    public static void setNhanVienHienTai(NhanVien nhanVienHienTai) {
-        DAO_NhanVien.nhanVienHienTai = nhanVienHienTai;
-    }
     
     public static boolean createNhanVien(NhanVien nhanVien){
         int n = 0;

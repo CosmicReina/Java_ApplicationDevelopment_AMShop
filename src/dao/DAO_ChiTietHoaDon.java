@@ -51,7 +51,6 @@ public class DAO_ChiTietHoaDon extends DAO {
                 QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
                 
                 ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon(hoaDon, quanAo, soLuong, donGia);
-                
                 list.add(chiTietHoaDon);
             }
         } catch (SQLException ex) {

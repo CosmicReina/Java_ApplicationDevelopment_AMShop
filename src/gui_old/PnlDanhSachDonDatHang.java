@@ -141,7 +141,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         }
 
         CuaHang cuaHang = DAO_CuaHang.getCuaHang();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
+        NhanVien nhanVien = DAO_NhanVien.nhanVienHienTai;
         LocalDateTime thoiGianTao = LocalDateTime.now();
         
 
