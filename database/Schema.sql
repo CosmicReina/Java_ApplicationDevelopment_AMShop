@@ -1,6 +1,6 @@
 GO
 USE master
-DROP DATABASE AMShop
+--DROP DATABASE AMShop
 
 GO
 USE master
@@ -177,7 +177,8 @@ CREATE TABLE HoaDon
 	MaCuaHang nvarchar(16) NOT NULL,
 	MaNhanVien nvarchar(10) NOT NULL,
 	MaKhachHang nvarchar(10) NOT NULL,
-	ThoiGianTao datetime
+	ThoiGianTao datetime,
+	TienKhachDua decimal
 )
 
 ALTER TABLE HoaDon

@@ -22,14 +22,15 @@ public class DAO_HoaDon extends DAO {
                     + "?, "
                     + "?, "
                     + "?, "
-                    + "?"
-                    + ")";
+                    + "?, "
+                    + "?)";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, hoaDon.getMaHoaDon());
             prs.setString(2, hoaDon.getCuaHang().getMaCuaHang());
             prs.setString(3, hoaDon.getNhanVien().getMaNhanVien());
             prs.setString(4, hoaDon.getKhachHang().getMaKhachHang());
             prs.setTimestamp(5, UtilityLocalDateTime.fromLocalDateTime(hoaDon.getThoiGianTao()));
+            prs.setDouble(6, hoaDon.getTienKhachDua());
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -48,12 +49,13 @@ public class DAO_HoaDon extends DAO {
                 String maNhanVien = rs.getString(3);
                 String maKhachHang = rs.getString(4);
                 LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                double tienKhachDua = rs.getDouble(6);
                 
                 CuaHang cuaHang = DAO_CuaHang.getCuaHang();
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
-                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
                 
                 list.add(hoaDon);
             }
@@ -80,12 +82,13 @@ public class DAO_HoaDon extends DAO {
                 String maNhanVien = rs.getString(3);
                 String maKhachHang = rs.getString(4);
                 LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                double tienKhachDua = rs.getDouble(6);
                 
                 CuaHang cuaHang = DAO_CuaHang.getCuaHang();
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
-                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
                 
                 list.add(hoaDon);
             }

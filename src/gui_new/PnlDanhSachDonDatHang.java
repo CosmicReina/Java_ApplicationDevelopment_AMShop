@@ -109,15 +109,15 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         String soDienThoai = txtSoDienThoai.getText();
         String diaChi = txtDiaChi.getText();
         
-        String tienDuaString = txtTienDua.getText();
-        double tienDua = 0;
+        String tienKhachDuaString = txtTienDua.getText();
+        double tienKhachDua = 0;
         
-        if(tienDuaString.equals(""))
+        if(tienKhachDuaString.equals(""))
             error += "\n- Vui lòng nhập Tiền Khách Đưa.";
         else{
             try{
-                tienDua = Double.parseDouble(tienDuaString);
-                if(tienDua < tongTien){
+                tienKhachDua = Double.parseDouble(tienKhachDuaString);
+                if(tienKhachDua < tongTien){
                     error += "\n- Tiền Khách Đưa phải lớn hơn hoặc bằng Tổng Tiền.";
                 }
             }
@@ -143,8 +143,9 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         CuaHang cuaHang = DAO_CuaHang.getCuaHang();
         NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
         LocalDateTime thoiGianTao = LocalDateTime.now();
+        
 
-        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
 
         boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
 
@@ -160,7 +161,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         
         if(themHoaDon){
             try {
-                GenerateInvoice.createAMShopInvoice(hoaDon, listChiTietHoaDon, tongTien, tienDua);
+                GenerateInvoice.createAMShopInvoice(hoaDon, listChiTietHoaDon, tongTien, tienKhachDua);
                 donDatHangHienTai.setTrangThaiThanhToan(true);
                 DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
                 JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công.");

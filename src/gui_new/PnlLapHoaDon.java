@@ -223,8 +223,8 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         String soDienThoai = txtSoDienThoai.getText();
         String diaChi = txtDiaChi.getText();
         
-        String tienDuaString = txtTienDua.getText();
-        double tienDua = 0;
+        String tienKhachDuaString = txtTienDua.getText();
+        double tienKhachDua = 0;
         
         if(listDonHang.isEmpty()){
             JOptionPane.showMessageDialog(null, "Không có Quần Áo trong đơn hàng.");
@@ -246,12 +246,12 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         if(diaChi.equals("Địa Chỉ")) // Kiểm tra rỗng
             error += "\n- Vui lòng nhập Địa Chỉ.";
         
-        if(tienDuaString.equals(""))
+        if(tienKhachDuaString.equals(""))
             error += "\n- Vui lòng nhập Tiền Khách Đưa.";
         else{
             try{
-                tienDua = Double.parseDouble(tienDuaString);
-                if(tienDua < tongTien){
+                tienKhachDua = Double.parseDouble(tienKhachDuaString);
+                if(tienKhachDua < tongTien){
                     error += "\n- Tiền Khách Đưa phải lớn hơn hoặc bằng Tổng Tiền.";
                 }
             }
@@ -278,7 +278,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         NhanVien nhanVien = DAO_NhanVien.getNhanVienHienTai();
         LocalDateTime thoiGianTao = LocalDateTime.now();
 
-        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
+        HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
 
         boolean themHoaDon = DAO_HoaDon.createHoaDon(hoaDon);
 
@@ -293,7 +293,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         if(themHoaDon){
             try {
-                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienDua);
+                GenerateInvoice.createAMShopInvoice(hoaDon, listDonHang, tongTien, tienKhachDua);
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
                 PnlMain.getInstance().showPanel(newInstance());
 
