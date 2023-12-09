@@ -7,7 +7,7 @@ public class DAO_CuaHang extends DAO {
     public static CuaHang getCuaHang(){
         try {
             String sql = "SELECT * FROM CuaHang";
-            ResultSet rs = DAO.getResultSet(sql);
+            ResultSet rs = DAO.getResultSetFromStatement(sql);
             if(rs.next()){
                 String maCuaHang = rs.getString(1);
                 String tenCuaHang = rs.getString(2);

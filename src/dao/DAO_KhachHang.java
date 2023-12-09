@@ -3,6 +3,8 @@ package dao;
 import entity.KhachHang;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAO_KhachHang extends DAO {
     public static boolean createKhachHang(KhachHang khachHang){
@@ -60,7 +62,7 @@ public class DAO_KhachHang extends DAO {
         ArrayList<KhachHang> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM KhachHang";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             while(rs.next()){
                 String maKhachHang = rs.getString(1);
                 String hoTen = rs.getString(2);
@@ -79,30 +81,55 @@ public class DAO_KhachHang extends DAO {
     }
     
     public static KhachHang getKhachHangTheoMaKhachHang(String maKhachHang){
-        ArrayList<KhachHang> list = getAllKhachHang();
-        for(KhachHang thisKhachHang : list){
-            if(thisKhachHang.getMaKhachHang().equals(maKhachHang))
-                return thisKhachHang;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM KhachHang "
+                    + "WHERE MaKhachHang = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maKhachHang);
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()){
+                String hoTen = rs.getString(2);
+                String soDienThoai = rs.getString(3);
+                String diaChi = rs.getString(4);
+                String nhomKhachHang = rs.getString(5);
+                
+                KhachHang khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
+                
+                return khachHang;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }
     
     public static KhachHang getKhachHangTheoSoDienThoai(String soDienThoai){
-        ArrayList<KhachHang> list = getAllKhachHang();
-        for(KhachHang thisKhachHang : list){
-            if(thisKhachHang.getSoDienThoai().equals(soDienThoai))
-                return thisKhachHang;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM KhachHang "
+                    + "WHERE MaKhachHang = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, soDienThoai);
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()){
+                String maKhachHang = rs.getString(1);
+                String hoTen = rs.getString(2);
+                String diaChi = rs.getString(4);
+                String nhomKhachHang = rs.getString(5);
+                
+                KhachHang khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
+                
+                return khachHang;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
-    }
-    
-    public static boolean checkKhachHangTheoSoDienThoai(String soDienThoai){
-        ArrayList<KhachHang> list = getAllKhachHang();
-        for(KhachHang thisKhachHang : list){
-            if(thisKhachHang.getSoDienThoai().equals(soDienThoai))
-                return true;
-        }
-        return false;
     }
     
     public static String getMaKhachHangCuoi(String prefix){

@@ -8,6 +8,8 @@ import entity.NhanVien;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAO_DonDatHang extends DAO {
     public static boolean createDonDatHang(DonDatHang donDatHang){
@@ -61,11 +63,28 @@ public class DAO_DonDatHang extends DAO {
         return n > 0;
     }
     
+    public static boolean deleteDonDatHangTheoMaDonDatHang(String maDonDatHang){
+        int n = 0;
+        try {
+            
+            String sql = ""
+                    + "DELETE FROM DonDatHang "
+                    + "WHERE MaDonDatHang = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maDonDatHang);
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
+    }
+    
     public static ArrayList<DonDatHang> getAllDonDatHang(){
         ArrayList<DonDatHang> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM DonDatHang";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             while(rs.next()){
                 String maDonDatHang = rs.getString(1);
                 String maNhanVien = rs.getString(2);
@@ -87,10 +106,30 @@ public class DAO_DonDatHang extends DAO {
     }
     
     public static DonDatHang getDonDatHangTheoMaDonDatHang(String maDonDatHang){
-        ArrayList<DonDatHang> list = getAllDonDatHang();
-        for(DonDatHang thisDonDatHang : list){
-            if(thisDonDatHang.getMaDonDatHang().equals(maDonDatHang))
-                return thisDonDatHang;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM DonDatHang "
+                    + "WHERE MaDonDatHang = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maDonDatHang);
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()){
+                String maNhanVien = rs.getString(2);
+                String maKhachHang = rs.getString(3);
+                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(4));
+                boolean trangThaiThanhToan = rs.getBoolean(5);
+                
+                NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
+                KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
+                
+                DonDatHang donDatHang = new DonDatHang(maDonDatHang, nhanVien, khachHang, thoiGianTao, trangThaiThanhToan);
+                
+                return donDatHang;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }

@@ -10,6 +10,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAO_HoaDon extends DAO {
     public static boolean createHoaDon(HoaDon hoaDon){
@@ -43,7 +45,7 @@ public class DAO_HoaDon extends DAO {
         ArrayList<HoaDon> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM HoaDon";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             while(rs.next()) {
                 String maHoaDon = rs.getString(1);
                 String maNhanVien = rs.getString(3);
@@ -99,10 +101,31 @@ public class DAO_HoaDon extends DAO {
     }
     
     public static HoaDon getHoaDonTheoMaHoaDon(String maHoaDon){
-        ArrayList<HoaDon> list = getAllHoaDon();
-        for(HoaDon thisHoaDon : list){
-            if(thisHoaDon.getMaHoaDon().equals(maHoaDon))
-                return thisHoaDon;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM HoaDon "
+                    + "WHERE MaHoaDon = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maHoaDon);
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()) {
+                String maNhanVien = rs.getString(3);
+                String maKhachHang = rs.getString(4);
+                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                double tienKhachDua = rs.getDouble(6);
+                
+                CuaHang cuaHang = DAO_CuaHang.getCuaHang();
+                NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
+                KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
+                
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
+                
+                return hoaDon;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }

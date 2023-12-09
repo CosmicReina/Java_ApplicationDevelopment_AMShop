@@ -55,7 +55,7 @@ public class DAO_LichLamViec extends DAO {
         ArrayList<LichLamViec> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM LichLamViec";
-            ResultSet rs = DAO.getResultSet(sql);
+            ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 String maLichLamViec = rs.getString(1);
                 LocalDate ngayLamViec = UtilityLocalDate.toLocalDate(rs.getDate(2));
@@ -74,10 +74,26 @@ public class DAO_LichLamViec extends DAO {
     }
     
     public static LichLamViec getLichLamViecTheoMaLichLamViec(String maLichLamViec){
-        ArrayList<LichLamViec> list = getAllLichLamViec();
-        for(LichLamViec thisLichLamViec : list){
-            if(thisLichLamViec.getMaLichLamViec().equals(maLichLamViec))
-                return thisLichLamViec;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM LichLamViec "
+                    + "WHERE MaLichLamViec = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maLichLamViec);
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()){
+                LocalDate ngayLamViec = UtilityLocalDate.toLocalDate(rs.getDate(2));
+                int maCaLamViec = rs.getInt(3);
+                
+                CaLamViec caLamViec = DAO_CaLamViec.getCaLamViecTheoMaCaLamViec(maCaLamViec);
+                
+                LichLamViec lichLamViec = new LichLamViec(maLichLamViec, ngayLamViec, caLamViec);
+                
+                return lichLamViec;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }

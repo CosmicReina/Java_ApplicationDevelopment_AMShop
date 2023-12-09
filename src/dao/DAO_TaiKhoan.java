@@ -41,16 +41,16 @@ public class DAO_TaiKhoan extends DAO {
         return n > 0;
     }
     
-    public static ResultSet getTaiKhoanTheoMaNhanVien(String maNhanVien){
+    public static ResultSet getTaiKhoanTheoTenDangNhap(String tenDangNhap){
         try {
             String sql = ""
                     + "SELECT * "
                     + "FROM TaiKhoan "
                     + "WHERE TenDangNhap = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, maNhanVien);
-            
+            prs.setString(1, tenDangNhap);
             ResultSet rs = prs.executeQuery();
+            
             return rs;
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -67,9 +67,10 @@ public class DAO_TaiKhoan extends DAO {
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, tenDangNhap);
             prs.setString(2, matKhau);
-            
             ResultSet rs = prs.executeQuery();
-            if(rs.next()) return true;
+            
+            if(rs.next())
+                return true;
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
             return false;

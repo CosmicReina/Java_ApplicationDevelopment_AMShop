@@ -11,7 +11,7 @@ public class DAO_CaLamViec extends DAO {
         ArrayList<CaLamViec> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM CaLamViec";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             while(rs.next()){
                 int maCaLamViec = rs.getInt(1);
                 String tenCaLamViec = rs.getString(2);
@@ -29,10 +29,25 @@ public class DAO_CaLamViec extends DAO {
     }
     
     public static CaLamViec getCaLamViecTheoMaCaLamViec(int maCaLamViec){
-        ArrayList<CaLamViec> list = getAllCaLamViec();
-        for(CaLamViec thisCaLamViec : list){
-            if(thisCaLamViec.getMaCaLamViec() == maCaLamViec)
-                return thisCaLamViec;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM CaLamViec "
+                    + "WHERE MaCaLamViec = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setInt(1, maCaLamViec);
+            ResultSet rs = prs.executeQuery();
+            if(rs.next()){
+                String tenCaLamViec = rs.getString(2);
+                LocalTime thoiGianBatDau = UtilityLocalTime.toLocalTime(rs.getTime(3));
+                LocalTime thoiGianKetThuc = UtilityLocalTime.toLocalTime(rs.getTime(4));
+                
+                CaLamViec caLamViec = new CaLamViec(maCaLamViec, tenCaLamViec, thoiGianBatDau, thoiGianKetThuc);
+                
+                return caLamViec;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }

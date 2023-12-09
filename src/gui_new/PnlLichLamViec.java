@@ -1,7 +1,6 @@
 package gui_new;
 
 import dao.DAO_CaLamViec;
-import gui.*;
 import dao.DAO_ChiTietPhanCong;
 import dao.DAO_LichLamViec;
 import dao.DAO_NhanVien;
@@ -203,17 +202,13 @@ public class PnlLichLamViec extends javax.swing.JPanel {
         }
         
         String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
-        NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
         
         int y = tblDanhSachLichLamViec.getSelectedRow();
         if(y < 0) return;
         
         String maLichLamViec = tblDanhSachLichLamViec.getValueAt(y, 0).toString();
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
         
-        ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, null, null);
-        
-        if(DAO_ChiTietPhanCong.removeChiTietPhanCong(chiTietPhanCong)){
+        if(DAO_ChiTietPhanCong.deleteChiTietPhanCong(maLichLamViec, maNhanVien)){
             updateSauCapNhat(maLichLamViec);
         }
         else{

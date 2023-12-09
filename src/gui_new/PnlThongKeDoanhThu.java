@@ -1,6 +1,5 @@
 package gui_new;
 
-import gui.*;
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import data.FormatDate;

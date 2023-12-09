@@ -27,7 +27,7 @@ public class DAO_ChatLieu {
         ArrayList<String> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM ChatLieu";
-            ResultSet rs = DAO.getResultSet(sql);
+            ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 list.add(rs.getString(1));
             }
@@ -38,10 +38,20 @@ public class DAO_ChatLieu {
     }
     
     public static boolean kiemTraTonTai(String chatLieu){
-        ArrayList<String> list = getAllChatLieu();
-        for(String thisNhaSanXuat : list)
-            if(thisNhaSanXuat.equals(chatLieu))
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM ChatLieu "
+                    + "WHERE ChatLieu = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, chatLieu);
+            ResultSet rs = prs.executeQuery();
+            
+            if(rs.next())
                 return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
         return false;
     }
 }

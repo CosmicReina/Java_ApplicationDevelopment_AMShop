@@ -93,9 +93,8 @@ public class DAO_QuanAo extends DAO {
     public static ArrayList<QuanAo> getAllQuanAo(){
         ArrayList<QuanAo> list = new ArrayList<>();
         try {
-            
             String sql = "SELECT * FROM QuanAo";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             while(rs.next()){
                 String maQuanAo = rs.getString(1);
                 String tenQuanAo = rs.getString(2);
@@ -122,10 +121,35 @@ public class DAO_QuanAo extends DAO {
     }
     
     public static QuanAo getQuanAoTheoMaQuanAo(String maQuanAo){
-        ArrayList<QuanAo> list = getAllQuanAo();
-        for(QuanAo thisQuanAo : list){
-            if(thisQuanAo.getMaQuanAo().equals(maQuanAo))
-                return thisQuanAo;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM QuanAo "
+                    + "WHERE MaQuanAo = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maQuanAo);
+            ResultSet rs = prs.executeQuery();
+            while(rs.next()){
+                String tenQuanAo = rs.getString(2);
+                double donGiaNhap = rs.getDouble(3);
+                double donBan = rs.getDouble(4);
+                int soLuongTrongKho = rs.getInt(5);
+                String nhaSanXuat = rs.getString(6);
+                String danhMuc = rs.getString(7);
+                String gioiTinh = rs.getString(8);
+                String mauSac = rs.getString(9);
+                String kichThuoc = rs.getString(10);
+                String chatLieu = rs.getString(11);
+                ImageIcon hinhAnh  = UtilityImageIcon.fromBytes(rs.getBytes(12));
+                boolean ngungNhap = rs.getBoolean(13);
+                
+                QuanAo quanAo = new QuanAo(maQuanAo, tenQuanAo, donGiaNhap, donBan, soLuongTrongKho, nhaSanXuat, danhMuc, gioiTinh, mauSac, kichThuoc, chatLieu, hinhAnh, ngungNhap);
+                
+                return quanAo;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }
@@ -137,7 +161,7 @@ public class DAO_QuanAo extends DAO {
                     + "SELECT * "
                     + "FROM QuanAo "
                     + "ORDER BY MaQuanAO DESC";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             if(rs.next()){
                 maQuanAoCuoi = rs.getString(1);
                 return maQuanAoCuoi;
