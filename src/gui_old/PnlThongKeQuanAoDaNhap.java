@@ -1,6 +1,6 @@
 package gui_old;
 
-import gui.*;
+
 
 public class PnlThongKeQuanAoDaNhap extends javax.swing.JPanel {
     public PnlThongKeQuanAoDaNhap() {
