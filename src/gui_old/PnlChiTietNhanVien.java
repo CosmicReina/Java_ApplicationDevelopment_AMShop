@@ -3,8 +3,9 @@ package gui_old;
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import dao.DAO_NhanVien;
-import data.FormatDate;
+import data.FormatLocalDate;
 import data.FormatDouble;
+import data.FormatLocalDateTime;
 import data.UtilityLocalDate;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
@@ -50,12 +51,12 @@ public class PnlChiTietNhanVien extends javax.swing.JPanel {
         txtSoDienThoai.setText(nhanVien.getSoDienThoai());
         txtDiaChi.setText(nhanVien.getDiaChi());
         txtChucVu.setText(nhanVien.getChucVu());
-        txtNgaySinh.setText(FormatDate.fromLocalDate(nhanVien.getNgaySinh()));
+        txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
         txtCCCD.setText(nhanVien.getCanCuocCongDan());
         txtGioiTinh.setText(nhanVien.getGioiTinh());
-        txtNgayBatDauLam.setText(FormatDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
+        txtNgayBatDauLam.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgayBatDauLam()));
         if(nhanVien.getNgayKetThucLam() != null)
-            txtNgayKetThucLam.setText(FormatDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
+            txtNgayKetThucLam.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgayKetThucLam()));
         else
             txtNgayKetThucLam.setText("");
         txtLuong.setText(FormatDouble.toMoney(nhanVien.getLuong()));
@@ -77,7 +78,7 @@ public class PnlChiTietNhanVien extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 thisHoaDon.getMaHoaDon(),
                 thisHoaDon.getKhachHang().getHoTen(),
-                UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
                 FormatDouble.toMoney(tongTien)
             });
         }

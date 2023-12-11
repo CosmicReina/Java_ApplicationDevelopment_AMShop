@@ -113,7 +113,7 @@ public class GenerateInvoice {
         Text textInvoiceDateHeader = new Text("\nThời gian lập đơn: ");
         textInvoiceDateHeader
                 .setBold();
-        Text textInvoiceDateDetail = new Text(UtilityLocalDateTime.toFormattedLocalDateTime(hoaDon.getThoiGianTao()));
+        Text textInvoiceDateDetail = new Text(FormatLocalDateTime.toFormattedLocalDateTime(hoaDon.getThoiGianTao()));
         prgInvoiceHeader
                 .add(textInvoiceDateHeader)
                 .add(textInvoiceDateDetail)

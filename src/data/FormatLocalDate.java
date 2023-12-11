@@ -3,7 +3,7 @@ package data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class FormatDate {
+public class FormatLocalDate {
     public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     public static String fromLocalDate(LocalDate localDate){

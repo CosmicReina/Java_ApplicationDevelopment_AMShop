@@ -4,7 +4,8 @@ import dao.DAO_CaLamViec;
 import dao.DAO_ChiTietPhanCong;
 import dao.DAO_LichLamViec;
 import dao.DAO_NhanVien;
-import data.FormatDate;
+import data.FormatLocalDate;
+import data.FormatLocalDateTime;
 import data.GenerateID;
 import data.UtilityJTextField;
 import data.UtilityLocalDateTime;
@@ -82,8 +83,8 @@ public class PnlLichLamViec extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 thisChiTietPhanCong.getNhanVien().getMaNhanVien(),
                 thisChiTietPhanCong.getNhanVien().getHoTen(),
-                UtilityLocalDateTime.toFormattedLocalDateTime(thisChiTietPhanCong.getThoiGianVaoCa()),
-                UtilityLocalDateTime.toFormattedLocalDateTime(thisChiTietPhanCong.getThoiGianRaCa())
+                FormatLocalDateTime.toFormattedLocalDateTime(thisChiTietPhanCong.getThoiGianVaoCa()),
+                FormatLocalDateTime.toFormattedLocalDateTime(thisChiTietPhanCong.getThoiGianRaCa())
             });
         }
     }    
@@ -99,7 +100,7 @@ public class PnlLichLamViec extends javax.swing.JPanel {
             error += "\n- Vui lòng nhập Ngày Làm Việc.";
         else
             try{
-                ngayLamViec = FormatDate.toLocalDate(ngayLamViecString); // Kiểm tra chuyển đổi
+                ngayLamViec = FormatLocalDate.toLocalDate(ngayLamViecString); // Kiểm tra chuyển đổi
                 if(ngayLamViec.isBefore(LocalDate.now())){
                     error += "\n- Vui lòng nhập Ngày Làm Việc không bé hơn ngày hiện tại.";
                 }

@@ -2,7 +2,7 @@ package gui_old;
 
 import dao.DAO_ChucVu;
 import dao.DAO_NhanVien;
-import data.FormatDate;
+import data.FormatLocalDate;
 import data.FormatDouble;
 import data.GenerateID;
 import data.UtilityJTextField;
@@ -66,7 +66,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel {
                 thisNhanVien.getHoTen(),
                 thisNhanVien.getCanCuocCongDan(),
                 thisNhanVien.getSoDienThoai(),
-                FormatDate.fromLocalDate(thisNhanVien.getNgaySinh()),
+                FormatLocalDate.fromLocalDate(thisNhanVien.getNgaySinh()),
                 thisNhanVien.getGioiTinh(),
                 thisNhanVien.getChucVu(),
                 FormatDouble.toMoney(thisNhanVien.getLuong())
@@ -129,7 +129,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel {
             error += "\n- Vui lòng nhập Ngày Sinh.";
         else
             try{
-                ngaySinh = FormatDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
+                ngaySinh = FormatLocalDate.toLocalDate(ngaySinhString); // Kiểm tra chuyển đổi
                 if(LocalDate.now().getYear() - ngaySinh.getYear() < 18)
                     error += "\n- Ngày Sinh phải có năm sinh lớn hơn hoặc bằng 18.";
             }
@@ -255,7 +255,7 @@ public class PnlCapNhatNhanVien extends javax.swing.JPanel {
             txtHoTen.setText(nhanVien.getHoTen());
             txtCCCD.setText(nhanVien.getCanCuocCongDan());
             txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-            txtNgaySinh.setText(FormatDate.fromLocalDate(nhanVien.getNgaySinh()));
+            txtNgaySinh.setText(FormatLocalDate.fromLocalDate(nhanVien.getNgaySinh()));
             cmbGioiTinh.setSelectedItem(nhanVien.getGioiTinh());
             cmbChucVu.setSelectedItem(nhanVien.getChucVu());
             txtLuong.setText(String.format("%.0f", nhanVien.getLuong()));

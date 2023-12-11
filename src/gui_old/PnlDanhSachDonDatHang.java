@@ -15,6 +15,7 @@ import dao.DAO_NhaSanXuat;
 import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
 import data.FormatDouble;
+import data.FormatLocalDateTime;
 import data.GenerateID;
 import data.GenerateInvoice;
 import data.UtilityJTextField;
@@ -212,7 +213,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
                     thisDonDatHang.getNhanVien().getHoTen(),
                     thisDonDatHang.getKhachHang().getHoTen(),
                     thisDonDatHang.getKhachHang().getSoDienThoai(),
-                    UtilityLocalDateTime.toFormattedLocalDateTime(thisDonDatHang.getThoiGianTao()),
+                    FormatLocalDateTime.toFormattedLocalDateTime(thisDonDatHang.getThoiGianTao()),
                     FormatDouble.toMoney(tongTienThanhPhan)
                 });
             }

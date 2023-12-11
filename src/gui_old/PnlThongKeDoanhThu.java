@@ -2,8 +2,9 @@ package gui_old;
 
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
-import data.FormatDate;
+import data.FormatLocalDate;
 import data.FormatDouble;
+import data.FormatLocalDateTime;
 import data.GenerateBaoCaoDoanhThu;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
@@ -49,7 +50,7 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
             error += "\n- Vui lòng nhập Ngày Bắt Đầu thống kê.";
         else{
             try{
-                ngayBatDau = FormatDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
+                ngayBatDau = FormatLocalDate.toLocalDate(ngayBatDauString); // Kiểm tra chuyển đổi
             }
             catch(Exception e){
                 error += "\n- Vui lòng nhập Ngày Bắt Đầu hợp lệ (DD/MM/YYYY).";
@@ -60,7 +61,7 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
             error += "\n- Vui lòng nhập Ngày Kết Thúc thống kê.";
         else{
             try{
-                ngayKetThuc = FormatDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
+                ngayKetThuc = FormatLocalDate.toLocalDate(ngayKetThucString); // Kiểm tra chuyển đổi
                 if(ngayBatDau.isAfter(ngayKetThuc))
                     error += "\n- Ngày Kết Thúc Thống kê phải lớn hơn Ngày Bắt Đầu.";
             }
@@ -87,7 +88,7 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
                     thisHoaDon.getMaHoaDon(),
                     thisHoaDon.getNhanVien().getHoTen(),
                     thisHoaDon.getKhachHang().getHoTen(),
-                    UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                    FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
                     FormatDouble.toMoney(doanhThuThanhPhan)
                 });
                 tongDoanhThu += doanhThuThanhPhan;

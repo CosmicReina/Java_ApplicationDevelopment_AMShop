@@ -4,6 +4,7 @@ import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import dao.DAO_KhachHang;
 import data.FormatDouble;
+import data.FormatLocalDateTime;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -61,7 +62,7 @@ public class PnlChiTietKhachHang extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 thisHoaDon.getMaHoaDon(),
                 thisHoaDon.getNhanVien().getHoTen(),
-                UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
                 FormatDouble.toMoney(tongTien)
             });
         }

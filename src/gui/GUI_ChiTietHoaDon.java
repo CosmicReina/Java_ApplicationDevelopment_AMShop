@@ -3,6 +3,7 @@ package gui;
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import data.FormatDouble;
+import data.FormatLocalDateTime;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -67,7 +68,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         txtMaHoaDon.setText(hoaDon.getMaHoaDon());
         txtNhanVienLapDon.setText(hoaDon.getNhanVien().getHoTen());
         txtKhachHang.setText(hoaDon.getKhachHang().getHoTen());
-        txtThoiGianTao.setText(UtilityLocalDateTime.toFormattedLocalDateTime(hoaDon.getThoiGianTao()));
+        txtThoiGianTao.setText(FormatLocalDateTime.toFormattedLocalDateTime(hoaDon.getThoiGianTao()));
         txtTongTien.setText(FormatDouble.toMoney(tongTien));
     }
 

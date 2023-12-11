@@ -3,6 +3,7 @@ package gui_old;
 import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import data.FormatDouble;
+import data.FormatLocalDateTime;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -44,7 +45,7 @@ public class PnlDanhSachHoaDon extends javax.swing.JPanel {
                 thisHoaDon.getNhanVien().getHoTen(),
                 thisHoaDon.getKhachHang().getHoTen(),
                 thisHoaDon.getKhachHang().getSoDienThoai(),
-                UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
+                FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao()),
                 FormatDouble.toMoney(tongTienThanhPhan)
             });
         }

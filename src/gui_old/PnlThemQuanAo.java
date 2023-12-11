@@ -7,7 +7,7 @@ import dao.DAO_KichThuoc;
 import dao.DAO_MauSac;
 import dao.DAO_NhaSanXuat;
 import dao.DAO_QuanAo;
-import data.FormatDate;
+import data.FormatLocalDate;
 import data.FormatDouble;
 import data.GenerateID;
 import data.UtilityImageIcon;
