@@ -57,7 +57,6 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(490, 680));
 
         pnlDangNhap.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -83,6 +82,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
         btnDangNhap.setText("Đăng nhập");
         btnDangNhap.setBorderRadius(25);
         btnDangNhap.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDangNhap.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDangNhap.setColorClick(new java.awt.Color(119, 204, 255));
         btnDangNhap.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +94,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
         btnThoat.setText("Thoát");
         btnThoat.setBorderRadius(25);
         btnThoat.setColorBackground(new java.awt.Color(255, 102, 102));
+        btnThoat.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThoat.setColorClick(new java.awt.Color(255, 0, 0));
         btnThoat.setColorEnter(new java.awt.Color(255, 34, 102));
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
@@ -105,8 +106,9 @@ public class GUI_DangNhap extends javax.swing.JFrame {
         btnTraCuuChoKhachHang.setText("Tra cứu dành cho khách hàng");
         btnTraCuuChoKhachHang.setBorderRadius(25);
         btnTraCuuChoKhachHang.setColorBackground(new java.awt.Color(255, 255, 204));
+        btnTraCuuChoKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnTraCuuChoKhachHang.setColorClick(new java.awt.Color(255, 255, 0));
-        btnTraCuuChoKhachHang.setColorEnter(new java.awt.Color(255, 255, 102));
+        btnTraCuuChoKhachHang.setColorEnter(new java.awt.Color(255, 255, 153));
         btnTraCuuChoKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTraCuuChoKhachHangActionPerformed(evt);
@@ -128,17 +130,15 @@ public class GUI_DangNhap extends javax.swing.JFrame {
                         .addGroup(pnlDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTenDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblMatKhau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(pnlDangNhapLayout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlDangNhapLayout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDangNhapLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblVersion)))
+                        .addComponent(lblVersion))
+                    .addGroup(pnlDangNhapLayout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addGroup(pnlDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDangNhapLayout.createSequentialGroup()
                 .addGap(69, 69, 69)

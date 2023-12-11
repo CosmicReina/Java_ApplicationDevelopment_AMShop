@@ -18,16 +18,25 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
+import dao.DAO_ChiTietHoaDon;
+import dao.DAO_HoaDon;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class GenerateInvoice {
-    public static void createAMShopInvoice(HoaDon hoaDon, ArrayList<ChiTietHoaDon> list, double tongTien, double tienKhachDua) throws IOException{
-        String invoice_file_path = "files//hoaDon//" + hoaDon.getMaHoaDon() + ".pdf";
+    public static void createAMShopInvoice(String maHoaDon) throws IOException{
+        HoaDon hoaDon = DAO_HoaDon.getHoaDonTheoMaHoaDon(maHoaDon);
+        ArrayList<ChiTietHoaDon> list = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
+        double tienKhachDua = hoaDon.getTienKhachDua();
+        
+        double tongTien = 0;
+        for(ChiTietHoaDon thisChiTietHoaDon : list){
+            tongTien += thisChiTietHoaDon.getDonGia() * thisChiTietHoaDon.getSoLuong();
+        }
+        
+        String invoice_file_path = "files//hoaDon//" + maHoaDon + ".pdf";
         PdfWriter pdfWriter = new PdfWriter(invoice_file_path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);

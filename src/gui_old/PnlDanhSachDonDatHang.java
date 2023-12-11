@@ -161,7 +161,7 @@ public class PnlDanhSachDonDatHang extends javax.swing.JPanel {
         
         if(themHoaDon){
             try {
-                GenerateInvoice.createAMShopInvoice(hoaDon, listChiTietHoaDon, tongTien, tienKhachDua);
+                GenerateInvoice.createAMShopInvoice(maHoaDon);
                 donDatHangHienTai.setTrangThaiThanhToan(true);
                 DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
                 JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công.");

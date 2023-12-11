@@ -30,7 +30,7 @@ public class GUI_MainFrame extends javax.swing.JFrame {
     private void initiateLayeredPane(){
         pnlMain.setBounds(0, 0, 1366, 768);
         pnlMain.setLayout(new BorderLayout());
-        pnlMain.add(GUI_Main.newInsance(), BorderLayout.CENTER);
+        pnlMain.add(GUI_Main.newInstance(), BorderLayout.CENTER);
         lypMain.add(pnlMain, Integer.valueOf(1));
         
         pnlPopup = null;

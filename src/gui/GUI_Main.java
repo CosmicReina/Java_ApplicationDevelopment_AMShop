@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 public class GUI_Main extends javax.swing.JPanel {
     
-    private static GUI_Main insance = new GUI_Main();
+    private static GUI_Main instance = new GUI_Main();
     
     private ArrayList<JButton_AllRound> listBtnNhanVien = new ArrayList<>();
     private ArrayList<JButton_AllRound> listBtnKhachHang = new ArrayList<>();
@@ -19,13 +19,13 @@ public class GUI_Main extends javax.swing.JPanel {
     private ArrayList<JButton_AllRound> listBtnLichLamViec = new ArrayList<>();
     private ArrayList<JButton_AllRound> listBtnThongKe = new ArrayList<>();
 
-    public static GUI_Main getInsance() {
-        return insance;
+    public static GUI_Main getInstance() {
+        return instance;
     }
     
-    public static GUI_Main newInsance() {
-        insance = new GUI_Main();
-        return insance;
+    public static GUI_Main newInstance() {
+        instance = new GUI_Main();
+        return instance;
     }
 
     public GUI_Main() {
@@ -533,7 +533,7 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnLapHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapHoaDonActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        showPanel(GUI_LapHoaDon.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnLapHoaDonActionPerformed
 

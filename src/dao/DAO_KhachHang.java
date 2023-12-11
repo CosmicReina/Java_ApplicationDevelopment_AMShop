@@ -107,7 +107,7 @@ public class DAO_KhachHang extends DAO {
             String sql = ""
                     + "SELECT * "
                     + "FROM KhachHang "
-                    + "WHERE MaKhachHang = ?";
+                    + "WHERE SoDienThoai = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, soDienThoai);
             
