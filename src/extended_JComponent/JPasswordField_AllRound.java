@@ -8,11 +8,11 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicTextFieldUI;
+import javax.swing.plaf.basic.BasicPasswordFieldUI;
 
-public class JTextField_AllRound extends JTextField {
+public class JPasswordField_AllRound extends JPasswordField {
 
     public int getRound() {
         return round;
@@ -39,7 +39,7 @@ public class JTextField_AllRound extends JTextField {
     private BufferedImage imageShadow;
     private final Insets shadowSize = new Insets(2, 5, 8, 5);
 
-    public JTextField_AllRound() {
+    public JPasswordField_AllRound() {
         setUI(new TextUI());
         setOpaque(false);
         setForeground(new Color(80, 80, 80));
@@ -83,7 +83,7 @@ public class JTextField_AllRound extends JTextField {
         }
     }
 
-    private class TextUI extends BasicTextFieldUI {
+    private class TextUI extends BasicPasswordFieldUI {
 
         //  Override this method to remove background or not paint background
         @Override

@@ -79,6 +79,7 @@ public class JButton_AllRound extends JButton {
         this.initColor();
         this.setContentAreaFilled(false);
         this.setFocusPainted(false);
+        this.setBorderPainted(false);
         this.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e) {
