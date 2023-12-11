@@ -86,11 +86,8 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
         
         tblQuanAo.fixTable(scrQuanAo);
         tblDonHang.fixTable(scrDonHang);
-        
         scrQuanAo.getVerticalScrollBar().setUnitIncrement(40);
         
-        txtTongTien.setEditable(false);
-        txtTienThua.setEditable(false);
         txtTienDua.getDocument().addDocumentListener(new DocumentListener(){
             @Override
             public void insertUpdate(DocumentEvent e) {capNhatTienThua();}
@@ -869,8 +866,10 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
         lblTienThua.setForeground(new java.awt.Color(255, 255, 255));
         lblTienThua.setText("Tiền Thừa");
 
+        txtTongTien.setEditable(false);
         txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
 
+        txtTienThua.setEditable(false);
         txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
 
         btnTaoDonDatHang.setText("Tạo Đơn Đặt Hàng");
