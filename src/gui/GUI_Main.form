@@ -442,8 +442,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Trang Ch&#x1ee7;"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -463,8 +467,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nh&#xe2;n Vi&#xea;n"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -484,8 +492,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kh&#xe1;ch H&#xe0;ng"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -505,8 +517,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="H&#xf3;a &#x110;&#x1a1;n"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -526,8 +542,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea7;n &#xc1;o"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -547,8 +567,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#x1ecb;ch L&#xe0;m Vi&#x1ec7;c"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -568,8 +592,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng K&#xea;"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ee" red="aa" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="77" type="rgb"/>
@@ -618,8 +646,12 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng Xu&#x1ea5;t"/>
                 <Property name="borderRadius" type="int" value="50"/>
+                <Property name="borderThickness" type="int" value="1"/>
                 <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="ff" type="rgb"/>
+                </Property>
+                <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>

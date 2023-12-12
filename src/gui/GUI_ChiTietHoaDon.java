@@ -7,13 +7,12 @@ import data.FormatLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.QuanAo;
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import org.jpedal.examples.viewer.Viewer;
 
 public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
     
@@ -38,6 +37,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
     
     public GUI_ChiTietHoaDon() {
         initComponents();
+        tblQuanAo.fixTable(scrQuanAo);
     }
     
     public void showThongTinHoaDon(String maHoaDon){
@@ -48,10 +48,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         ArrayList<ChiTietHoaDon> list = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
         double tongTien = 0;
         
-        DefaultTableModel model = (DefaultTableModel) tblDanhSachQuanAoTrongHoaDon.getModel();
-        model.getDataVector().removeAllElements();
-        tblDanhSachQuanAoTrongHoaDon.revalidate();
-        tblDanhSachQuanAoTrongHoaDon.repaint();
+        DefaultTableModel model = (DefaultTableModel) tblQuanAo.getModel();
         for(ChiTietHoaDon thisChiTietHoaDon : list){
             double tongTienThanhPhan = thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
             tongTien += tongTienThanhPhan;
@@ -77,13 +74,15 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         String path = "files//hoaDon//" + maHoaDon + ".pdf";
         File file = new File(path);
         if(file.exists()) {
-            Desktop desktop = Desktop.getDesktop();
-            try {desktop.open(file);} 
-            catch (IOException ex) {ex.printStackTrace(System.out);}
+            Viewer viewer = new Viewer();
+            viewer.setupViewer();
+            viewer.getSwingGUI().setScaling(1.5f);
+            viewer.getSwingGUI().getFrame().setSize(690, 768);
+            viewer.getSwingGUI().getFrame().setLocation(512, 16);
+            viewer.openDefaultFile(file.getAbsolutePath());
         }
-        else{
+        else
             JOptionPane.showMessageDialog(null, "File Hóa Đơn không tồn tại. Vui lòng kiểm tra lại.");
-        }
     }
     
     private void quayLai(){
@@ -111,8 +110,8 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         txtTienThua = new extended_JComponent.JTextField_AllRound();
         btnXemFileHoaDon = new extended_JComponent.JButton_AllRound();
         btnQuayLai = new extended_JComponent.JButton_AllRound();
-        scrDanhSachQuanAoTrongHoaDon = new javax.swing.JScrollPane();
-        tblDanhSachQuanAoTrongHoaDon = new javax.swing.JTable();
+        scrQuanAo = new javax.swing.JScrollPane();
+        tblQuanAo = new extended_JComponent.JTable_LightMode();
 
         setBackground(new java.awt.Color(68, 136, 255));
         setMinimumSize(new java.awt.Dimension(1166, 700));
@@ -260,34 +259,23 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
 
         add(pnlThongTinHoaDon, java.awt.BorderLayout.WEST);
 
-        scrDanhSachQuanAoTrongHoaDon.setBackground(new java.awt.Color(68, 136, 255));
-        scrDanhSachQuanAoTrongHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Trong Hóa Đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
-        scrDanhSachQuanAoTrongHoaDon.setMinimumSize(new java.awt.Dimension(816, 700));
-        scrDanhSachQuanAoTrongHoaDon.setPreferredSize(new java.awt.Dimension(816, 700));
+        scrQuanAo.setBackground(new java.awt.Color(68, 136, 255));
+        scrQuanAo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Trong Đơn Hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        tblDanhSachQuanAoTrongHoaDon.setModel(new javax.swing.table.DefaultTableModel(
+        tblQuanAo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tên Quần áo", "Số lượng", "Đơn giá", "Tổng tiền"
+                "Tên Quần Áo", "Số Lượng", "Đơn Giá", "Tổng Tiền"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblDanhSachQuanAoTrongHoaDon.setRowHeight(40);
-        scrDanhSachQuanAoTrongHoaDon.setViewportView(tblDanhSachQuanAoTrongHoaDon);
-        if (tblDanhSachQuanAoTrongHoaDon.getColumnModel().getColumnCount() > 0) {
-            tblDanhSachQuanAoTrongHoaDon.getColumnModel().getColumn(0).setPreferredWidth(300);
+        ));
+        scrQuanAo.setViewportView(tblQuanAo);
+        if (tblQuanAo.getColumnModel().getColumnCount() > 0) {
+            tblQuanAo.getColumnModel().getColumn(0).setPreferredWidth(300);
         }
 
-        add(scrDanhSachQuanAoTrongHoaDon, java.awt.BorderLayout.CENTER);
+        add(scrQuanAo, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemFileHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemFileHoaDonActionPerformed
@@ -311,8 +299,8 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lblTienThua;
     private javax.swing.JLabel lblTongTien;
     private javax.swing.JPanel pnlThongTinHoaDon;
-    private javax.swing.JScrollPane scrDanhSachQuanAoTrongHoaDon;
-    private javax.swing.JTable tblDanhSachQuanAoTrongHoaDon;
+    private javax.swing.JScrollPane scrQuanAo;
+    private extended_JComponent.JTable_LightMode tblQuanAo;
     private extended_JComponent.JTextField_AllRound txtKhachHang;
     private extended_JComponent.JTextField_AllRound txtMaHoaDon;
     private extended_JComponent.JTextField_AllRound txtNhanVienLapDon;

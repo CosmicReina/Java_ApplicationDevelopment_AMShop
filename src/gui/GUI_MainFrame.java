@@ -32,7 +32,6 @@ public class GUI_MainFrame extends javax.swing.JFrame {
         lypMain.add(pnlMain, Integer.valueOf(1));
         
         pnlPopup = null;
-        pnlModal = null;
     }
     
     public void showPopup(JPanel panel, int x, int y){
@@ -80,7 +79,6 @@ public class GUI_MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlMain = new javax.swing.JPanel();
-        pnlModal = new javax.swing.JPanel();
         pnlPopup = new extended_JComponent.JPanel_AllRound();
         lypMain = new javax.swing.JLayeredPane();
 
@@ -92,17 +90,6 @@ public class GUI_MainFrame extends javax.swing.JFrame {
         );
         pnlMainLayout.setVerticalGroup(
             pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnlModalLayout = new javax.swing.GroupLayout(pnlModal);
-        pnlModal.setLayout(pnlModalLayout);
-        pnlModalLayout.setHorizontalGroup(
-            pnlModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        pnlModalLayout.setVerticalGroup(
-            pnlModalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
@@ -140,7 +127,6 @@ public class GUI_MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane lypMain;
     private javax.swing.JPanel pnlMain;
-    private javax.swing.JPanel pnlModal;
     private extended_JComponent.JPanel_AllRound pnlPopup;
     // End of variables declaration//GEN-END:variables
 

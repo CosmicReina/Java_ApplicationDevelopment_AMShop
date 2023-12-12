@@ -370,7 +370,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnTrangChu.setText("Trang Chủ");
         btnTrangChu.setBorderRadius(50);
+        btnTrangChu.setBorderThickness(1);
         btnTrangChu.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTrangChu.setColorBorder(new java.awt.Color(255, 255, 255));
         btnTrangChu.setColorClick(new java.awt.Color(119, 204, 255));
         btnTrangChu.setColorEnter(new java.awt.Color(119, 238, 255));
         btnTrangChu.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -383,7 +385,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnNhanVien.setText("Nhân Viên");
         btnNhanVien.setBorderRadius(50);
+        btnNhanVien.setBorderThickness(1);
         btnNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
         btnNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
         btnNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
         btnNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -396,7 +400,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnKhachHang.setText("Khách Hàng");
         btnKhachHang.setBorderRadius(50);
+        btnKhachHang.setBorderThickness(1);
         btnKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnKhachHang.setColorClick(new java.awt.Color(119, 204, 255));
         btnKhachHang.setColorEnter(new java.awt.Color(119, 238, 255));
         btnKhachHang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -409,7 +415,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnHoaDon.setText("Hóa Đơn");
         btnHoaDon.setBorderRadius(50);
+        btnHoaDon.setBorderThickness(1);
         btnHoaDon.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnHoaDon.setColorBorder(new java.awt.Color(255, 255, 255));
         btnHoaDon.setColorClick(new java.awt.Color(119, 204, 255));
         btnHoaDon.setColorEnter(new java.awt.Color(119, 238, 255));
         btnHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -422,7 +430,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnQuanAo.setText("Quần Áo");
         btnQuanAo.setBorderRadius(50);
+        btnQuanAo.setBorderThickness(1);
         btnQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
         btnQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
         btnQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
         btnQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -435,7 +445,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnLichLamViec.setText("Lịch Làm Việc");
         btnLichLamViec.setBorderRadius(50);
+        btnLichLamViec.setBorderThickness(1);
         btnLichLamViec.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnLichLamViec.setColorBorder(new java.awt.Color(255, 255, 255));
         btnLichLamViec.setColorClick(new java.awt.Color(119, 204, 255));
         btnLichLamViec.setColorEnter(new java.awt.Color(119, 238, 255));
         btnLichLamViec.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -448,7 +460,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThongKe.setText("Thống Kê");
         btnThongKe.setBorderRadius(50);
+        btnThongKe.setBorderThickness(1);
         btnThongKe.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThongKe.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThongKe.setColorClick(new java.awt.Color(119, 204, 255));
         btnThongKe.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThongKe.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -470,7 +484,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDangXuat.setText("Đăng Xuất");
         btnDangXuat.setBorderRadius(50);
+        btnDangXuat.setBorderThickness(1);
         btnDangXuat.setColorBackground(new java.awt.Color(255, 102, 102));
+        btnDangXuat.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDangXuat.setColorClick(new java.awt.Color(255, 0, 0));
         btnDangXuat.setColorEnter(new java.awt.Color(255, 34, 102));
         btnDangXuat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -508,7 +524,6 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTrangChuActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
-        // TODO add your handling code here:
         GUI_MainFrame.getInstance().createPopupForButton(btnNhanVien, listBtnNhanVien);
     }//GEN-LAST:event_btnNhanVienActionPerformed
 

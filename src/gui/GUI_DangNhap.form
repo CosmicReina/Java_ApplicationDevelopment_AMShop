@@ -59,7 +59,7 @@
                               <Component id="txtTenDangNhap" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                               <Component id="txtMatKhau" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="139" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -69,9 +69,9 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="btnTraCuuChoKhachHang" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="btnDangNhap" min="-2" pref="129" max="-2" attributes="0"/>
-                          <EmptySpace pref="93" max="32767" attributes="0"/>
-                          <Component id="btnThoat" min="-2" pref="129" max="-2" attributes="0"/>
+                          <Component id="btnDangNhap" min="-2" pref="160" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnThoat" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
