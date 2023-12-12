@@ -201,7 +201,7 @@ public class GUI_ThemNhanVien extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Căn Cước Công Dân", "Số Điện Thoại", "Giới Tính", "Chức Vụ", "Mức Lương"
+                "Mã Nhân Viên", "Tên Nhân Viên", "Căn Cước Công Dân", "Số Điện Thoại", "Ngày Sinh", "Giới Tính", "Chức Vụ"
             }
         ));
         scrTable.setViewportView(tblTable);

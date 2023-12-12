@@ -574,7 +574,7 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQuanAoActionPerformed
 
     private void btnLichLamViecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLichLamViecActionPerformed
-        GUI_MainFrame.getInstance().createPopupForButton(btnLichLamViec, listBtnQuanAo);
+        GUI_MainFrame.getInstance().createPopupForButton(btnLichLamViec, listBtnLichLamViec);
     }//GEN-LAST:event_btnLichLamViecActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
@@ -602,12 +602,14 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
     private void btnCapNhatNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNhanVienActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        showPanel(GUI_CapNhatNhanVien.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnCapNhatNhanVienActionPerformed
 
     private void btnThongTinNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongTinNhanVienActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        showPanel(GUI_ChiTietNhanVien.newInstance());
+        GUI_ChiTietNhanVien.getInstance().showChiTietNhanVien(DAO_NhanVien.nhanVienHienTai.getMaNhanVien());
+        GUI_ChiTietNhanVien.getInstance().setPnlBefore(GUI_TrangChu.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 
@@ -627,7 +629,7 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDanhSachHoaDonActionPerformed
 
     private void btnDanhSachQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachQuanAoActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        showPanel(GUI_DanhSachQuanAo.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachQuanAoActionPerformed
 
