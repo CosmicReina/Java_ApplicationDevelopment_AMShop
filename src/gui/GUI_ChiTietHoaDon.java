@@ -56,7 +56,7 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 quanAo.getTenQuanAo(),
                 thisChiTietHoaDon.getSoLuong(),
-                thisChiTietHoaDon.getDonGia(),
+                FormatDouble.toMoney(thisChiTietHoaDon.getDonGia()),
                 FormatDouble.toMoney(tongTienThanhPhan)
             });
         }

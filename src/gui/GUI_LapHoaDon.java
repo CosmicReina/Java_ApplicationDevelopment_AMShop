@@ -231,7 +231,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
     private void themQuanAoVaoDonHang(){
         int i = tblQuanAo.getSelectedRow();
         if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một sản phẩm.");
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Quần Áo.");
             return;
         }
             
@@ -627,7 +627,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
             }
         });
 
-        btnXoa.setText("Xóa Sản Phẩm Khỏi Đơn Hàng");
+        btnXoa.setText("Xóa Quần Áo Khỏi Đơn Hàng");
         btnXoa.setBorderRadius(20);
         btnXoa.setColorBackground(new java.awt.Color(255, 255, 204));
         btnXoa.setColorBorder(new java.awt.Color(255, 255, 255));

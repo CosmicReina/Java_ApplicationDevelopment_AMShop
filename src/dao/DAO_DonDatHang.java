@@ -2,9 +2,11 @@ package dao;
 
 import static dao.DAO.connection;
 import data.UtilityLocalDateTime;
+import entity.ChiTietDonDatHang;
 import entity.DonDatHang;
 import entity.KhachHang;
 import entity.NhanVien;
+import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -70,7 +72,17 @@ public class DAO_DonDatHang extends DAO {
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, maDonDatHang);
             
+            ArrayList<ChiTietDonDatHang> list = DAO_ChiTietDonDatHang.getAllChiTietDonDatHangTheoMaDonDatHang(maDonDatHang);
+            for(ChiTietDonDatHang thisChiTietDonDatHang : list){
+                QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(thisChiTietDonDatHang.getQuanAo().getMaQuanAo());
+                quanAo.setSoLuongTrongKho(quanAo.getSoLuongTrongKho() + thisChiTietDonDatHang.getSoLuong());
+                DAO_QuanAo.updateQuanAo(quanAo);
+                
+                DAO_ChiTietDonDatHang.deleteChiTietDonDatHang(thisChiTietDonDatHang);
+            }
+            
             n = prs.executeUpdate();
+            
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }

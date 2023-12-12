@@ -56,7 +56,7 @@ public class GenerateID {
         String maQuanAo;
         int soQuanAo;
         
-        String prefix = "SP";
+        String prefix = "QA";
         
         String maQuanAoCuoi = DAO_QuanAo.getMaQuanAoCuoi();
         if(maQuanAoCuoi == null){

@@ -298,7 +298,7 @@
         </Component>
         <Component class="extended_JComponent.JButton_AllRound" name="btnXoa">
           <Properties>
-            <Property name="text" type="java.lang.String" value="X&#xf3;a S&#x1ea3;n Ph&#x1ea9;m Kh&#x1ecf;i &#x110;&#x1a1;n H&#xe0;ng"/>
+            <Property name="text" type="java.lang.String" value="X&#xf3;a Qu&#x1ea7;n &#xc1;o Kh&#x1ecf;i &#x110;&#x1a1;n H&#xe0;ng"/>
             <Property name="borderRadius" type="int" value="20"/>
             <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="ff" red="ff" type="rgb"/>
