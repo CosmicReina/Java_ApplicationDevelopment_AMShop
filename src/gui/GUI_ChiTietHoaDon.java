@@ -149,18 +149,25 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         lblTienThua.setText("Tiền Thừa");
 
         txtMaHoaDon.setEditable(false);
+        txtMaHoaDon.setBackground(new java.awt.Color(204, 204, 204));
 
         txtNhanVienLapDon.setEditable(false);
+        txtNhanVienLapDon.setBackground(new java.awt.Color(204, 204, 204));
 
         txtKhachHang.setEditable(false);
+        txtKhachHang.setBackground(new java.awt.Color(204, 204, 204));
 
         txtThoiGianTao.setEditable(false);
+        txtThoiGianTao.setBackground(new java.awt.Color(204, 204, 204));
 
         txtTongTien.setEditable(false);
+        txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
 
         txtTienKhachDua.setEditable(false);
+        txtTienKhachDua.setBackground(new java.awt.Color(204, 204, 204));
 
         txtTienThua.setEditable(false);
+        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
 
         btnXemFileHoaDon.setText("Xem File Hóa Đơn");
         btnXemFileHoaDon.setBorderRadius(30);

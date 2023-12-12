@@ -76,9 +76,9 @@ public class GUI_Main extends javax.swing.JPanel {
             
             listBtnQuanAo.add(btnDanhSachQuanAo);
             
-            btnLichLamViec.setEnabled(false);
+            btnLichLamViec.setVisible(false);
             
-            btnThongKe.setEnabled(false);
+            btnThongKe.setVisible(false);
         }
     }
     
@@ -140,7 +140,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnLapHoaDon.setText("Lập Hóa Đơn Bán Hàng");
         btnLapHoaDon.setBorderRadius(20);
+        btnLapHoaDon.setBorderThickness(1);
         btnLapHoaDon.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnLapHoaDon.setColorBorder(new java.awt.Color(255, 255, 255));
         btnLapHoaDon.setColorClick(new java.awt.Color(119, 204, 255));
         btnLapHoaDon.setColorEnter(new java.awt.Color(119, 238, 255));
         btnLapHoaDon.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +153,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachDonDatHang.setText("Xem Danh Sách Đơn Đặt Hàng");
         btnDanhSachDonDatHang.setBorderRadius(20);
+        btnDanhSachDonDatHang.setBorderThickness(1);
         btnDanhSachDonDatHang.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDanhSachDonDatHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachDonDatHang.setColorClick(new java.awt.Color(119, 204, 255));
         btnDanhSachDonDatHang.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDanhSachDonDatHang.addActionListener(new java.awt.event.ActionListener() {
@@ -162,7 +166,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachNhanVien.setText("Xem Danh Sách Nhân Viên");
         btnDanhSachNhanVien.setBorderRadius(20);
+        btnDanhSachNhanVien.setBorderThickness(1);
         btnDanhSachNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDanhSachNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
         btnDanhSachNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDanhSachNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +179,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThemNhanVien.setText("Thêm Nhân Viên");
         btnThemNhanVien.setBorderRadius(20);
+        btnThemNhanVien.setBorderThickness(1);
         btnThemNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThemNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThemNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
         btnThemNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +192,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnCapNhatNhanVien.setText("Cập Nhật Thông Tin Nhân Viên");
         btnCapNhatNhanVien.setBorderRadius(20);
+        btnCapNhatNhanVien.setBorderThickness(1);
         btnCapNhatNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnCapNhatNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
         btnCapNhatNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
         btnCapNhatNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
         btnCapNhatNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -195,7 +205,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThongTinNhanVien.setText("Xem Thông Tin Cá Nhân");
         btnThongTinNhanVien.setBorderRadius(20);
+        btnThongTinNhanVien.setBorderThickness(1);
         btnThongTinNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThongTinNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThongTinNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
         btnThongTinNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThongTinNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +218,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachKhachHang.setText("Xem Danh Sách Khách Hàng");
         btnDanhSachKhachHang.setBorderRadius(20);
+        btnDanhSachKhachHang.setBorderThickness(1);
         btnDanhSachKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDanhSachKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachKhachHang.setColorClick(new java.awt.Color(119, 204, 255));
         btnDanhSachKhachHang.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDanhSachKhachHang.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +231,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnCapNhatKhachHang.setText("Cập Nhật Thông Tin Khách Hàng");
         btnCapNhatKhachHang.setBorderRadius(20);
+        btnCapNhatKhachHang.setBorderThickness(1);
         btnCapNhatKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnCapNhatKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnCapNhatKhachHang.setColorClick(new java.awt.Color(119, 204, 255));
         btnCapNhatKhachHang.setColorEnter(new java.awt.Color(119, 238, 255));
         btnCapNhatKhachHang.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +244,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachHoaDon.setText("Xem Danh Sách Hóa Đơn");
         btnDanhSachHoaDon.setBorderRadius(20);
+        btnDanhSachHoaDon.setBorderThickness(1);
         btnDanhSachHoaDon.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDanhSachHoaDon.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachHoaDon.setColorClick(new java.awt.Color(119, 204, 255));
         btnDanhSachHoaDon.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDanhSachHoaDon.addActionListener(new java.awt.event.ActionListener() {
@@ -239,7 +257,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachQuanAo.setText("Xem Danh Sách Quần Áo");
         btnDanhSachQuanAo.setBorderRadius(20);
+        btnDanhSachQuanAo.setBorderThickness(1);
         btnDanhSachQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDanhSachQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
         btnDanhSachQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDanhSachQuanAo.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +270,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThemQuanAo.setText("Thêm Quần Áo");
         btnThemQuanAo.setBorderRadius(20);
+        btnThemQuanAo.setBorderThickness(1);
         btnThemQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThemQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThemQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
         btnThemQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThemQuanAo.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +283,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnCapNhatQuanAo.setText("Cập Nhật Quần Áo");
         btnCapNhatQuanAo.setBorderRadius(20);
+        btnCapNhatQuanAo.setBorderThickness(1);
         btnCapNhatQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnCapNhatQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
         btnCapNhatQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
         btnCapNhatQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
         btnCapNhatQuanAo.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +296,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachLichLamViec.setText("Xem Danh Sách Lịch Làm Việc");
         btnDanhSachLichLamViec.setBorderRadius(20);
+        btnDanhSachLichLamViec.setBorderThickness(1);
         btnDanhSachLichLamViec.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnDanhSachLichLamViec.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachLichLamViec.setColorClick(new java.awt.Color(119, 204, 255));
         btnDanhSachLichLamViec.setColorEnter(new java.awt.Color(119, 238, 255));
         btnDanhSachLichLamViec.addActionListener(new java.awt.event.ActionListener() {
@@ -283,7 +309,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThongKeDoanhThu.setText("Thống Kê Doanh Thu Bán Hàng");
         btnThongKeDoanhThu.setBorderRadius(20);
+        btnThongKeDoanhThu.setBorderThickness(1);
         btnThongKeDoanhThu.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThongKeDoanhThu.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThongKeDoanhThu.setColorClick(new java.awt.Color(119, 204, 255));
         btnThongKeDoanhThu.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThongKeDoanhThu.addActionListener(new java.awt.event.ActionListener() {
@@ -294,7 +322,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThongKeKhachHang.setText("Thống Kê Khách Hàng");
         btnThongKeKhachHang.setBorderRadius(20);
+        btnThongKeKhachHang.setBorderThickness(1);
         btnThongKeKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThongKeKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThongKeKhachHang.setColorClick(new java.awt.Color(119, 204, 255));
         btnThongKeKhachHang.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThongKeKhachHang.addActionListener(new java.awt.event.ActionListener() {
@@ -305,7 +335,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThongKeQuanAoDaBan.setText("Thống Kê Quần Áo Đã Bán");
         btnThongKeQuanAoDaBan.setBorderRadius(20);
+        btnThongKeQuanAoDaBan.setBorderThickness(1);
         btnThongKeQuanAoDaBan.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThongKeQuanAoDaBan.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThongKeQuanAoDaBan.setColorClick(new java.awt.Color(119, 204, 255));
         btnThongKeQuanAoDaBan.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThongKeQuanAoDaBan.addActionListener(new java.awt.event.ActionListener() {
@@ -316,7 +348,9 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnThongKeQuanAoDaHet.setText("Thống Kê Quần Áo Đã Hết");
         btnThongKeQuanAoDaHet.setBorderRadius(20);
+        btnThongKeQuanAoDaHet.setBorderThickness(1);
         btnThongKeQuanAoDaHet.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnThongKeQuanAoDaHet.setColorBorder(new java.awt.Color(255, 255, 255));
         btnThongKeQuanAoDaHet.setColorClick(new java.awt.Color(119, 204, 255));
         btnThongKeQuanAoDaHet.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThongKeQuanAoDaHet.addActionListener(new java.awt.event.ActionListener() {
@@ -558,7 +592,7 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDanhSachDonDatHangActionPerformed
 
     private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        showPanel(GUI_DanhSachNhanVien.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
 

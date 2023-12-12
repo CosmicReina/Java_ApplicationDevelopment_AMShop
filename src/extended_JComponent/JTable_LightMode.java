@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class JTable_LightMode extends JTable {
@@ -29,8 +30,11 @@ public class JTable_LightMode extends JTable {
     private class TableLightCell extends DefaultTableCellRenderer{
 
         @Override
+        @SuppressWarnings("null")
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if(component instanceof JLabel)
+                ((JLabel) component).setHorizontalAlignment(JLabel.CENTER);
             if(isCellSelected(row, column)){
                 if(row % 2 == 0){
                     component.setBackground(new Color(53, 209, 229));
@@ -47,8 +51,9 @@ public class JTable_LightMode extends JTable {
                     component.setBackground(new Color(240, 240, 240));
                 }
             }
-            setBorder(new EmptyBorder(0, 0, 0, 0));
+            
             component.setForeground(new Color(0, 0, 0));
+            
             return component;
         }
         
@@ -63,8 +68,8 @@ public class JTable_LightMode extends JTable {
         this.setRowHeight(30);
         this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
-        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)this.getTableHeader().getDefaultRenderer();
-        renderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer rendererHeader = (DefaultTableCellRenderer)this.getTableHeader().getDefaultRenderer();
+        rendererHeader.setHorizontalAlignment(JLabel.CENTER);
     }
     
     public void fixTable(JScrollPane scr){
