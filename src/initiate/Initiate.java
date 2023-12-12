@@ -1,17 +1,19 @@
 package initiate;
 
 import connect.ConnectDB;
-import gui_new.FrmLogin;
-import gui_new.FrmMain;
+import dao.DAO_NhanVien;
+import gui.GUI_DangNhap;
+import gui.GUI_MainFrame;
 
 public class Initiate {
     public static void main(String[] args) {
 //        ConnectDB.getInstance().connectDatabase();
-//        FrmMain frmMain = FrmMain.getInstance();
-//        frmMain.setVisible(true);
-
+//        GUI_DangNhap gui = GUI_DangNhap.getInstance();
+//        gui.setVisible(true);
+        
         ConnectDB.getInstance().connectDatabase();
-        FrmLogin frmLogin = FrmLogin.newInstance();
-        frmLogin.setVisible(true);
+        DAO_NhanVien.nhanVienHienTai = DAO_NhanVien.getNhanVienTheoMaNhanVien("NV12312312");
+        GUI_MainFrame gui = GUI_MainFrame.getInstance();
+        gui.setVisible(true);
     }
 }

@@ -1,14 +1,10 @@
 package data;
 
-import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.Border;
-import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
@@ -17,7 +13,6 @@ import com.itextpdf.layout.properties.TextAlignment;
 import dao.DAO_ChiTietHoaDon;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,9 +48,9 @@ public class GenerateBaoCaoDoanhThu {
         
         Paragraph prgKhoangThoiGian = new Paragraph();
         prgKhoangThoiGian.add(new Text("Thống kê từ: ").setBold());
-        prgKhoangThoiGian.add(new Text(FormatDate.fromLocalDate(ngayBatDau)));
+        prgKhoangThoiGian.add(new Text(FormatLocalDate.fromLocalDate(ngayBatDau)));
         prgKhoangThoiGian.add(new Text(" đến ").setBold());
-        prgKhoangThoiGian.add(new Text(FormatDate.fromLocalDate(ngayKetThuc)));
+        prgKhoangThoiGian.add(new Text(FormatLocalDate.fromLocalDate(ngayKetThuc)));
         prgKhoangThoiGian.setMarginLeft(50);
         
         Paragraph prgTongHoaDon = new Paragraph();
@@ -98,7 +93,7 @@ public class GenerateBaoCaoDoanhThu {
             tblDetail.addCell(new Paragraph(thisHoaDon.getMaHoaDon()));
             tblDetail.addCell(new Paragraph(thisHoaDon.getNhanVien().getHoTen()));
             tblDetail.addCell(new Paragraph(thisHoaDon.getKhachHang().getHoTen()));
-            tblDetail.addCell(new Paragraph(UtilityLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao())));
+            tblDetail.addCell(new Paragraph(FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao())));
             tblDetail.addCell(new Paragraph(FormatDouble.toMoney(doanhThuThanhPhan)));
         }
         tblDetail

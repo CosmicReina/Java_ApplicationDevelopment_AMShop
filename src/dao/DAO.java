@@ -6,7 +6,7 @@ import java.sql.*;
 public class DAO {
     protected static Connection connection = ConnectDB.getConnection();
     
-    public static ResultSet getResultSet(String sql){
+    public static ResultSet getResultSetFromStatement(String sql){
         ResultSet rs = null;
         try {
             Statement stm = connection.createStatement();

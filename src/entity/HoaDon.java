@@ -9,6 +9,7 @@ public class HoaDon {
     private NhanVien nhanVien;
     private KhachHang khachHang;
     private LocalDateTime thoiGianTao;
+    private double tienKhachDua;
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -50,21 +51,30 @@ public class HoaDon {
         this.thoiGianTao = thoiGianTao;
     }
 
+    public double getTienKhachDua() {
+        return tienKhachDua;
+    }
+
+    public void setTienKhachDua(double tienKhachDua) {
+        this.tienKhachDua = tienKhachDua;
+    }
+
     public HoaDon() {
     }
 
-    public HoaDon(String maHoaDon, CuaHang cuaHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao) {
+    public HoaDon(String maHoaDon, CuaHang cuaHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, double tienKhachDua) {
         this.maHoaDon = maHoaDon;
         this.cuaHang = cuaHang;
         this.nhanVien = nhanVien;
         this.khachHang = khachHang;
         this.thoiGianTao = thoiGianTao;
+        this.tienKhachDua = tienKhachDua;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.maHoaDon);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.maHoaDon);
         return hash;
     }
 
@@ -85,6 +95,7 @@ public class HoaDon {
 
     @Override
     public String toString() {
-        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", cuaHang=" + cuaHang + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", thoiGianTao=" + thoiGianTao + '}';
+        return "HoaDon{" + "maHoaDon=" + maHoaDon + ", cuaHang=" + cuaHang + ", nhanVien=" + nhanVien + ", khachHang=" + khachHang + ", thoiGianTao=" + thoiGianTao + ", tienKhachDua=" + tienKhachDua + '}';
     }
+
 }

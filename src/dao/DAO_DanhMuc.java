@@ -27,7 +27,7 @@ public class DAO_DanhMuc {
         ArrayList<String> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM DanhMuc";
-            ResultSet rs = DAO.getResultSet(sql);
+            ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 list.add(rs.getString(1));
             }
@@ -38,10 +38,20 @@ public class DAO_DanhMuc {
     }
     
     public static boolean kiemTraTonTai(String danhMuc){
-        ArrayList<String> list = getAllDanhMuc();
-        for(String thisNhaSanXuat : list)
-            if(thisNhaSanXuat.equals(danhMuc))
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM DanhMuc "
+                    + "WHERE DanhMuc = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, danhMuc);
+            
+            ResultSet rs = prs.executeQuery();
+            if(rs.next())
                 return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
         return false;
     }
 }

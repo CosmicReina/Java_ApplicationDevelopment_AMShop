@@ -9,7 +9,7 @@ public class DAO_ChucVu {
         ArrayList<String> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM ChucVu";
-            ResultSet rs = DAO.getResultSet(sql);
+            ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 list.add(rs.getString(1));
             }

@@ -8,15 +8,9 @@ import java.time.LocalDate;
 
 public class DAO_NhanVien extends DAO {
     
-    private static NhanVien nhanVienHienTai = null;
+    public static NhanVien nhanVienHienTai = null;
 
-    public static NhanVien getNhanVienHienTai() {
-        return nhanVienHienTai;
-    }
 
-    public static void setNhanVienHienTai(NhanVien nhanVienHienTai) {
-        DAO_NhanVien.nhanVienHienTai = nhanVienHienTai;
-    }
     
     public static boolean createNhanVien(NhanVien nhanVien){
         int n = 0;
@@ -100,26 +94,26 @@ public class DAO_NhanVien extends DAO {
         ArrayList<NhanVien> list = new ArrayList();
         try {
             String sql = "SELECT * FROM NhanVien";
-            ResultSet rs = getResultSet(sql);
-            while(rs.next()){
-                String maNhanVien = rs.getString(1);
-                String hoTen = rs.getString(2);
-                String soDienThoai = rs.getString(3);
-                String diaChi = rs.getString(4);
-                String chucVu = rs.getString(5);
-                LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs.getDate(6));
-                String canCuocCongDan = rs.getString(7);
-                String gioiTinh = rs.getString(8);
-                LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs.getDate(9));
-                LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs.getDate(10));
-                double luong = rs.getDouble(11);
+            ResultSet rs_NhanVien = getResultSetFromStatement(sql);
+            while(rs_NhanVien.next()){
+                String maNhanVien = rs_NhanVien.getString(1);
+                String hoTen = rs_NhanVien.getString(2);
+                String soDienThoai = rs_NhanVien.getString(3);
+                String diaChi = rs_NhanVien.getString(4);
+                String chucVu = rs_NhanVien.getString(5);
+                LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(6));
+                String canCuocCongDan = rs_NhanVien.getString(7);
+                String gioiTinh = rs_NhanVien.getString(8);
+                LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(9));
+                LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(10));
+                double luong = rs_NhanVien.getDouble(11);
                 String tenDangNhap = null;
                 String matKhau = null;
                 
-                ResultSet rs_2 = DAO_TaiKhoan.getTaiKhoanTheoMaNhanVien(maNhanVien);
-                if(rs_2 != null && rs_2.next()){
-                    tenDangNhap = rs_2.getString(1);
-                    matKhau = rs_2.getString(2);
+                ResultSet rs_TaiKhoan = DAO_TaiKhoan.getTaiKhoanTheoTenDangNhap(maNhanVien);
+                if(rs_TaiKhoan != null && rs_TaiKhoan.next()){
+                    tenDangNhap = rs_TaiKhoan.getString(1);
+                    matKhau = rs_TaiKhoan.getString(2);
                 }
                 NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
                 
@@ -132,28 +126,115 @@ public class DAO_NhanVien extends DAO {
     }
     
     public static NhanVien getNhanVienTheoMaNhanVien(String maNhanVien){
-        ArrayList<NhanVien> list = getAllNhanVien();
-        for(NhanVien thisNhanVien : list){
-            if(thisNhanVien.getMaNhanVien().equals(maNhanVien))
-                return thisNhanVien;
-        }
-        return null;
-    }
-    
-    public static NhanVien getNhanVienTheoCanCuocCongDan(String canCuocCongDan){
-        ArrayList<NhanVien> list = getAllNhanVien();
-        for(NhanVien thisNhanVien : list){
-            if(thisNhanVien.getCanCuocCongDan().equals(canCuocCongDan))
-                return thisNhanVien;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM NhanVien "
+                    + "WHERE MaNhanVien = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maNhanVien);
+            ResultSet rs_NhanVien = prs.executeQuery();
+            while(rs_NhanVien.next()){
+                String hoTen = rs_NhanVien.getString(2);
+                String soDienThoai = rs_NhanVien.getString(3);
+                String diaChi = rs_NhanVien.getString(4);
+                String chucVu = rs_NhanVien.getString(5);
+                LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(6));
+                String canCuocCongDan = rs_NhanVien.getString(7);
+                String gioiTinh = rs_NhanVien.getString(8);
+                LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(9));
+                LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(10));
+                double luong = rs_NhanVien.getDouble(11);
+                String tenDangNhap = null;
+                String matKhau = null;
+                
+                ResultSet rs_TaiKhoan = DAO_TaiKhoan.getTaiKhoanTheoTenDangNhap(maNhanVien);
+                if(rs_TaiKhoan != null && rs_TaiKhoan.next()){
+                    tenDangNhap = rs_TaiKhoan.getString(1);
+                    matKhau = rs_TaiKhoan.getString(2);
+                }
+                NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
+                
+                return nhanVien;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }
     
     public static NhanVien getNhanVienTheoSoDienThoai(String soDienThoai){
-        ArrayList<NhanVien> list = getAllNhanVien();
-        for(NhanVien thisNhanVien : list){
-            if(thisNhanVien.getSoDienThoai().equals(soDienThoai))
-                return thisNhanVien;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM NhanVien "
+                    + "WHERE SoDienThoai = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, soDienThoai);
+            ResultSet rs_NhanVien = prs.executeQuery();
+            while(rs_NhanVien.next()){
+                String maNhanVien = rs_NhanVien.getString(1);
+                String hoTen = rs_NhanVien.getString(2);
+                String diaChi = rs_NhanVien.getString(4);
+                String chucVu = rs_NhanVien.getString(5);
+                LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(6));
+                String canCuocCongDan = rs_NhanVien.getString(7);
+                String gioiTinh = rs_NhanVien.getString(8);
+                LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(9));
+                LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(10));
+                double luong = rs_NhanVien.getDouble(11);
+                String tenDangNhap = null;
+                String matKhau = null;
+                
+                ResultSet rs_TaiKhoan = DAO_TaiKhoan.getTaiKhoanTheoTenDangNhap(maNhanVien);
+                if(rs_TaiKhoan != null && rs_TaiKhoan.next()){
+                    tenDangNhap = rs_TaiKhoan.getString(1);
+                    matKhau = rs_TaiKhoan.getString(2);
+                }
+                NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
+                
+                return nhanVien;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
+    public static NhanVien getNhanVienTheoCanCuocCongDan(String canCuocCongDan){
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM NhanVien "
+                    + "WHERE CanCuocCongDan = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, canCuocCongDan);
+            ResultSet rs_NhanVien = prs.executeQuery();
+            while(rs_NhanVien.next()){
+                String maNhanVien = rs_NhanVien.getString(1);
+                String hoTen = rs_NhanVien.getString(2);
+                String soDienThoai = rs_NhanVien.getString(3);
+                String diaChi = rs_NhanVien.getString(4);
+                String chucVu = rs_NhanVien.getString(5);
+                LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(6));
+                String gioiTinh = rs_NhanVien.getString(8);
+                LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(9));
+                LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(10));
+                double luong = rs_NhanVien.getDouble(11);
+                String tenDangNhap = null;
+                String matKhau = null;
+                
+                ResultSet rs_TaiKhoan = DAO_TaiKhoan.getTaiKhoanTheoTenDangNhap(maNhanVien);
+                if(rs_TaiKhoan != null && rs_TaiKhoan.next()){
+                    tenDangNhap = rs_TaiKhoan.getString(1);
+                    matKhau = rs_TaiKhoan.getString(2);
+                }
+                NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
+                
+                return nhanVien;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }

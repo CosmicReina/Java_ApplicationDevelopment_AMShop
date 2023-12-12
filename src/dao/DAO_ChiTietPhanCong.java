@@ -56,15 +56,15 @@ public class DAO_ChiTietPhanCong extends DAO {
         return n > 0;
     }
     
-    public static boolean removeChiTietPhanCong(ChiTietPhanCong chiTietPhanCong){
+    public static boolean deleteChiTietPhanCong(String maLichLamViec, String maNhanVien){
         int n = 0;
         try {
             String sql = ""
                     + "DELETE FROM ChiTietPhanCong "
                     + "WHERE MaLichLamViec = ? AND MaNhanVien = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
-            prs.setString(1, chiTietPhanCong.getLichLamViec().getMaLichLamViec());
-            prs.setString(2, chiTietPhanCong.getNhanVien().getMaNhanVien());
+            prs.setString(1, maLichLamViec);
+            prs.setString(2, maNhanVien);
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -82,6 +82,7 @@ public class DAO_ChiTietPhanCong extends DAO {
                     + "WHERE MaLichLamViec = ?";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, maLichLamViec);
+            
             ResultSet rs = prs.executeQuery();
             while(rs.next()){
                 String maNhanVien = rs.getString(2);
@@ -92,7 +93,6 @@ public class DAO_ChiTietPhanCong extends DAO {
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 
                 ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(lichLamViec, nhanVien, thoiGianVaoCa, thoiGianRaCa);
-                
                 list.add(chiTietPhanCong);
             }
         } catch (SQLException ex) {

@@ -5,6 +5,8 @@ import entity.DonDatHang;
 import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAO_ChiTietDonDatHang extends DAO {
     public static boolean createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang){
@@ -48,12 +50,28 @@ public class DAO_ChiTietDonDatHang extends DAO {
                 QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
                 
                 ChiTietDonDatHang chiTietDonDatHang = new ChiTietDonDatHang(donDatHang, quanAo, soLuong);
-                
                 list.add(chiTietDonDatHang);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
         return list;
+    }
+    
+    public static boolean deleteChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang){
+        int n = 0;
+        try {
+            String sql = ""
+                    + "DELETE FROM ChiTietDonDatHang "
+                    + "WHERE MaDonDatHang = ? AND MaQuanAo = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, chiTietDonDatHang.getDonDatHang().getMaDonDatHang());
+            prs.setString(2, chiTietDonDatHang.getQuanAo().getMaQuanAo());
+            
+            n = prs.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return n > 0;
     }
 }

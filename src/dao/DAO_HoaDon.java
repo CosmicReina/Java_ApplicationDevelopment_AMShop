@@ -22,14 +22,15 @@ public class DAO_HoaDon extends DAO {
                     + "?, "
                     + "?, "
                     + "?, "
-                    + "?"
-                    + ")";
+                    + "?, "
+                    + "?)";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, hoaDon.getMaHoaDon());
             prs.setString(2, hoaDon.getCuaHang().getMaCuaHang());
             prs.setString(3, hoaDon.getNhanVien().getMaNhanVien());
             prs.setString(4, hoaDon.getKhachHang().getMaKhachHang());
             prs.setTimestamp(5, UtilityLocalDateTime.fromLocalDateTime(hoaDon.getThoiGianTao()));
+            prs.setDouble(6, hoaDon.getTienKhachDua());
             
             n = prs.executeUpdate();
         } catch (SQLException ex) {
@@ -42,19 +43,19 @@ public class DAO_HoaDon extends DAO {
         ArrayList<HoaDon> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM HoaDon";
-            ResultSet rs = getResultSet(sql);
+            ResultSet rs = getResultSetFromStatement(sql);
             while(rs.next()) {
                 String maHoaDon = rs.getString(1);
                 String maNhanVien = rs.getString(3);
                 String maKhachHang = rs.getString(4);
                 LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                double tienKhachDua = rs.getDouble(6);
                 
                 CuaHang cuaHang = DAO_CuaHang.getCuaHang();
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
-                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
-                
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
                 list.add(hoaDon);
             }
         } catch (SQLException ex) {
@@ -80,13 +81,13 @@ public class DAO_HoaDon extends DAO {
                 String maNhanVien = rs.getString(3);
                 String maKhachHang = rs.getString(4);
                 LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                double tienKhachDua = rs.getDouble(6);
                 
                 CuaHang cuaHang = DAO_CuaHang.getCuaHang();
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
                 
-                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao);
-                
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
                 list.add(hoaDon);
             }
         } catch (SQLException ex) {
@@ -96,10 +97,31 @@ public class DAO_HoaDon extends DAO {
     }
     
     public static HoaDon getHoaDonTheoMaHoaDon(String maHoaDon){
-        ArrayList<HoaDon> list = getAllHoaDon();
-        for(HoaDon thisHoaDon : list){
-            if(thisHoaDon.getMaHoaDon().equals(maHoaDon))
-                return thisHoaDon;
+        try {
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM HoaDon "
+                    + "WHERE MaHoaDon = ?";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maHoaDon);
+            
+            ResultSet rs = prs.executeQuery();
+            if(rs.next()) {
+                String maNhanVien = rs.getString(3);
+                String maKhachHang = rs.getString(4);
+                LocalDateTime thoiGianTao = UtilityLocalDateTime.toLocalDateTime(rs.getTimestamp(5));
+                double tienKhachDua = rs.getDouble(6);
+                
+                CuaHang cuaHang = DAO_CuaHang.getCuaHang();
+                NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
+                KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
+                
+                HoaDon hoaDon = new HoaDon(maHoaDon, cuaHang, nhanVien, khachHang, thoiGianTao, tienKhachDua);
+                return hoaDon;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
         }
         return null;
     }
@@ -114,6 +136,7 @@ public class DAO_HoaDon extends DAO {
                     + "ORDER BY MaHoaDon DESC";
             PreparedStatement prs = connection.prepareStatement(sql);
             prs.setString(1, searchPrefix);
+            
             ResultSet rs = prs.executeQuery();
             if(rs.next()){
                 String maHoaDonCuoi = rs.getString(1);
