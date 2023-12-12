@@ -2,11 +2,11 @@
 <properties>
   <recentfiles>
     <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110005.pdf"/>
+    <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110010.pdf"/>
+    <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110007.pdf"/>
     <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110008.pdf"/>
     <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110009.pdf"/>
     <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110006.pdf"/>
-    <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110010.pdf"/>
-    <file name="D:\08_Project\NetBeans\Java_AMShop\files\hoaDon\HD2312110007.pdf"/>
   </recentfiles>
   <showfirsttimepopup value="false"/>
   <daysLeft value=""/>
@@ -16,8 +16,8 @@
   <showddmessage value="true"/>
   <searchWindowType value="2"/>
   <borderType value="1"/>
-  <useHiResPrinting value="true"/>
-  <showDownloadWindow value="true"/>
+  <useHiResPrinting value="false"/>
+  <showDownloadWindow value="false"/>
   <resolution value="110"/>
   <allowCursorToChange value="true"/>
   <autoScroll value="true"/>
@@ -145,14 +145,14 @@
   <ShowDisplayoptions value="true"/>
   <ShowNavigationbar value="true"/>
   <ShowSidetabbar value="true"/>
-  <highlightBoxColor value="-16777216"/>
-  <highlightTextColor value="16750900"/>
+  <highlightBoxColor value="-1118482"/>
+  <highlightTextColor value="-1118482"/>
   <replaceDocumentTextColors value="false"/>
-  <vfgColor value="0"/>
-  <vbgColor value="16777215"/>
+  <vfgColor value="-1118482"/>
+  <vbgColor value="-1118482"/>
   <TextColorThreshold value="255"/>
   <replacePdfDisplayBackground value="false"/>
-  <pdfDisplayBackground value="16777215"/>
+  <pdfDisplayBackground value="-1118482"/>
   <changeTextAndLineart value="false"/>
   <sbbgColor value="16777215"/>
   <highlightComposite value="0.35"/>
@@ -167,7 +167,7 @@
   <readOnly value="false"/>
   <enhancedViewerMode value="true"/>
   <enhancedFacingMode value="true"/>
-  <windowTitle value=""/>
+  <windowTitle value="Xem Hóa Đơn"/>
   <confirmClose value="false"/>
   <iconLocation value="/org/jpedal/examples/simpleviewer/res/"/>
   <enhancedGUI value="true"/>

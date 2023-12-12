@@ -76,7 +76,6 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         if(file.exists()) {
             Viewer viewer = new Viewer();
             viewer.setupViewer();
-            viewer.getSwingGUI().setScaling(1.5f);
             viewer.getSwingGUI().getFrame().setSize(690, 768);
             viewer.getSwingGUI().getFrame().setLocation(512, 16);
             viewer.openDefaultFile(file.getAbsolutePath());

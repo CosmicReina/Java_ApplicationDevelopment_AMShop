@@ -10,6 +10,9 @@ import dao.DAO_KhachHang;
 import dao.DAO_NhaSanXuat;
 import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 
 public class Initiate_Test {
     public static void main(String[] args) {
@@ -26,7 +29,7 @@ public class Initiate_Test {
 //        System.out.println(DAO_KhachHang.getKhachHangTheoMaKhachHang("KH23000005"));
 //        System.out.println(DAO_KhachHang.getKhachHangTheoSoDienThoai("0334999221"));
 //        System.out.println(DAO_DonDatHang.getDonDatHangTheoMaDonDatHang("DD2311150002"));
-        System.out.println(DAO_KhachHang.getKhachHangTheoSoDienThoai("0334445555"));
+//        System.out.println(DAO_KhachHang.getKhachHangTheoSoDienThoai("0334445555"));
         ConnectDB.getInstance().disconnectDatabase();
     }
 }

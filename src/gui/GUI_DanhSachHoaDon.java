@@ -25,11 +25,15 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
     
     public GUI_DanhSachHoaDon() {
         initComponents();
+        initExtra();
+    }
+    
+    private void initExtra(){
+        hienThiBang(DAO_HoaDon.getAllHoaDon());
         tblDanhSachHoaDon.fixTable(scrDanhSachHoaDon);
-        showTableListHoaDon(DAO_HoaDon.getAllHoaDon());
     }
 
-    private void showTableListHoaDon(ArrayList<HoaDon> list){
+    private void hienThiBang(ArrayList<HoaDon> list){
         DefaultTableModel model = (DefaultTableModel) tblDanhSachHoaDon.getModel();
         model.getDataVector().removeAllElements();
         tblDanhSachHoaDon.revalidate();
@@ -50,20 +54,7 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
             });
         }
     }
-    
-    private void xemChiTietHoaDon(){
-        int i = tblDanhSachHoaDon.getSelectedRow();
-        if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Hóa Đơn");
-            return;
-        }
-        String maHoaDon = tblDanhSachHoaDon.getValueAt(i, 0).toString();
-        
-        GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
-        GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
-        GUI_ChiTietHoaDon.getInstance().setPnlBefore(this);
-    }
-    
+
     private void timKiemHoaDon(){
         String maHoaDon = txtMaHoaDon.getText();
         String soDienThoai = txtSoDienThoai.getText();
@@ -82,7 +73,7 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
                     listRemove.add(thisHoaDon);
             }
             list.removeAll(listRemove);
-            showTableListHoaDon(list);
+            hienThiBang(list);
             return;
         }
         
@@ -93,8 +84,21 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
                     listRemove.add(thisHoaDon);
             }
             list.removeAll(listRemove);
-            showTableListHoaDon(list);
+            hienThiBang(list);
         }
+    }
+    
+    private void xemChiTietHoaDon(){
+        int i = tblDanhSachHoaDon.getSelectedRow();
+        if(i < 0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một Hóa Đơn");
+            return;
+        }
+        String maHoaDon = tblDanhSachHoaDon.getValueAt(i, 0).toString();
+        
+        GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
+        GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
+        GUI_ChiTietHoaDon.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")

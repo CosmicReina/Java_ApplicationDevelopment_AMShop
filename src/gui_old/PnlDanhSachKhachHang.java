@@ -27,7 +27,6 @@ public class PnlDanhSachKhachHang extends javax.swing.JPanel {
     
     private void initExtra(){
         updateTable(DAO_KhachHang.getAllKhachHang());
-        
         UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
     }
     

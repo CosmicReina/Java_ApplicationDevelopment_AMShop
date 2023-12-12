@@ -1,6 +1,5 @@
 package gui;
 
-import gui_old.*;
 import dao.DAO_KhachHang;
 import data.UtilityJTextField;
 import entity.KhachHang;
@@ -27,16 +26,16 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
     }
     
     private void initExtra(){
-        updateTable(DAO_KhachHang.getAllKhachHang());
-        
+        hienThiBang(DAO_KhachHang.getAllKhachHang());
         UtilityJTextField.addPlaceHolderStyle(txtSoDienThoai);
+        tblDanhSachKhachHang.fixTable(scrTable);
     }
     
-    private void updateTable(ArrayList<KhachHang> list){
-        DefaultTableModel model = (DefaultTableModel) tblTable.getModel();
+    private void hienThiBang(ArrayList<KhachHang> list){
+        DefaultTableModel model = (DefaultTableModel) tblDanhSachKhachHang.getModel();
         model.getDataVector().removeAllElements();
-        tblTable.revalidate();
-        tblTable.repaint();
+        tblDanhSachKhachHang.revalidate();
+        tblDanhSachKhachHang.repaint();
         for(KhachHang thisKhachHang : list){
             model.addRow(new Object[]{
                 thisKhachHang.getMaKhachHang(),
@@ -62,20 +61,20 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
         }
         
         list.removeAll(listRemove);
-        updateTable(list);
+        hienThiBang(list);
     }
 
     private void xemChiTietKhachHang(){
-        int i = tblTable.getSelectedRow();
+        int i = tblDanhSachKhachHang.getSelectedRow();
         if(i < 0){
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một Khách Hàng.");
             return;
         }
-        String maKhachHang = tblTable.getValueAt(i, 0).toString();
+        String maKhachHang = tblDanhSachKhachHang.getValueAt(i, 0).toString();
         
-        PnlMain.getInstance().showPanel(PnlChiTietKhachHang.newInstance());
-        PnlChiTietKhachHang.getInstance().setPnlBefore(this);
-        PnlChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
+        GUI_Main.getInstance().showPanel(GUI_ChiTietKhachHang.newInstance());
+        GUI_ChiTietKhachHang.getInstance().showThongTinKhachHang(maKhachHang);
+        GUI_ChiTietKhachHang.getInstance().setPnlBefore(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -83,13 +82,13 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlTimKiem = new javax.swing.JPanel();
-        txtSoDienThoai = new javax.swing.JTextField();
-        btnTimKiem = new javax.swing.JButton();
-        btnLamMoi = new javax.swing.JButton();
-        btnChiTiet = new javax.swing.JButton();
+        txtSoDienThoai = new extended_JComponent.JTextField_AllRound();
+        btnTimKiem = new extended_JComponent.JButton_AllRound();
+        btnLamMoi = new extended_JComponent.JButton_AllRound();
+        btnChiTiet = new extended_JComponent.JButton_AllRound();
         pnlTable = new javax.swing.JPanel();
         scrTable = new javax.swing.JScrollPane();
-        tblTable = new javax.swing.JTable();
+        tblDanhSachKhachHang = new extended_JComponent.JTable_LightMode();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -97,7 +96,6 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
         pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlTimKiem.setPreferredSize(new java.awt.Dimension(300, 700));
 
-        txtSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtSoDienThoai.setText("Số Điện Thoại");
         txtSoDienThoai.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -108,27 +106,36 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
             }
         });
 
-        btnTimKiem.setBackground(new java.awt.Color(170, 238, 255));
-        btnTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnTimKiem.setText("Tìm Kiếm");
+        btnTimKiem.setBorderRadius(30);
+        btnTimKiem.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiem.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiem.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiem.setColorEnter(new java.awt.Color(119, 238, 255));
         btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimKiemActionPerformed(evt);
             }
         });
 
-        btnLamMoi.setBackground(new java.awt.Color(170, 238, 255));
-        btnLamMoi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLamMoi.setText("Làm Mới");
+        btnLamMoi.setBorderRadius(30);
+        btnLamMoi.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnLamMoi.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnLamMoi.setColorClick(new java.awt.Color(119, 204, 255));
+        btnLamMoi.setColorEnter(new java.awt.Color(119, 238, 255));
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiActionPerformed(evt);
             }
         });
 
-        btnChiTiet.setBackground(new java.awt.Color(170, 238, 255));
-        btnChiTiet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnChiTiet.setText("Xem Chi Tiết Khách Hàng");
+        btnChiTiet.setBorderRadius(30);
+        btnChiTiet.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnChiTiet.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnChiTiet.setColorClick(new java.awt.Color(119, 204, 255));
+        btnChiTiet.setColorEnter(new java.awt.Color(119, 238, 255));
         btnChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChiTietActionPerformed(evt);
@@ -139,51 +146,46 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
         pnlTimKiem.setLayout(pnlTimKiemLayout);
         pnlTimKiemLayout.setHorizontalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtSoDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSoDienThoai)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                    .addComponent(btnLamMoi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlTimKiemLayout.setVerticalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 465, Short.MAX_VALUE))
+                .addGap(0, 476, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.EAST);
 
         pnlTable.setLayout(new java.awt.BorderLayout());
 
-        tblTable.setModel(new javax.swing.table.DefaultTableModel(
+        tblDanhSachKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
                 "Mã Khách Hàng", "Họ Tên", "Số Điện Thoại", "Địa Chỉ", "Nhóm Khách Hàng"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblTable.setRowHeight(40);
-        tblTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scrTable.setViewportView(tblTable);
+        ));
+        scrTable.setViewportView(tblDanhSachKhachHang);
+        if (tblDanhSachKhachHang.getColumnModel().getColumnCount() > 0) {
+            tblDanhSachKhachHang.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblDanhSachKhachHang.getColumnModel().getColumn(3).setPreferredWidth(300);
+        }
 
         pnlTable.add(scrTable, java.awt.BorderLayout.CENTER);
 
@@ -207,7 +209,7 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-        PnlMain.getInstance().showPanel(newInstance());
+        GUI_Main.getInstance().showPanel(newInstance());
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietActionPerformed
@@ -216,14 +218,14 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChiTiet;
-    private javax.swing.JButton btnLamMoi;
-    private javax.swing.JButton btnTimKiem;
+    private extended_JComponent.JButton_AllRound btnChiTiet;
+    private extended_JComponent.JButton_AllRound btnLamMoi;
+    private extended_JComponent.JButton_AllRound btnTimKiem;
     private javax.swing.JPanel pnlTable;
     private javax.swing.JPanel pnlTimKiem;
     private javax.swing.JScrollPane scrTable;
-    private javax.swing.JTable tblTable;
-    private javax.swing.JTextField txtSoDienThoai;
+    private extended_JComponent.JTable_LightMode tblDanhSachKhachHang;
+    private extended_JComponent.JTextField_AllRound txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 
 }
