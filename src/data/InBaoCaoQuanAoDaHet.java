@@ -10,16 +10,16 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
-import dao.DAO_KhachHang;
-import entity.KhachHang;
+import dao.DAO_QuanAo;
+import entity.QuanAo;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.sql.*;
 
-public class InBaoCaoKhachHang {
-    public static boolean createBaoCaoKhachHang(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException{
-        String baocao_file_path = "files//baoCao//" + "baoCaoKhachHang.pdf";
+public class InBaoCaoQuanAoDaHet {
+    public static boolean createBaoCaoQuanAoDaBan(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException{
+        String baocao_file_path = "files//baoCao//" + "baoCaoQuanAoDaBan.pdf";
         PdfWriter pdfWriter = new PdfWriter(baocao_file_path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
@@ -29,20 +29,27 @@ public class InBaoCaoKhachHang {
         document.setMargins(5, 5, 0, 5);
         document.setFont(PdfFontFactory.createFont(font_path, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
         
-        int tongKhachHang = 0;
+        int tongQuanAo = 0;
         double tongDoanhThu = 0;
+        double tongDoanhThuThuan = 0;
         
-        ResultSet rs = DAO_KhachHang.thongKeKhachHangTheoKhoangNgay(ngayBatDau, ngayKetThuc);
+        ResultSet rs = DAO_QuanAo.thongKeQuanAoDaBanTrongKhoangNgay(ngayBatDau, ngayKetThuc);
         try {
             while(rs.next()){
-                tongKhachHang++;
-                tongDoanhThu += rs.getDouble(4);
+                String maQuanAo = rs.getString(1);
+                QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
+                int soLuong = rs.getInt(2);
+                double doanhThuThanhPhan = rs.getDouble(2) * quanAo.getDonGiaBan();
+                double doanhThuThuanThanhPhan = rs.getDouble(2) * (quanAo.getDonGiaBan() - quanAo.getDonGiaNhap());
+                tongQuanAo += soLuong;
+                tongDoanhThu += doanhThuThanhPhan;
+                tongDoanhThuThuan += doanhThuThuanThanhPhan;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
         
-        Paragraph prgBaoCao = new Paragraph("Báo Cáo Thống Kê Khách Hàng");
+        Paragraph prgBaoCao = new Paragraph("Báo Cáo Thống Kê Sản Phẩm Đã Bán");
         prgBaoCao
                 .setFontSize(16)
                 .setBold()
@@ -63,7 +70,7 @@ public class InBaoCaoKhachHang {
         
         Paragraph prgTongKhachHang = new Paragraph();
         prgTongKhachHang.add(new Text("Tổng số khách hàng: ").setBold());
-        prgTongKhachHang.add(new Text(Integer.toString(tongKhachHang)));
+        prgTongKhachHang.add(new Text(Integer.toString(tongQuanAo)));
         prgTongKhachHang.setMarginLeft(50);
         
         Paragraph prgTongDoanhThu = new Paragraph();
@@ -71,38 +78,44 @@ public class InBaoCaoKhachHang {
         prgTongDoanhThu.add(new Text(FormatDouble.toMoney(tongDoanhThu)));
         prgTongDoanhThu.setMarginLeft(50);
         
-        Paragraph prgBaoCaoDoanhThu = new Paragraph("Danh Sách Thống Kê Khách Hàng");
+        Paragraph prgTongDoanhThuThuan = new Paragraph();
+        prgTongDoanhThuThuan.add(new Text("Tổng doanh thu thuần: ").setBold());
+        prgTongDoanhThuThuan.add(new Text(FormatDouble.toMoney(tongDoanhThuThuan)));
+        prgTongDoanhThuThuan.setMarginLeft(50);
+        
+        Paragraph prgBaoCaoDoanhThu = new Paragraph("Danh Sách Thống Kê Quần Áo");
         prgBaoCaoDoanhThu
                 .setFontSize(16)
                 .setBold()
                 .setTextAlignment(TextAlignment.CENTER)
                 .setMargin(0);
         
-        float[] tblHeaderSize = {150, 150, 150, 150, 150, 150};
+        float[] tblHeaderSize = {150, 150, 150, 150, 150};
         String[] tblHeaderList = {
-            "Mã Khách Hàng",
-            "Tên Khách Hàng",
-            "Nhóm Khách Hàng",
-            "Số Lần Mua Hàng",
-            "Số Quần Áo Đã Mua",
-            "Tổng Số Tiền"
+            "Mã Quần Áo",
+            "Tên Quần Áo",
+            "Số Lượng Đã Bán",
+            "Doanh Thu",
+            "Doanh Thu Thuần"
         };
         Table tblDetail = new Table(tblHeaderSize);
         for(String thisString : tblHeaderList) {
                 tblDetail.addCell(new Paragraph(thisString).setBold().setTextAlignment(TextAlignment.CENTER));
         }
         try {
-            rs = DAO_KhachHang.thongKeKhachHangTheoKhoangNgay(ngayBatDau, ngayKetThuc);
+            rs = DAO_QuanAo.thongKeQuanAoDaBanTrongKhoangNgay(ngayBatDau, ngayKetThuc);
             while(rs.next()){
-                String maKhachHang = rs.getString(1);
-                KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
+                String maQuanAo = rs.getString(1);
+                QuanAo quanAo = DAO_QuanAo.getQuanAoTheoMaQuanAo(maQuanAo);
+                int soLuong = rs.getInt(2);
+                double doanhThuThanhPhan = rs.getDouble(2) * quanAo.getDonGiaBan();
+                double doanhThuThuanThanhPhan = rs.getDouble(2) * (quanAo.getDonGiaBan() - quanAo.getDonGiaNhap());
                 
-                tblDetail.addCell(new Paragraph(maKhachHang));
-                tblDetail.addCell(new Paragraph(khachHang.getHoTen()));
-                tblDetail.addCell(new Paragraph(khachHang.getNhomKhachHang()));
-                tblDetail.addCell(new Paragraph(Integer.toString(rs.getInt(2))));
-                tblDetail.addCell(new Paragraph(Integer.toString(rs.getInt(3))));
-                tblDetail.addCell(new Paragraph(FormatDouble.toMoney(rs.getDouble(4))));
+                tblDetail.addCell(new Paragraph(maQuanAo));
+                tblDetail.addCell(new Paragraph(quanAo.getTenQuanAo()));
+                tblDetail.addCell(new Paragraph(Integer.toString(soLuong)));
+                tblDetail.addCell(new Paragraph(FormatDouble.toMoney(doanhThuThanhPhan)));
+                tblDetail.addCell(new Paragraph(FormatDouble.toMoney(doanhThuThuanThanhPhan)));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -117,6 +130,7 @@ public class InBaoCaoKhachHang {
         document.add(prgKhoangThoiGian);
         document.add(prgTongKhachHang);
         document.add(prgTongDoanhThu);
+        document.add(prgTongDoanhThuThuan);
         document.add(prgBaoCaoDoanhThu);
         document.add(tblDetail);
         

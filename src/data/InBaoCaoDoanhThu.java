@@ -51,7 +51,7 @@ public class InBaoCaoDoanhThu {
             tongDoanhThuThuan += tongDoanhThuThuanThanhPhan;
         }
         
-        Paragraph prgBaoCao = new Paragraph("Báo Cáo Doanh Thu");
+        Paragraph prgBaoCao = new Paragraph("Báo Cáo Thống Kê Doanh Thu");
         prgBaoCao
                 .setFontSize(16)
                 .setBold()
@@ -90,7 +90,7 @@ public class InBaoCaoDoanhThu {
         prgTongDoanhThuThuan.add(new Text(FormatDouble.toMoney(tongDoanhThuThuan)));
         prgTongDoanhThuThuan.setMarginLeft(50);
         
-        Paragraph prgBaoCaoDoanhThu = new Paragraph("Danh Sách Hóa Đơn Thống Kê");
+        Paragraph prgBaoCaoDoanhThu = new Paragraph("Danh Sách Thống Kê Doanh Thu");
         prgBaoCaoDoanhThu
                 .setFontSize(16)
                 .setBold()
