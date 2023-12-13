@@ -1,8 +1,10 @@
 package dao;
 
+import data.UtilityLocalDate;
 import entity.KhachHang;
 import java.util.ArrayList;
 import java.sql.*;
+import java.time.LocalDate;
 
 public class DAO_KhachHang extends DAO {
     public static boolean createKhachHang(KhachHang khachHang){
@@ -121,6 +123,25 @@ public class DAO_KhachHang extends DAO {
                 KhachHang khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
                 return khachHang;
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
+    public static ResultSet thongKeKhachHangTheoKhoangNgay(LocalDate ngayBatDau, LocalDate ngayKetThuc){
+        try {
+            String sql = ""
+                    + "SELECT HD.MaKhachHang, COUNT(HD.MaHoaDon) AS SoHoaDon, SUM(CTHD.SoLuong) AS SoHangHoaDaMua, SUM(CTHD.DonGia) AS TongTienDaMua "
+                    + "FROM (HoaDon HD JOIN ChiTietHoaDon CTHD ON HD.MaHoaDon = CTHD.MaHoaDon) JOIN KhachHang KH ON HD.MaKhachHang = KH.MaKhachHang "
+                    + "WHERE HD.ThoiGianTao BETWEEN ? AND ? "
+                    + "GROUP BY HD.MaKhachHang";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setDate(1, UtilityLocalDate.fromLocalDate(ngayBatDau));
+            prs.setDate(2, UtilityLocalDate.fromLocalDate(ngayKetThuc));
+            
+            ResultSet rs = prs.executeQuery();
+            return rs;
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }

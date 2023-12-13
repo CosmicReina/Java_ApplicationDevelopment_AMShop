@@ -654,7 +654,7 @@ public class GUI_Main extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThongKeDoanhThuActionPerformed
 
     private void btnThongKeKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeKhachHangActionPerformed
-        showPanel(GUI_TrangChu.newInstance());
+        showPanel(GUI_ThongKeKhachHang.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongKeKhachHangActionPerformed
 
