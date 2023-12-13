@@ -158,25 +158,25 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
         lblTienThua.setText("Tiền Thừa");
 
         txtMaHoaDon.setEditable(false);
-        txtMaHoaDon.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaHoaDon.setBackground(new java.awt.Color(224, 224, 224));
 
         txtNhanVienLapDon.setEditable(false);
-        txtNhanVienLapDon.setBackground(new java.awt.Color(204, 204, 204));
+        txtNhanVienLapDon.setBackground(new java.awt.Color(224, 224, 224));
 
         txtKhachHang.setEditable(false);
-        txtKhachHang.setBackground(new java.awt.Color(204, 204, 204));
+        txtKhachHang.setBackground(new java.awt.Color(224, 224, 224));
 
         txtThoiGianTao.setEditable(false);
-        txtThoiGianTao.setBackground(new java.awt.Color(204, 204, 204));
+        txtThoiGianTao.setBackground(new java.awt.Color(224, 224, 224));
 
         txtTongTien.setEditable(false);
-        txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
+        txtTongTien.setBackground(new java.awt.Color(224, 224, 224));
 
         txtTienKhachDua.setEditable(false);
-        txtTienKhachDua.setBackground(new java.awt.Color(204, 204, 204));
+        txtTienKhachDua.setBackground(new java.awt.Color(224, 224, 224));
 
         txtTienThua.setEditable(false);
-        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
+        txtTienThua.setBackground(new java.awt.Color(224, 224, 224));
 
         btnXemFileHoaDon.setText("Xem File Hóa Đơn");
         btnXemFileHoaDon.setBorderRadius(30);

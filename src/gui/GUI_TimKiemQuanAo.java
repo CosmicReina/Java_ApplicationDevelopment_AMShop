@@ -264,7 +264,7 @@ public class GUI_TimKiemQuanAo extends javax.swing.JPanel {
 
         cmbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chất Liệu" }));
 
-        pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
+        pnlHinhAnh.setBackground(new java.awt.Color(224, 224, 224));
         pnlHinhAnh.setPreferredSize(new java.awt.Dimension(196, 270));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
 

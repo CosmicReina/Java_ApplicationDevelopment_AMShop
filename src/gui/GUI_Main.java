@@ -438,6 +438,7 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.BorderLayout());
 
         pnlTitle.setBackground(new java.awt.Color(170, 238, 255));
@@ -452,6 +453,7 @@ public class GUI_Main extends javax.swing.JPanel {
 
         add(pnlTitle, java.awt.BorderLayout.PAGE_START);
 
+        pnlButton.setBackground(new java.awt.Color(255, 255, 255));
         pnlButton.setBorderBottomRight(50);
         pnlButton.setBorderTopRight(50);
         pnlButton.setPreferredSize(new java.awt.Dimension(200, 700));
@@ -595,6 +597,8 @@ public class GUI_Main extends javax.swing.JPanel {
         pnlButton.add(pnlLogoutButton);
 
         add(pnlButton, java.awt.BorderLayout.LINE_START);
+
+        pnlWork.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlWorkLayout = new javax.swing.GroupLayout(pnlWork);
         pnlWork.setLayout(pnlWorkLayout);

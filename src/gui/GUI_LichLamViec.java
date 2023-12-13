@@ -170,10 +170,10 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         
         LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
         if(lichLamViec.getNgayLamViec().isBefore(LocalDate.now())){
-//            btnThemNhanVien.setEnabled(false);
-//            btnXoaNhanVien.setEnabled(false);
-//            btnChamCongVao.setEnabled(false);
-//            btnChamCongRa.setEnabled(false);
+            btnThemNhanVien.setEnabled(false);
+            btnXoaNhanVien.setEnabled(false);
+            btnChamCongVao.setEnabled(false);
+            btnChamCongRa.setEnabled(false);
         }
         else{
             btnThemNhanVien.setEnabled(true);

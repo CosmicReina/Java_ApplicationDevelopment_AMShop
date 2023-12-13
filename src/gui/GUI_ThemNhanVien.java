@@ -228,7 +228,7 @@ public class GUI_ThemNhanVien extends javax.swing.JPanel {
         lblMatKhau.setText("Mật Khẩu");
 
         txtTenDangNhap.setEditable(false);
-        txtTenDangNhap.setBackground(new java.awt.Color(204, 204, 204));
+        txtTenDangNhap.setBackground(new java.awt.Color(224, 224, 224));
 
         javax.swing.GroupLayout pnlDangNhapLayout = new javax.swing.GroupLayout(pnlDangNhap);
         pnlDangNhap.setLayout(pnlDangNhapLayout);
@@ -266,7 +266,7 @@ public class GUI_ThemNhanVien extends javax.swing.JPanel {
         pnlNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtMaNhanVien.setEditable(false);
-        txtMaNhanVien.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaNhanVien.setBackground(new java.awt.Color(224, 224, 224));
 
         txtHoTen.setText("Họ Tên");
         txtHoTen.addFocusListener(new java.awt.event.FocusAdapter() {

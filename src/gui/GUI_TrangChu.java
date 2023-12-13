@@ -23,6 +23,7 @@ public class GUI_TrangChu extends javax.swing.JPanel {
 
         lblIMG = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.GridBagLayout());
 
         lblIMG.setIcon(new javax.swing.ImageIcon("D:\\08_Project\\NetBeans\\Java_AMShop\\files\\hinhAnh\\AM.png")); // NOI18N
