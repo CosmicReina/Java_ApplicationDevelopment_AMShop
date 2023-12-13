@@ -22,7 +22,9 @@ public class QuanAo {
         return maQuanAo;
     }
 
-    public void setMaQuanAo(String maQuanAo) {
+    public void setMaQuanAo(String maQuanAo) throws Exception {
+        if(!maQuanAo.matches("^QA[0-9]{6}$"))
+            throw new Exception("Mã Quần Áo không hợp lệ");
         this.maQuanAo = maQuanAo;
     }
 
@@ -30,7 +32,9 @@ public class QuanAo {
         return tenQuanAo;
     }
 
-    public void setTenQuanAo(String tenQuanAo) {
+    public void setTenQuanAo(String tenQuanAo) throws Exception {
+        if(tenQuanAo.isBlank())
+            throw new Exception("Tên Quần Áo không hợp lệ");
         this.tenQuanAo = tenQuanAo;
     }
 
@@ -38,7 +42,9 @@ public class QuanAo {
         return donGiaNhap;
     }
 
-    public void setDonGiaNhap(double donGiaNhap) {
+    public void setDonGiaNhap(double donGiaNhap) throws Exception {
+        if(donGiaNhap < 0)
+            throw new Exception("Đơn Giá Nhập không hợp lệ");
         this.donGiaNhap = donGiaNhap;
     }
 
@@ -46,7 +52,9 @@ public class QuanAo {
         return donGiaBan;
     }
 
-    public void setDonGiaBan(double donGiaBan) {
+    public void setDonGiaBan(double donGiaBan) throws Exception {
+        if(donGiaBan < donGiaNhap)
+            throw new Exception("Đơn Giá Bán không hợp lệ");
         this.donGiaBan = donGiaBan;
     }
 
@@ -54,7 +62,9 @@ public class QuanAo {
         return soLuongTrongKho;
     }
 
-    public void setSoLuongTrongKho(int soLuongTrongKho) {
+    public void setSoLuongTrongKho(int soLuongTrongKho) throws Exception {
+        if(soLuongTrongKho < 0)
+            throw new Exception("Số Lượng Trong Kho không hợp lệ");
         this.soLuongTrongKho = soLuongTrongKho;
     }
 
@@ -62,7 +72,9 @@ public class QuanAo {
         return nhaSanXuat;
     }
 
-    public void setNhaSanXuat(String nhaSanXuat) {
+    public void setNhaSanXuat(String nhaSanXuat) throws Exception {
+        if(nhaSanXuat.isBlank())
+            throw new Exception("Nhà Sản Xuất không hợp lệ");
         this.nhaSanXuat = nhaSanXuat;
     }
 
@@ -70,7 +82,9 @@ public class QuanAo {
         return danhMuc;
     }
 
-    public void setDanhMuc(String danhMuc) {
+    public void setDanhMuc(String danhMuc) throws Exception {
+        if(danhMuc.isBlank())
+            throw new Exception("Danh Mục không hợp lệ");
         this.danhMuc = danhMuc;
     }
 
@@ -78,7 +92,9 @@ public class QuanAo {
         return gioiTinh;
     }
 
-    public void setGioiTinh(String gioiTinh) {
+    public void setGioiTinh(String gioiTinh) throws Exception {
+        if(gioiTinh.isBlank())
+            throw new Exception("Giới Tính không hợp lệ");
         this.gioiTinh = gioiTinh;
     }
 
@@ -86,7 +102,9 @@ public class QuanAo {
         return mauSac;
     }
 
-    public void setMauSac(String mauSac) {
+    public void setMauSac(String mauSac) throws Exception {
+        if(mauSac.isBlank())
+            throw new Exception("Màu Sắc không hợp lệ");
         this.mauSac = mauSac;
     }
 
@@ -94,7 +112,9 @@ public class QuanAo {
         return kichThuoc;
     }
 
-    public void setKichThuoc(String kichThuoc) {
+    public void setKichThuoc(String kichThuoc) throws Exception {
+        if(kichThuoc.isBlank())
+            throw new Exception("Kích Thước không hợp lệ");
         this.kichThuoc = kichThuoc;
     }
 
@@ -102,7 +122,9 @@ public class QuanAo {
         return chatLieu;
     }
 
-    public void setChatLieu(String chatLieu) {
+    public void setChatLieu(String chatLieu) throws Exception {
+        if(chatLieu.isBlank())
+            throw new Exception("Chất Liệu không hợp lệ");
         this.chatLieu = chatLieu;
     }
 
@@ -110,7 +132,9 @@ public class QuanAo {
         return hinhAnh;
     }
 
-    public void setHinhAnh(ImageIcon hinhAnh) {
+    public void setHinhAnh(ImageIcon hinhAnh) throws Exception {
+        if(hinhAnh == null)
+            throw new Exception("Hình Ảnh không hợp lệ");
         this.hinhAnh = hinhAnh;
     }
 
@@ -122,23 +146,26 @@ public class QuanAo {
         this.ngungNhap = ngungNhap;
     }
 
-    public QuanAo() {
-    }
+    public QuanAo() {}
 
     public QuanAo(String maQuanAo, String tenQuanAo, double donGiaNhap, double donGiaBan, int soLuongTrongKho, String nhaSanXuat, String danhMuc, String gioiTinh, String mauSac, String kichThuoc, String chatLieu, ImageIcon hinhAnh, boolean ngungNhap) {
-        this.maQuanAo = maQuanAo;
-        this.tenQuanAo = tenQuanAo;
-        this.donGiaNhap = donGiaNhap;
-        this.donGiaBan = donGiaBan;
-        this.soLuongTrongKho = soLuongTrongKho;
-        this.nhaSanXuat = nhaSanXuat;
-        this.danhMuc = danhMuc;
-        this.gioiTinh = gioiTinh;
-        this.mauSac = mauSac;
-        this.kichThuoc = kichThuoc;
-        this.chatLieu = chatLieu;
-        this.hinhAnh = hinhAnh;
-        this.ngungNhap = ngungNhap;
+        try {
+            setMaQuanAo(maQuanAo);
+            setTenQuanAo(tenQuanAo);
+            setDonGiaNhap(donGiaNhap);
+            setDonGiaBan(donGiaBan);
+            setSoLuongTrongKho(soLuongTrongKho);
+            setNhaSanXuat(nhaSanXuat);
+            setDanhMuc(danhMuc);
+            setGioiTinh(gioiTinh);
+            setMauSac(mauSac);
+            setKichThuoc(kichThuoc);
+            setChatLieu(chatLieu);
+            setHinhAnh(hinhAnh);
+            setNgungNhap(ngungNhap);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
