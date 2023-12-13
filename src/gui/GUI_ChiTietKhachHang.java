@@ -141,19 +141,19 @@ public class GUI_ChiTietKhachHang extends javax.swing.JPanel {
         lblNhomKhachHang.setText("Nhóm Khách");
 
         txtMaKhachHang.setEditable(false);
-        txtMaKhachHang.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaKhachHang.setBackground(new java.awt.Color(224, 224, 224));
 
         txtHoTen.setEditable(false);
-        txtHoTen.setBackground(new java.awt.Color(204, 204, 204));
+        txtHoTen.setBackground(new java.awt.Color(224, 224, 224));
 
         txtSoDienThoai.setEditable(false);
-        txtSoDienThoai.setBackground(new java.awt.Color(204, 204, 204));
+        txtSoDienThoai.setBackground(new java.awt.Color(224, 224, 224));
 
         txtDiaChi.setEditable(false);
-        txtDiaChi.setBackground(new java.awt.Color(204, 204, 204));
+        txtDiaChi.setBackground(new java.awt.Color(224, 224, 224));
 
         txtNhomKhachHang.setEditable(false);
-        txtNhomKhachHang.setBackground(new java.awt.Color(204, 204, 204));
+        txtNhomKhachHang.setBackground(new java.awt.Color(224, 224, 224));
 
         btnXemChiTietHoaDon.setText("Xem Chi Tiết Hóa Đơn");
         btnXemChiTietHoaDon.setBorderRadius(30);

@@ -352,7 +352,7 @@ public class GUI_ThemQuanAo extends javax.swing.JPanel implements ItemListener {
         lblMaQuanAo.setText("Mã Quần Áo");
 
         txtMaQuanAo.setEditable(false);
-        txtMaQuanAo.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaQuanAo.setBackground(new java.awt.Color(224, 224, 224));
 
         lblTenQuanAo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblTenQuanAo.setForeground(new java.awt.Color(255, 255, 255));

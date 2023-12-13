@@ -39,6 +39,12 @@ public class GUI_DangNhap extends javax.swing.JFrame {
         GUI_MainFrame.newInstance().setVisible(true);
         dispose();
     }
+    
+    private void moTraCuuChoKhachHang(){
+        GUI_MainFrame.newInstance().setVisible(true);
+        GUI_Main.getInstance().tatHetChucNang();
+        dispose();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -59,6 +65,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
         setUndecorated(true);
 
         pnlDangNhap.setBackground(new java.awt.Color(102, 102, 102));
+        pnlDangNhap.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 5));
 
         lblDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblDangNhap.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,7 +145,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
                         .addGroup(pnlDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 139, Short.MAX_VALUE)))
+                        .addGap(0, 129, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDangNhapLayout.createSequentialGroup()
                 .addGap(69, 69, 69)
@@ -169,7 +176,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
                     .addComponent(btnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addComponent(btnTraCuuChoKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addComponent(lblVersion)
                 .addContainerGap())
         );
@@ -192,6 +199,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 
     private void btnTraCuuChoKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraCuuChoKhachHangActionPerformed
         // TODO add your handling code here:
+        moTraCuuChoKhachHang();
     }//GEN-LAST:event_btnTraCuuChoKhachHangActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

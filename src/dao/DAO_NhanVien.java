@@ -284,6 +284,24 @@ public class DAO_NhanVien extends DAO {
         }
         return list;
     }
+    
+    public static ResultSet tinhLuongNhanVien(int nam, int thang){
+        try {
+            String sql = "SELECT MaNhanVien, SUM(DATEDIFF(SECOND, '00:00:00', CONVERT(DATETIME, ThoiGianRaCa - ThoiGianVaoCa))) AS TotalSeconds "
+                    + "FROM LichLamViec L JOIN ChiTietPhanCong CT ON L.MaLichLamViec = CT.MaLichLamViec "
+                    + "WHERE YEAR(NgayLamViec) = ? AND MONTH(NgayLamViec) = ? "
+                    + "GROUP BY MaNhanVien";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setInt(1, nam);
+            prs.setInt(2, thang);
+            
+            ResultSet rs = prs.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
 
     public static String getMaNhanVienCuoi(String prefix){
         String searchPrefix = prefix + "%";

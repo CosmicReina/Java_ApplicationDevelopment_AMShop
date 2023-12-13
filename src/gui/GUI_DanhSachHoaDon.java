@@ -54,39 +54,6 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
             });
         }
     }
-
-    private void timKiemHoaDon(){
-        String maHoaDon = txtMaHoaDon.getText();
-        String soDienThoai = txtSoDienThoai.getText();
-        
-        if(maHoaDon.equals("") && soDienThoai.equals("")){
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm.");
-        }
-        
-        ArrayList<HoaDon> list = DAO_HoaDon.getAllHoaDon();
-        ArrayList<HoaDon> listRemove = new ArrayList<>();
-        
-        if(!maHoaDon.equals("")){
-            for(int i = 0; i < list.size(); i++){
-                HoaDon thisHoaDon = list.get(i);
-                if(!thisHoaDon.getMaHoaDon().equals(maHoaDon))
-                    listRemove.add(thisHoaDon);
-            }
-            list.removeAll(listRemove);
-            hienThiBang(list);
-            return;
-        }
-        
-        if(!soDienThoai.equals("")){
-            for(int i = 0; i < list.size(); i++){
-                HoaDon thisHoaDon = list.get(i);
-                if(!thisHoaDon.getKhachHang().getSoDienThoai().equals(soDienThoai))
-                    listRemove.add(thisHoaDon);
-            }
-            list.removeAll(listRemove);
-            hienThiBang(list);
-        }
-    }
     
     private void xemChiTietHoaDon(){
         int i = tblDanhSachHoaDon.getSelectedRow();
@@ -106,12 +73,6 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlTimKiem = new javax.swing.JPanel();
-        lblMaHoaDon = new javax.swing.JLabel();
-        lblSoDienThoai = new javax.swing.JLabel();
-        txtMaHoaDon = new extended_JComponent.JTextField_AllRound();
-        txtSoDienThoai = new extended_JComponent.JTextField_AllRound();
-        btnTimKiem = new extended_JComponent.JButton_AllRound();
-        btnLamMoi = new extended_JComponent.JButton_AllRound();
         btnXemChiTiet = new extended_JComponent.JButton_AllRound();
         scrDanhSachHoaDon = new javax.swing.JScrollPane();
         tblDanhSachHoaDon = new extended_JComponent.JTable_LightMode();
@@ -121,40 +82,8 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnlTimKiem.setBackground(new java.awt.Color(79, 137, 255));
-        pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm Hóa Đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 20), new java.awt.Color(255, 255, 255))); // NOI18N
-        pnlTimKiem.setPreferredSize(new java.awt.Dimension(300, 700));
-
-        lblMaHoaDon.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblMaHoaDon.setForeground(new java.awt.Color(255, 255, 255));
-        lblMaHoaDon.setText("Mã Hóa Đơn");
-
-        lblSoDienThoai.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblSoDienThoai.setForeground(new java.awt.Color(255, 255, 255));
-        lblSoDienThoai.setText("Số Điện Thoại");
-
-        btnTimKiem.setText("Tìm Kiếm");
-        btnTimKiem.setBorderRadius(30);
-        btnTimKiem.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnTimKiem.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnTimKiem.setColorClick(new java.awt.Color(119, 204, 255));
-        btnTimKiem.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
-            }
-        });
-
-        btnLamMoi.setText("Làm Mới");
-        btnLamMoi.setBorderRadius(30);
-        btnLamMoi.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnLamMoi.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnLamMoi.setColorClick(new java.awt.Color(119, 204, 255));
-        btnLamMoi.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLamMoiActionPerformed(evt);
-            }
-        });
+        pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Xem Chi Tiết", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 20), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlTimKiem.setPreferredSize(new java.awt.Dimension(300, 100));
 
         btnXemChiTiet.setText("Xem Chi Tiết Hóa Đơn");
         btnXemChiTiet.setBorderRadius(30);
@@ -174,41 +103,18 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                        .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMaHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(txtSoDienThoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnLamMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnXemChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnXemChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, 1144, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlTimKiemLayout.setVerticalGroup(
             pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(pnlTimKiem, java.awt.BorderLayout.EAST);
+        add(pnlTimKiem, java.awt.BorderLayout.SOUTH);
 
         tblDanhSachHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,32 +129,16 @@ public class GUI_DanhSachHoaDon extends javax.swing.JPanel {
         add(scrDanhSachHoaDon, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        // TODO add your handling code here:
-        timKiemHoaDon();
-    }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
-        // TODO add your handling code here:
-        GUI_Main.getInstance().showPanel(newInstance());
-    }//GEN-LAST:event_btnLamMoiActionPerformed
-
     private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
         xemChiTietHoaDon();
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private extended_JComponent.JButton_AllRound btnLamMoi;
-    private extended_JComponent.JButton_AllRound btnTimKiem;
     private extended_JComponent.JButton_AllRound btnXemChiTiet;
-    private javax.swing.JLabel lblMaHoaDon;
-    private javax.swing.JLabel lblSoDienThoai;
     private javax.swing.JPanel pnlTimKiem;
     private javax.swing.JScrollPane scrDanhSachHoaDon;
     private extended_JComponent.JTable_LightMode tblDanhSachHoaDon;
-    private extended_JComponent.JTextField_AllRound txtMaHoaDon;
-    private extended_JComponent.JTextField_AllRound txtSoDienThoai;
     // End of variables declaration//GEN-END:variables
 
 }

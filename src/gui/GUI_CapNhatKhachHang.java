@@ -196,7 +196,7 @@ public class GUI_CapNhatKhachHang extends javax.swing.JPanel {
         });
 
         txtMaKhachHang.setEditable(false);
-        txtMaKhachHang.setBackground(new java.awt.Color(204, 204, 204));
+        txtMaKhachHang.setBackground(new java.awt.Color(224, 224, 224));
         txtMaKhachHang.setText("Mã Khách Hàng");
 
         txtHoTen.setText("Họ Tên");

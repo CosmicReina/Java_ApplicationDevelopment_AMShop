@@ -465,7 +465,7 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         pnlKhachHang.setPreferredSize(new java.awt.Dimension(516, 150));
 
         txtSoDienThoai.setEditable(false);
-        txtSoDienThoai.setBackground(new java.awt.Color(204, 204, 204));
+        txtSoDienThoai.setBackground(new java.awt.Color(224, 224, 224));
         txtSoDienThoai.setText("Số Điện Thoại");
         txtSoDienThoai.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -477,7 +477,7 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         });
 
         txtHoTen.setEditable(false);
-        txtHoTen.setBackground(new java.awt.Color(204, 204, 204));
+        txtHoTen.setBackground(new java.awt.Color(224, 224, 224));
         txtHoTen.setText("Họ Tên");
         txtHoTen.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -489,7 +489,7 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         });
 
         txtDiaChi.setEditable(false);
-        txtDiaChi.setBackground(new java.awt.Color(204, 204, 204));
+        txtDiaChi.setBackground(new java.awt.Color(224, 224, 224));
         txtDiaChi.setText("Địa Chỉ");
         txtDiaChi.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -517,9 +517,9 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         pnlKhachHangLayout.setVerticalGroup(
             pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlKhachHangLayout.createSequentialGroup()
-                .addGroup(pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSoDienThoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlKhachHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSoDienThoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -543,10 +543,10 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         });
 
         txtTongTien.setEditable(false);
-        txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
+        txtTongTien.setBackground(new java.awt.Color(224, 224, 224));
 
         txtTienThua.setEditable(false);
-        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
+        txtTienThua.setBackground(new java.awt.Color(224, 224, 224));
 
         lblTienThua.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblTienThua.setForeground(new java.awt.Color(255, 255, 255));

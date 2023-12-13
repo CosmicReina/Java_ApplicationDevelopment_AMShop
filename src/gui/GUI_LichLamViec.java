@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 
 public class GUI_LichLamViec extends javax.swing.JPanel {
@@ -61,6 +62,8 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
                 FormatLocalDate.fromLocalDate(thisLichLamViec.getNgayLamViec())
             });
         }
+        JScrollBar verticalScrollBar = scrDanhSachLichLamViec.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
     }    
 
     private void showTableListNhanVien(ArrayList<NhanVien> list){
@@ -89,7 +92,7 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
                 thoiGianVaoCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianVaoCa().toLocalTime());
             }
             if(thisChiTietPhanCong.getThoiGianRaCa() != null){
-                thoiGianVaoCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianRaCa().toLocalTime());
+                thoiGianRaCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianRaCa().toLocalTime());
             }
             model.addRow(new Object[]{
                 thisChiTietPhanCong.getNhanVien().getMaNhanVien(),
@@ -310,7 +313,34 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
     }
     
     private void timKiem(){
+        ArrayList<LichLamViec> lichLamViec = DAO_LichLamViec.getAllLichLamViec();
+        ArrayList<LichLamViec> lichLamViecRemove = new ArrayList<>();
+        LocalDate ngayLamViec;
         
+        if(txtNgayLamViec.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập Ngày Làm Việc cần tìm.");
+            return;
+        }
+        
+        try{
+            ngayLamViec = FormatLocalDate.toLocalDate(txtNgayLamViec.getText()); // Kiểm tra chuyển đổi
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập Ngày Làm Việc hợp lệ (DD/MM/YYYY).");
+            return;
+        }
+        
+        for(LichLamViec thisLichLamViec : lichLamViec){
+            if(!thisLichLamViec.getNgayLamViec().equals(ngayLamViec))
+                lichLamViecRemove.add(thisLichLamViec);
+        }
+        
+        lichLamViec.removeAll(lichLamViecRemove);
+        if(lichLamViec.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Lịch Làm Việc thông tồn tại.");
+            return;
+        }
+        showTableListLichLamViec(lichLamViec);
     }
     
     @SuppressWarnings("unchecked")
@@ -333,6 +363,7 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         txtNgayLamViec = new extended_JComponent.JTextField_AllRound();
         btnThem = new extended_JComponent.JButton_AllRound();
         btnTimKiem = new extended_JComponent.JButton_AllRound();
+        btnLamMoi = new extended_JComponent.JButton_AllRound();
         pnlDanhSachNhanVien = new javax.swing.JPanel();
         scrDanhSachNhanVien = new javax.swing.JScrollPane();
         tblDanhSachNhanVien = new extended_JComponent.JTable_LightMode();
@@ -442,6 +473,18 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             }
         });
 
+        btnLamMoi.setText("Làm Mới");
+        btnLamMoi.setBorderRadius(30);
+        btnLamMoi.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnLamMoi.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnLamMoi.setColorClick(new java.awt.Color(119, 204, 255));
+        btnLamMoi.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLamMoiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCapNhatCaLamLayout = new javax.swing.GroupLayout(pnlCapNhatCaLam);
         pnlCapNhatCaLam.setLayout(pnlCapNhatCaLamLayout);
         pnlCapNhatCaLamLayout.setHorizontalGroup(
@@ -458,7 +501,8 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
                             .addComponent(cmbCaLamViec, 0, 200, Short.MAX_VALUE)
                             .addComponent(txtNgayLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
         pnlCapNhatCaLamLayout.setVerticalGroup(
@@ -476,7 +520,9 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pnlCapNhatLichLamViec.add(pnlCapNhatCaLam, java.awt.BorderLayout.WEST);
@@ -648,9 +694,15 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         updateDanhSachNhanVien();
     }//GEN-LAST:event_tblDanhSachLichLamViecMouseClicked
 
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
+        // TODO add your handling code here:
+        GUI_Main.getInstance().showPanel(newInstance());
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private extended_JComponent.JButton_AllRound btnChamCongRa;
     private extended_JComponent.JButton_AllRound btnChamCongVao;
+    private extended_JComponent.JButton_AllRound btnLamMoi;
     private extended_JComponent.JButton_AllRound btnThem;
     private extended_JComponent.JButton_AllRound btnThemNhanVien;
     private extended_JComponent.JButton_AllRound btnTimKiem;

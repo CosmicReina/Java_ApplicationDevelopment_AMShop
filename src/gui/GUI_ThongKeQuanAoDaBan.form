@@ -43,7 +43,7 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder justification="2" position="2" title="Danh S&#xe1;ch Qu&#x1ea7;n &#xc1;o">
+                <TitledBorder justification="2" position="2" title="Danh S&#xe1;ch Qu&#x1ea7;n &#xc1;o &#x110;&#xe3; B&#xe1;n">
                   <Font PropertyName="font" name="Segoe UI" size="24" style="0"/>
                   <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                 </TitledBorder>

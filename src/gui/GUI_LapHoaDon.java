@@ -558,7 +558,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnlTimKiem.setBackground(new java.awt.Color(68, 136, 255));
-        pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm Quần Áo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlTimKiem.setPreferredSize(new java.awt.Dimension(250, 700));
 
         txtMaQuanAo.setText("Mã Quần Áo");
@@ -593,7 +593,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
 
         cmbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chất Liệu" }));
 
-        pnlHinhAnh.setBackground(new java.awt.Color(204, 204, 204));
+        pnlHinhAnh.setBackground(new java.awt.Color(224, 224, 224));
         pnlHinhAnh.setPreferredSize(new java.awt.Dimension(196, 270));
         pnlHinhAnh.setLayout(new java.awt.GridBagLayout());
 
@@ -720,7 +720,7 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         add(pnlTimKiem, java.awt.BorderLayout.EAST);
@@ -876,10 +876,10 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
         lblTienThua.setText("Tiền Thừa");
 
         txtTongTien.setEditable(false);
-        txtTongTien.setBackground(new java.awt.Color(204, 204, 204));
+        txtTongTien.setBackground(new java.awt.Color(224, 224, 224));
 
         txtTienThua.setEditable(false);
-        txtTienThua.setBackground(new java.awt.Color(204, 204, 204));
+        txtTienThua.setBackground(new java.awt.Color(224, 224, 224));
 
         btnTaoDonDatHang.setText("Tạo Đơn Đặt Hàng");
         btnTaoDonDatHang.setBorderRadius(20);

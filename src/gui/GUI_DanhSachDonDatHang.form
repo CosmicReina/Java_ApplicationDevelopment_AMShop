@@ -409,9 +409,9 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtHoTen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtSoDienThoai" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtHoTen" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="txtDiaChi" min="-2" max="-2" attributes="0"/>
@@ -425,7 +425,7 @@
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                          <Color blue="e0" green="e0" red="e0" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i"/>
                       </Properties>
@@ -438,7 +438,7 @@
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                          <Color blue="e0" green="e0" red="e0" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="H&#x1ecd; T&#xea;n"/>
                       </Properties>
@@ -451,7 +451,7 @@
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                          <Color blue="e0" green="e0" red="e0" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;"/>
                       </Properties>
@@ -560,7 +560,7 @@
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                          <Color blue="e0" green="e0" red="e0" type="rgb"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -570,7 +570,7 @@
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                          <Color blue="e0" green="e0" red="e0" type="rgb"/>
                         </Property>
                       </Properties>
                     </Component>

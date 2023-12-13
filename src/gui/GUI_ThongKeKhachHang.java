@@ -152,7 +152,7 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
         pnlHoaDon.setLayout(new java.awt.BorderLayout());
 
         scrKhachHang.setBackground(new java.awt.Color(68, 136, 255));
-        scrKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Hóa Đơn", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        scrKhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Khách Hàng", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
         tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

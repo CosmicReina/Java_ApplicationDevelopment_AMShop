@@ -215,7 +215,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
@@ -223,7 +223,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
@@ -231,7 +231,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
@@ -239,7 +239,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
@@ -247,7 +247,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
@@ -255,7 +255,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
@@ -263,7 +263,7 @@
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="e0" green="e0" red="e0" type="rgb"/>
             </Property>
           </Properties>
         </Component>
