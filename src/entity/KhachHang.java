@@ -13,7 +13,9 @@ public class KhachHang {
         return maKhachHang;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
+    public void setMaKhachHang(String maKhachHang) throws Exception {
+        if(!maKhachHang.matches("^KH[0-9]{8}$"))
+            throw new Exception("Mã Khách Hàng không hợp lệ");
         this.maKhachHang = maKhachHang;
     }
 
@@ -21,7 +23,9 @@ public class KhachHang {
         return hoTen;
     }
 
-    public void setHoTen(String hoTen) {
+    public void setHoTen(String hoTen) throws Exception {
+        if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$"))
+            throw new Exception("Họ Tên không hợp lệ");
         this.hoTen = hoTen;
     }
 
@@ -29,7 +33,9 @@ public class KhachHang {
         return soDienThoai;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
+    public void setSoDienThoai(String soDienThoai) throws Exception {
+        if(!soDienThoai.matches("^[0-9]{10}$"))
+            throw new Exception("Số điện thoại không hợp lệ");
         this.soDienThoai = soDienThoai;
     }
 
@@ -37,7 +43,9 @@ public class KhachHang {
         return diaChi;
     }
 
-    public void setDiaChi(String diaChi) {
+    public void setDiaChi(String diaChi) throws Exception {
+        if(diaChi.isBlank())
+            throw new Exception("Địa chỉ không hợp lệ");
         this.diaChi = diaChi;
     }
 
@@ -45,19 +53,24 @@ public class KhachHang {
         return nhomKhachHang;
     }
 
-    public void setNhomKhachHang(String nhomKhachHang) {
+    public void setNhomKhachHang(String nhomKhachHang) throws Exception {
+        if(!nhomKhachHang.equals("Thường") && !nhomKhachHang.equals("Thân Thiết"))
+            throw new Exception("Nhóm Khách Hàng không hợp lệ");
         this.nhomKhachHang = nhomKhachHang;
     }
 
-    public KhachHang() {
-    }
+    public KhachHang() {}
 
     public KhachHang(String maKhachHang, String hoTen, String soDienThoai, String diaChi, String nhomKhachHang) {
-        this.maKhachHang = maKhachHang;
-        this.hoTen = hoTen;
-        this.soDienThoai = soDienThoai;
-        this.diaChi = diaChi;
-        this.nhomKhachHang = nhomKhachHang;
+        try {
+            setMaKhachHang(maKhachHang);
+            setHoTen(hoTen);
+            setSoDienThoai(soDienThoai);
+            setDiaChi(diaChi);
+            setNhomKhachHang(nhomKhachHang);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
