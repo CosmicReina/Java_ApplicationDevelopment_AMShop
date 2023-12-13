@@ -39,6 +39,12 @@ public class GUI_DangNhap extends javax.swing.JFrame {
         GUI_MainFrame.newInstance().setVisible(true);
         dispose();
     }
+    
+    private void moTraCuuChoKhachHang(){
+        GUI_MainFrame.newInstance().setVisible(true);
+        GUI_Main.getInstance().tatHetChucNang();
+        dispose();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -192,6 +198,7 @@ public class GUI_DangNhap extends javax.swing.JFrame {
 
     private void btnTraCuuChoKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraCuuChoKhachHangActionPerformed
         // TODO add your handling code here:
+        moTraCuuChoKhachHang();
     }//GEN-LAST:event_btnTraCuuChoKhachHangActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

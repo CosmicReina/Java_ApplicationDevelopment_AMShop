@@ -91,6 +91,18 @@ public class GUI_Main extends javax.swing.JPanel {
     	pnlWork.add(panel, BorderLayout.CENTER);
     }
     
+    public void tatHetChucNang(){
+        btnTrangChu.setVisible(false);
+        btnNhanVien.setVisible(false);
+        btnKhachHang.setVisible(false);
+        btnHoaDon.setVisible(false);
+        btnQuanAo.setVisible(false);
+        btnLichLamViec.setVisible(false);
+        btnThongKe.setVisible(false);
+        
+        showPanel(GUI_DanhSachQuanAo.newInstance());
+    }
+    
     private void dangXuat(){
         int i = JOptionPane.showConfirmDialog(null, "Đăng Xuất Chương Trình?", "Đăng Xuất", JOptionPane.YES_NO_OPTION);
         if(i == JOptionPane.YES_OPTION){
