@@ -10,7 +10,9 @@ public class CuaHang {
         return maCuaHang;
     }
 
-    public void setMaCuaHang(String maCuaHang) {
+    public void setMaCuaHang(String maCuaHang) throws Exception {
+        if(maCuaHang.isBlank())
+            throw new Exception("Mã Cửa Hàng không hợp lệ");
         this.maCuaHang = maCuaHang;
     }
 
@@ -18,7 +20,9 @@ public class CuaHang {
         return tenCuaHang;
     }
 
-    public void setTenCuaHang(String tenCuaHang) {
+    public void setTenCuaHang(String tenCuaHang) throws Exception {
+        if(tenCuaHang.isBlank())
+            throw new Exception("Tên Cửa Hàng không hợp lệ");
         this.tenCuaHang = tenCuaHang;
     }
 
@@ -26,7 +30,9 @@ public class CuaHang {
         return soDienThoai;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
+    public void setSoDienThoai(String soDienThoai) throws Exception {
+        if(!soDienThoai.matches("^[0-9]{10}$"))
+            throw new Exception("Số điện thoại không hợp lệ");
         this.soDienThoai = soDienThoai;
     }
 
@@ -34,18 +40,23 @@ public class CuaHang {
         return diaChi;
     }
 
-    public void setDiaChi(String diaChi) {
+    public void setDiaChi(String diaChi) throws Exception {
+        if(diaChi.isBlank())
+            throw new Exception("Địa chỉ không hợp lệ");
         this.diaChi = diaChi;
     }
 
-    public CuaHang() {
-    }
+    public CuaHang() {}
 
     public CuaHang(String maCuaHang, String tenCuaHang, String soDienThoai, String diaChi) {
-        this.maCuaHang = maCuaHang;
-        this.tenCuaHang = tenCuaHang;
-        this.soDienThoai = soDienThoai;
-        this.diaChi = diaChi;
+        try {
+            setMaCuaHang(maCuaHang);
+            setTenCuaHang(tenCuaHang);
+            setSoDienThoai(soDienThoai);
+            setDiaChi(diaChi);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
