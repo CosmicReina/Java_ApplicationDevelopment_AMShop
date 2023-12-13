@@ -123,6 +123,10 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
             return;
         }
         
+        int prompt = JOptionPane.showConfirmDialog(null, "Xác Nhận Thanh Toán Cho Đơn Đặt Hàng Này?", "Xác Nhận Thanh Toán", JOptionPane.YES_NO_OPTION);
+        if(prompt == JOptionPane.NO_OPTION)
+           return;
+        
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
             String maKhachHang = KhoiTaoMa.generateMaKhachHang();

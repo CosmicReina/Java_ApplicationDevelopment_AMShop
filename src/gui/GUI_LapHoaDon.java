@@ -348,6 +348,10 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
             return;
         }
         
+        int prompt = JOptionPane.showConfirmDialog(null, "Xác Nhận Tạo Đơn Đặt Hàng?", "Tạo Đơn Đặt Hàng", JOptionPane.YES_NO_OPTION);
+        if(prompt == JOptionPane.NO_OPTION)
+            return;
+        
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
             String maKhachHang = KhoiTaoMa.generateMaKhachHang();
@@ -432,6 +436,10 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, throwMessage);
             return;
         }
+        
+        int prompt = JOptionPane.showConfirmDialog(null, "Xác Nhận Thanh Toán Cho Đơn Hàng Này?", "Xác Nhận Thanh Toán", JOptionPane.YES_NO_OPTION);
+       if(prompt == JOptionPane.NO_OPTION)
+           return;
         
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
