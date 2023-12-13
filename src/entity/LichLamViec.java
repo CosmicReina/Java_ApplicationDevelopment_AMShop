@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LichLamViec {
     private String maLichLamViec;
@@ -12,7 +14,9 @@ public class LichLamViec {
         return maLichLamViec;
     }
 
-    public void setMaLichLamViec(String maLichLamViec) {
+    public void setMaLichLamViec(String maLichLamViec) throws Exception {
+        if(!maLichLamViec.matches("^LH[0-9]{6}[SC]$"))
+            throw new Exception("Mã Lịch Làm Việc không hợp lệ");
         this.maLichLamViec = maLichLamViec;
     }
 
@@ -32,13 +36,16 @@ public class LichLamViec {
         this.caLamViec = caLamViec;
     }
 
-    public LichLamViec() {
-    }
+    public LichLamViec() {}
 
     public LichLamViec(String maLichLamViec, LocalDate ngayLamViec, CaLamViec caLamViec) {
-        this.maLichLamViec = maLichLamViec;
-        this.ngayLamViec = ngayLamViec;
-        this.caLamViec = caLamViec;
+        try {
+            setMaLichLamViec(maLichLamViec);
+            setNgayLamViec(ngayLamViec);
+            setCaLamViec(caLamViec);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override

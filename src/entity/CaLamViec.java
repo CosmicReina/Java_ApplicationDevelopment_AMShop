@@ -12,7 +12,9 @@ public class CaLamViec {
         return maCaLamViec;
     }
 
-    public void setMaCaLamViec(int maCaLamViec) {
+    public void setMaCaLamViec(int maCaLamViec) throws Exception {
+        if(maCaLamViec < 0)
+            throw new Exception("Mã Ca Làm Việc không hợp lệ");
         this.maCaLamViec = maCaLamViec;
     }
 
@@ -20,7 +22,9 @@ public class CaLamViec {
         return tenCaLamViec;
     }
 
-    public void setTenCaLamViec(String tenCaLamViec) {
+    public void setTenCaLamViec(String tenCaLamViec) throws Exception {
+        if(tenCaLamViec.isBlank())
+            throw new Exception("Tên Ca Làm Việc không hợp lệ");
         this.tenCaLamViec = tenCaLamViec;
     }
 
@@ -36,7 +40,9 @@ public class CaLamViec {
         return thoiGianKetThuc;
     }
 
-    public void setThoiGianKetThuc(LocalTime thoiGianKetThuc) {
+    public void setThoiGianKetThuc(LocalTime thoiGianKetThuc) throws Exception {
+        if(thoiGianKetThuc.isBefore(thoiGianBatDau))
+            throw new Exception("Thời Gian Kết Thúc không hợp lệ");
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
 
@@ -44,10 +50,14 @@ public class CaLamViec {
     }
 
     public CaLamViec(int maCaLamViec, String tenCaLamViec, LocalTime thoiGianBatDau, LocalTime thoiGianKetThuc) {
-        this.maCaLamViec = maCaLamViec;
-        this.tenCaLamViec = tenCaLamViec;
-        this.thoiGianBatDau = thoiGianBatDau;
-        this.thoiGianKetThuc = thoiGianKetThuc;
+        try {
+            setMaCaLamViec(maCaLamViec);
+            setTenCaLamViec(tenCaLamViec);
+            setThoiGianBatDau(thoiGianBatDau);
+            setThoiGianKetThuc(thoiGianKetThuc);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
