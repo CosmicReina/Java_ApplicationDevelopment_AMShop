@@ -179,9 +179,9 @@ public class DAO_QuanAo extends DAO {
     
     public static ResultSet thongKeQuanAoDaHetHang(){
         String sql = ""
-                + "SELECT * "
+                + "SELECT MaQuanAo, TenQuanAo "
                 + "FROM QuanAo "
-                + "WHERE SoLuongTrongKho = 0";
+                + "WHERE SoLuongTrongKho = 0 AND NgungNhap = 0";
         ResultSet rs = DAO.getResultSetFromStatement(sql);
         return rs;
     }

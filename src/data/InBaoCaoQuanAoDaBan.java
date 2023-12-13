@@ -69,7 +69,7 @@ public class InBaoCaoQuanAoDaBan {
         prgThoiGianThongKe.setMarginLeft(50);
         
         Paragraph prgTongKhachHang = new Paragraph();
-        prgTongKhachHang.add(new Text("Tổng số khách hàng: ").setBold());
+        prgTongKhachHang.add(new Text("Tổng số quần áo đã bán: ").setBold());
         prgTongKhachHang.add(new Text(Integer.toString(tongQuanAo)));
         prgTongKhachHang.setMarginLeft(50);
         

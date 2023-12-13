@@ -118,7 +118,7 @@ public class GUI_ThongKeQuanAoDaBan extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã bán thành công.");
             }
             else{
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thất bại.");
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Quần Áo đã bán thất bại.");
             }
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
