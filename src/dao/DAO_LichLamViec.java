@@ -57,7 +57,7 @@ public class DAO_LichLamViec extends DAO {
             String sql = ""
                     + "SELECT * "
                     + "FROM LichLamViec "
-                    + "ORDER BY NgayLamViec ASC, MaCaLamViec DESC";
+                    + "ORDER BY NgayLamViec ASC, MaCaLamViec ASC";
             ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 String maLichLamViec = rs.getString(1);
