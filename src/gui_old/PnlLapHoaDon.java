@@ -15,8 +15,8 @@ import dao.DAO_NhaSanXuat;
 import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
 import data.FormatDouble;
-import data.GenerateID;
-import data.GenerateInvoice;
+import data.KhoiTaoMa;
+import data.InHoaDon;
 import data.UtilityJTextField;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
@@ -215,7 +215,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
     private void thanhToanChoDonHang(){
         String error = "";
         
-        String maHoaDon = GenerateID.generateMaHoaDon();
+        String maHoaDon = KhoiTaoMa.generateMaHoaDon();
         
         String hoTen = txtHoTen.getText();
         String soDienThoai = txtSoDienThoai.getText();
@@ -266,7 +266,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
-            String maKhachHang = GenerateID.generateMaKhachHang();
+            String maKhachHang = KhoiTaoMa.generateMaKhachHang();
             String nhomKhachHang = "Thường";
             khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
             DAO_KhachHang.createKhachHang(khachHang);
@@ -291,7 +291,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         if(themHoaDon){
             try {
-                GenerateInvoice.createAMShopInvoice(maHoaDon);
+                InHoaDon.createAMShopInvoice(maHoaDon);
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
                 PnlMain.getInstance().showPanel(newInstance());
 
@@ -307,7 +307,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
     private void taoDonDatHang(){
         String error = "";
         
-        String maDonDatHang = GenerateID.generateMaDonDatHang();
+        String maDonDatHang = KhoiTaoMa.generateMaDonDatHang();
         
         String hoTen = txtHoTen.getText();
         String soDienThoai = txtSoDienThoai.getText();
@@ -341,7 +341,7 @@ public class PnlLapHoaDon extends javax.swing.JPanel {
         
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
-            String maKhachHang = GenerateID.generateMaKhachHang();
+            String maKhachHang = KhoiTaoMa.generateMaKhachHang();
             String nhomKhachHang = "Thường";
             khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
             DAO_KhachHang.createKhachHang(khachHang);

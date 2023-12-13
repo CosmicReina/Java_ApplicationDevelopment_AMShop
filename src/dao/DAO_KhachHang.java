@@ -5,6 +5,8 @@ import entity.KhachHang;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAO_KhachHang extends DAO {
     public static boolean createKhachHang(KhachHang khachHang){
@@ -146,6 +148,27 @@ public class DAO_KhachHang extends DAO {
             ex.printStackTrace(System.out);
         }
         return null;
+    }
+    
+    public static double getSoTienKhachHangDaThanhToanTheoMaKhachHang(String maKhachHang){
+        double d = 0;
+        try {
+            String sql = ""
+                    + "SELECT SUM(CTHD.DonGia) AS TongTienDaMua "
+                    + "FROM (HoaDon HD JOIN ChiTietHoaDon CTHD ON HD.MaHoaDon = CTHD.MaHoaDon) JOIN KhachHang KH ON HD.MaKhachHang = KH.MaKhachHang "
+                    + "WHERE KH.MaKhachHang = ?"
+                    + "GROUP BY HD.MaKhachHang";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setString(1, maKhachHang);
+            
+            ResultSet rs = prs.executeQuery();
+            if(rs.next()){
+                return rs.getDouble(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_KhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return d;
     }
     
     public static String getMaKhachHangCuoi(String prefix){

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class GenerateBaoCaoDoanhThu {
+public class InBaoCaoDoanhThu {
     public static boolean createBaoCaoDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException{
         String baocao_file_path = "files//baoCao//" + "baoCaoDoanhThu.pdf";
         PdfWriter pdfWriter = new PdfWriter(baocao_file_path);
@@ -27,7 +27,7 @@ public class GenerateBaoCaoDoanhThu {
         Document document = new Document(pdfDocument);
         
         String font_path = "files//font//Inconsolata-VariableFont_wdth,wght.ttf";
-        pdfDocument.setDefaultPageSize(new PageSize(850, 600));
+        pdfDocument.setDefaultPageSize(new PageSize(1000, 600));
         document.setMargins(5, 5, 0, 5);
         document.setFont(PdfFontFactory.createFont(font_path, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
         
@@ -97,13 +97,13 @@ public class GenerateBaoCaoDoanhThu {
                 .setTextAlignment(TextAlignment.CENTER)
                 .setMargin(0);
         
-        float[] tblHeaderSize = {150, 150, 150, 150, 25, 150};
+        float[] tblHeaderSize = {150, 150, 150, 150, 150, 150};
         String[] tblHeaderList = {
             "Mã Hóa Đơn",
             "Tên Nhân Viên",
             "Tên Khách Hàng",
             "Thời Gian Lập Đơn",
-            "Số Quần Áo",
+            "Số Quần Áo Đã Bán",
             "Tổng Tiền"
         };
         
@@ -134,8 +134,8 @@ public class GenerateBaoCaoDoanhThu {
                 .setMargin(0);
         
         document.add(prgBaoCao);
-        document.add(prgThoiGianThongKe);
         document.add(prgKhoangThoiGian);
+        document.add(prgThoiGianThongKe);
         document.add(prgTongHoaDon);
         document.add(prgTongQuanAo);
         document.add(prgTongDoanhThu);

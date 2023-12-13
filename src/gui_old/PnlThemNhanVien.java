@@ -4,7 +4,7 @@ import dao.DAO_ChucVu;
 import dao.DAO_NhanVien;
 import data.FormatLocalDate;
 import data.FormatDouble;
-import data.GenerateID;
+import data.KhoiTaoMa;
 import data.UtilityJTextField;
 import entity.NhanVien;
 import java.time.LocalDate;
@@ -37,8 +37,8 @@ public class PnlThemNhanVien extends javax.swing.JPanel {
         txtTenDangNhap.setEditable(false);
         txtMaNhanVien.setEditable(false);
         
-        txtTenDangNhap.setText(GenerateID.generateMaNhanVien());
-        txtMaNhanVien.setText(GenerateID.generateMaNhanVien());
+        txtTenDangNhap.setText(KhoiTaoMa.generateMaNhanVien());
+        txtMaNhanVien.setText(KhoiTaoMa.generateMaNhanVien());
         
         ArrayList<String> listChucVu = DAO_ChucVu.getAllChucVu();
         for(String thisChucVu : listChucVu)

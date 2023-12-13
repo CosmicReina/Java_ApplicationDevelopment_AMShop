@@ -3,7 +3,8 @@ package gui;
 import dao.DAO_KhachHang;
 import data.FormatLocalDate;
 import data.FormatDouble;
-import data.GenerateBaoCaoDoanhThu;
+import data.InBaoCaoDoanhThu;
+import data.InBaoCaoKhachHang;
 import entity.KhachHang;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -81,10 +82,8 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
         double tongDoanhThu = 0;
         
         ResultSet rs = DAO_KhachHang.thongKeKhachHangTheoKhoangNgay(ngayBatDau, ngayKetThuc);
-        System.out.println(rs);
         try {
             while(rs.next()){
-                System.out.println("ey");
                 tongSoKhachHang++;
                 String maKhachHang = rs.getString(1);
                 KhachHang khachHang = DAO_KhachHang.getKhachHangTheoMaKhachHang(maKhachHang);
@@ -111,14 +110,14 @@ public class GUI_ThongKeKhachHang extends javax.swing.JPanel {
     private void inBaoCaoThongKe(){
         try {
             if(tblKhachHang.getModel().getRowCount() == 0){
-                JOptionPane.showMessageDialog(null, "Vui lòng tạo thống kê trước.");
+                JOptionPane.showMessageDialog(null, "Vui lòng tạo Thống Kê trước.");
                 return;
             }
-            if(GenerateBaoCaoDoanhThu.createBaoCaoDoanhThu(ngayBatDau, ngayKetThuc) == true){
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thành công.");
+            if(InBaoCaoKhachHang.createBaoCaoKhachHang(ngayBatDau, ngayKetThuc) == true){
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Thống Kê Khách Hàng thành công.");
             }
             else{
-                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thất bại.");
+                JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Thống Kê Khách Hàng thất bại.");
             }
         } catch (IOException ex) {
             ex.printStackTrace(System.out);

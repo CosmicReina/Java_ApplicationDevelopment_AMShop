@@ -4,7 +4,7 @@ import dao.DAO_ChucVu;
 import dao.DAO_NhanVien;
 import data.FormatLocalDate;
 import data.FormatDouble;
-import data.GenerateID;
+import data.KhoiTaoMa;
 import data.UtilityJTextField;
 import data.UtilityLocalDate;
 import entity.NhanVien;

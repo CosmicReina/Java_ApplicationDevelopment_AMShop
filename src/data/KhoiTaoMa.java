@@ -7,7 +7,7 @@ import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
 import java.time.LocalDate;
 
-public class GenerateID {
+public class KhoiTaoMa {
     public static String generateMaNhanVien(){
         String maNhanVien;
         int soNhanVien;

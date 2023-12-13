@@ -25,7 +25,7 @@ import entity.HoaDon;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GenerateInvoice {
+public class InHoaDon {
     public static void createAMShopInvoice(String maHoaDon) throws IOException{
         HoaDon hoaDon = DAO_HoaDon.getHoaDonTheoMaHoaDon(maHoaDon);
         ArrayList<ChiTietHoaDon> list = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(maHoaDon);
