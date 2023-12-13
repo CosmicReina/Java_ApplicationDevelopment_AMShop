@@ -14,7 +14,9 @@ public class DonDatHang {
         return maDonDatHang;
     }
 
-    public void setMaDonDatHang(String maDonDatHang) {
+    public void setMaDonDatHang(String maDonDatHang) throws Exception {
+        if(!maDonDatHang.matches("^DD[0-9]{10}$"))
+            throw new Exception("Mã Đơn Đặt Hàng không hợp lệ");
         this.maDonDatHang = maDonDatHang;
     }
 
@@ -53,12 +55,12 @@ public class DonDatHang {
     public DonDatHang() {
     }
 
-    public DonDatHang(String maDonDatHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, boolean trangThaiThanhToan) {
-        this.maDonDatHang = maDonDatHang;
-        this.nhanVien = nhanVien;
-        this.khachHang = khachHang;
-        this.thoiGianTao = thoiGianTao;
-        this.trangThaiThanhToan = trangThaiThanhToan;
+    public DonDatHang(String maDonDatHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, boolean trangThaiThanhToan) throws Exception {
+        setMaDonDatHang(maDonDatHang);
+        setNhanVien(nhanVien);
+        setKhachHang(khachHang);
+        setThoiGianTao(thoiGianTao);
+        setTrangThaiThanhToan(trangThaiThanhToan);
     }
 
     @Override

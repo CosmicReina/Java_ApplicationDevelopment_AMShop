@@ -28,7 +28,9 @@ public class ChiTietHoaDon {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) {
+    public void setSoLuong(int soLuong) throws Exception {
+        if(soLuong < 0)
+            throw new Exception("Số Lượng không hợp lệ");
         this.soLuong = soLuong;
     }
 
@@ -36,7 +38,9 @@ public class ChiTietHoaDon {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(double donGia) throws Exception {
+        if(donGia < 0)
+            throw new Exception("Đơn Giá không hợp lệ");
         this.donGia = donGia;
     }
 
@@ -44,10 +48,14 @@ public class ChiTietHoaDon {
     }
 
     public ChiTietHoaDon(HoaDon hoaDon, QuanAo quanAo, int soLuong, double donGia) {
-        this.hoaDon = hoaDon;
-        this.quanAo = quanAo;
-        this.soLuong = soLuong;
-        this.donGia = donGia;
+        try {
+            setHoaDon(hoaDon);
+            setQuanAo(quanAo);
+            setSoLuong(soLuong);
+            setDonGia(donGia);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
