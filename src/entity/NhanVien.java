@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NhanVien {
     private String maNhanVien;
@@ -23,12 +25,9 @@ public class NhanVien {
     }
 
     public void setMaNhanVien(String maNhanVien) throws Exception {
-        if(!maNhanVien.matches("NV[0-9]{8}")){
-            throw new Exception("Mã nhân viên không hợp lệ");
-        }
-        else{
-            this.maNhanVien = maNhanVien;
-        }
+        if(!maNhanVien.matches("^NV[0-9]{8}$"))
+            throw new Exception("Mã Nhân Viên không hợp lệ");
+        this.maNhanVien = maNhanVien;
     }
 
     public String getHoTen() {
@@ -36,12 +35,9 @@ public class NhanVien {
     }
 
     public void setHoTen(String hoTen) throws Exception {
-        if(!hoTen.matches("^[\\\\p{L}]+(\\\\s[\\\\p{L}]+)+$")){
-            throw new Exception("Họ tên không hợp lệ");
-        }
-        else{
-            this.hoTen = hoTen;
-        }
+        if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$"))
+            throw new Exception("Họ Tên không hợp lệ");
+        this.hoTen = hoTen;
     }
 
     public String getSoDienThoai() {
@@ -49,12 +45,9 @@ public class NhanVien {
     }
 
     public void setSoDienThoai(String soDienThoai) throws Exception {
-        if(!soDienThoai.matches("^\\d{10}$")){
+        if(!soDienThoai.matches("^[0-9]{10}$"))
             throw new Exception("Số điện thoại không hợp lệ");
-        }
-        else{
-            this.soDienThoai = soDienThoai;
-        }
+        this.soDienThoai = soDienThoai;
     }
 
     public String getDiaChi() {
@@ -62,12 +55,9 @@ public class NhanVien {
     }
 
     public void setDiaChi(String diaChi) throws Exception {
-        if(!diaChi.matches("^.{100}$")){
+        if(diaChi.isBlank())
             throw new Exception("Địa chỉ không hợp lệ");
-        }
-        else{
-            this.diaChi = diaChi;
-        }
+        this.diaChi = diaChi;
     }
 
     public String getChucVu() {
@@ -75,12 +65,9 @@ public class NhanVien {
     }
 
     public void setChucVu(String chucVu) throws Exception{
-        if(!chucVu.matches("^[A-Za-z]{20}$")){
+        if(!chucVu.equals("Nhân Viên") && !(chucVu.equals("Người Quản Lý")))
             throw new Exception("Chức vụ không hợp lệ");
-        }
-        else{
-            this.chucVu = chucVu;
-        }
+        this.chucVu = chucVu;
     }
 
     public LocalDate getNgaySinh() {
@@ -88,12 +75,9 @@ public class NhanVien {
     }
 
     public void setNgaySinh(LocalDate ngaySinh) throws Exception{
-        if(LocalDate.now().getYear() - ngaySinh.getYear() < 18){
-            throw new Exception("Chưa đủ 18 tuổi");
-        }
-        else{
-            this.ngaySinh = ngaySinh;
-        }
+        if(LocalDate.now().getYear() - ngaySinh.getYear() < 18)
+            throw new Exception("Năm sinh không hợp lệ");
+        this.ngaySinh = ngaySinh;
     }
 
     public String getCanCuocCongDan() {
@@ -101,9 +85,8 @@ public class NhanVien {
     }
 
     public void setCanCuocCongDan(String canCuocCongDan) throws Exception {
-        if(!canCuocCongDan.matches("^[0-9]{12}$")){
+        if(!canCuocCongDan.matches("^[0-9]{12}$"))
             throw new Exception("CCCD không hợp lệ");
-        }
         this.canCuocCongDan = canCuocCongDan;
     }
 
@@ -111,7 +94,9 @@ public class NhanVien {
         return gioiTinh;
     }
 
-    public void setGioiTinh(String gioiTinh) {
+    public void setGioiTinh(String gioiTinh) throws Exception {
+        if(!gioiTinh.equals("Nam") && (!gioiTinh.equals("Nữ")))
+            throw new Exception("Giới Tính không hợp lệ");
         this.gioiTinh = gioiTinh;
     }
 
@@ -120,12 +105,7 @@ public class NhanVien {
     }
 
     public void setNgayBatDauLam(LocalDate ngayBatDauLam) throws Exception{
-        if(ngayBatDauLam.isAfter(LocalDate.now())){
-            throw new Exception("Ngày bắt đầu làm phải trước ngày hiện tại");
-        }
-        else{
-            this.ngayBatDauLam = ngayBatDauLam;
-        }
+        this.ngayBatDauLam = ngayBatDauLam;
     }
 
     public LocalDate getNgayKetThucLam() {
@@ -133,12 +113,10 @@ public class NhanVien {
     }
 
     public void setNgayKetThucLam(LocalDate ngayKetThucLam) throws Exception{
-        if(!ngayKetThucLam.isAfter(ngayBatDauLam)){
-            throw new Exception("Ngày kết thúc làm phải sau Ngày bắt đầu làm");
-        }
-        else{
-            this.ngayKetThucLam = ngayKetThucLam;
-        }
+        if(ngayKetThucLam != null)
+            if(ngayKetThucLam.isBefore(ngayBatDauLam))
+                throw new Exception("Ngày Kết Thúc Làm phải lớn hơn Ngày Bắt Đầu làm");
+        this.ngayKetThucLam = ngayKetThucLam;
     }
 
     public double getLuong() {
@@ -146,12 +124,9 @@ public class NhanVien {
     }
 
     public void setLuong(double luong)  throws Exception{
-        if(luong <= 0){
+        if(luong <= 0)
             throw new Exception("Lương phải lớn hơn 0");
-        }
-        else{
-            this.luong = luong;
-        }
+        this.luong = luong;
     }
 
     public String getTenDangNhap() {
@@ -159,12 +134,9 @@ public class NhanVien {
     }
 
     public void setTenDangNhap(String tenDangNhap) throws Exception {
-        if(!tenDangNhap.matches("^[A-Za-z]{20}$")){
-            throw new Exception("Tên đăng nhập không đúng");
-        }
-        else{
-            this.tenDangNhap = tenDangNhap;
-        }
+        if(!tenDangNhap.equals(maNhanVien))
+            throw new Exception("Tên đăng nhập không hợp lệ");
+        this.tenDangNhap = tenDangNhap;
     }
 
     public String getMatKhau() {
@@ -172,31 +144,31 @@ public class NhanVien {
     }
 
     public void setMatKhau(String matKhau) throws Exception{
-        if(!matKhau.matches("^.{20}$")){
-            throw new Exception("Mật khẩu không đúng");
-        }
-        else{
-            this.matKhau = matKhau;
-        }
+        if(matKhau.isBlank())
+            throw new Exception("Mật khẩu không hợp lệ");
+        this.matKhau = matKhau;
     }
 
-    public NhanVien() {
-    }
+    public NhanVien() {}
 
     public NhanVien(String maNhanVien, String hoTen, String soDienThoai, String diaChi, String chucVu, LocalDate ngaySinh, String canCuocCongDan, String gioiTinh, LocalDate ngayBatDauLam, LocalDate ngayKetThucLam, double luong, String tenDangNhap, String matKhau) {
-        this.maNhanVien = maNhanVien;
-        this.hoTen = hoTen;
-        this.soDienThoai = soDienThoai;
-        this.diaChi = diaChi;
-        this.chucVu = chucVu;
-        this.ngaySinh = ngaySinh;
-        this.canCuocCongDan = canCuocCongDan;
-        this.gioiTinh = gioiTinh;
-        this.ngayBatDauLam = ngayBatDauLam;
-        this.ngayKetThucLam = ngayKetThucLam;
-        this.luong = luong;
-        this.tenDangNhap = tenDangNhap;
-        this.matKhau = matKhau;
+        try {
+            setMaNhanVien(maNhanVien);
+            setHoTen(hoTen);
+            setSoDienThoai(soDienThoai);
+            setDiaChi(diaChi);
+            setChucVu(chucVu);
+            setNgaySinh(ngaySinh);
+            setCanCuocCongDan(canCuocCongDan);
+            setGioiTinh(gioiTinh);
+            setNgayBatDauLam(ngayBatDauLam);
+            setNgayKetThucLam(ngayKetThucLam);
+            setLuong(luong);
+            setTenDangNhap(tenDangNhap);
+            setMatKhau(matKhau);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
