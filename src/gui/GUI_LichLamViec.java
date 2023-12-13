@@ -5,7 +5,6 @@ import dao.DAO_ChiTietPhanCong;
 import dao.DAO_LichLamViec;
 import dao.DAO_NhanVien;
 import data.FormatLocalDate;
-import data.FormatLocalDateTime;
 import data.FormatLocalTime;
 import data.KhoiTaoMa;
 import entity.CaLamViec;
@@ -15,6 +14,8 @@ import entity.NhanVien;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
@@ -303,7 +304,11 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         }
         
         LocalDateTime thoiGianRaCa = LocalDateTime.now();
-        chiTietPhanCongUpdate.setThoiGianRaCa(thoiGianRaCa);
+        try {
+            chiTietPhanCongUpdate.setThoiGianRaCa(thoiGianRaCa);
+        } catch (Exception ex) {
+            Logger.getLogger(GUI_LichLamViec.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         if(DAO_ChiTietPhanCong.updateChiTietPhanCong(chiTietPhanCongUpdate) == true){
             updateSauCapNhat(maLichLamViec);

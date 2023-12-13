@@ -1,8 +1,6 @@
 package entity;
 
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ChiTietDonDatHang {
     private DonDatHang donDatHang;

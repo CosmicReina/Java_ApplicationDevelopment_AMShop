@@ -8,7 +8,6 @@ import dao.DAO_MauSac;
 import dao.DAO_NhaSanXuat;
 import dao.DAO_QuanAo;
 import data.FormatDouble;
-import data.UtilityJTextField;
 import entity.QuanAo;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;

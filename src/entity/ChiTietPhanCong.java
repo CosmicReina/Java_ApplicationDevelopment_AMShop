@@ -2,8 +2,6 @@ package entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ChiTietPhanCong {
     private LichLamViec lichLamViec;

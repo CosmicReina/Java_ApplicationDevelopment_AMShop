@@ -5,8 +5,6 @@ import entity.DonDatHang;
 import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DAO_ChiTietDonDatHang extends DAO {
     public static boolean createChiTietDonDatHang(ChiTietDonDatHang chiTietDonDatHang){

@@ -1,7 +1,6 @@
 package gui;
 
 import dao.DAO_NhanVien;
-import data.UtilityJTextField;
 import entity.NhanVien;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

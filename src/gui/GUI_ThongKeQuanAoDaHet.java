@@ -1,11 +1,7 @@
 package gui;
 
 import dao.DAO_QuanAo;
-import data.FormatLocalDate;
-import data.FormatDouble;
-import data.InBaoCaoQuanAoDaBan;
 import data.InBaoCaoQuanAoDaHet;
-import entity.QuanAo;
 import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;

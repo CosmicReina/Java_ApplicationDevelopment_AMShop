@@ -1,21 +1,13 @@
 package gui;
 
-import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
-import data.FormatLocalDate;
 import data.FormatDouble;
-import data.InBaoCaoKhachHang;
-import entity.KhachHang;
 import entity.NhanVien;
-import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.time.Duration;
-import java.time.LocalTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     
