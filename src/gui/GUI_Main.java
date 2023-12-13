@@ -44,16 +44,20 @@ public class GUI_Main extends javax.swing.JPanel {
             listBtnNhanVien.add(btnLapHoaDon);
             listBtnNhanVien.add(btnDanhSachDonDatHang);
             listBtnNhanVien.add(btnDanhSachNhanVien);
+            listBtnNhanVien.add(btnTimKiemNhanVien);
             listBtnNhanVien.add(btnThemNhanVien);
             listBtnNhanVien.add(btnCapNhatNhanVien);
             listBtnNhanVien.add(btnThongTinNhanVien);
 
             listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnTimKiemKhachHang);
             listBtnKhachHang.add(btnCapNhatKhachHang);
-
+            
             listBtnHoaDon.add(btnDanhSachHoaDon);
+            listBtnHoaDon.add(btnTimKiemHoaDon);
 
             listBtnQuanAo.add(btnDanhSachQuanAo);
+            listBtnQuanAo.add(btnTimKiemQuanAo);
             listBtnQuanAo.add(btnThemQuanAo);
             listBtnQuanAo.add(btnCapNhatQuanAo);
 
@@ -70,12 +74,12 @@ public class GUI_Main extends javax.swing.JPanel {
             listBtnNhanVien.add(btnDanhSachDonDatHang);
             listBtnNhanVien.add(btnThongTinNhanVien);
             
-            listBtnKhachHang.add(btnDanhSachKhachHang);
+            listBtnKhachHang.add(btnTimKiemKhachHang);
             listBtnKhachHang.add(btnCapNhatKhachHang);
             
-            listBtnHoaDon.add(btnDanhSachHoaDon);
+            listBtnHoaDon.add(btnTimKiemHoaDon);
             
-            listBtnQuanAo.add(btnDanhSachQuanAo);
+            listBtnQuanAo.add(btnTimKiemQuanAo);
             
             btnLichLamViec.setVisible(false);
             
@@ -100,7 +104,7 @@ public class GUI_Main extends javax.swing.JPanel {
         btnLichLamViec.setVisible(false);
         btnThongKe.setVisible(false);
         
-        showPanel(GUI_DanhSachQuanAo.newInstance());
+        showPanel(GUI_TimKiemQuanAo.newInstance());
     }
     
     private void dangXuat(){
@@ -118,13 +122,17 @@ public class GUI_Main extends javax.swing.JPanel {
         btnLapHoaDon = new extended_JComponent.JButton_AllRound();
         btnDanhSachDonDatHang = new extended_JComponent.JButton_AllRound();
         btnDanhSachNhanVien = new extended_JComponent.JButton_AllRound();
+        btnTimKiemNhanVien = new extended_JComponent.JButton_AllRound();
         btnThemNhanVien = new extended_JComponent.JButton_AllRound();
         btnCapNhatNhanVien = new extended_JComponent.JButton_AllRound();
         btnThongTinNhanVien = new extended_JComponent.JButton_AllRound();
         btnDanhSachKhachHang = new extended_JComponent.JButton_AllRound();
+        btnTimKiemKhachHang = new extended_JComponent.JButton_AllRound();
         btnCapNhatKhachHang = new extended_JComponent.JButton_AllRound();
         btnDanhSachHoaDon = new extended_JComponent.JButton_AllRound();
+        btnTimKiemHoaDon = new extended_JComponent.JButton_AllRound();
         btnDanhSachQuanAo = new extended_JComponent.JButton_AllRound();
+        btnTimKiemQuanAo = new extended_JComponent.JButton_AllRound();
         btnThemQuanAo = new extended_JComponent.JButton_AllRound();
         btnCapNhatQuanAo = new extended_JComponent.JButton_AllRound();
         btnDanhSachLichLamViec = new extended_JComponent.JButton_AllRound();
@@ -133,8 +141,7 @@ public class GUI_Main extends javax.swing.JPanel {
         btnThongKeKhachHang = new extended_JComponent.JButton_AllRound();
         btnThongKeQuanAoDaBan = new extended_JComponent.JButton_AllRound();
         btnThongKeQuanAoDaHet = new extended_JComponent.JButton_AllRound();
-        btn_2 = new extended_JComponent.JButton_AllRound();
-        btn_3 = new extended_JComponent.JButton_AllRound();
+        btn_6 = new extended_JComponent.JButton_AllRound();
         pnlTitle = new extended_JComponent.JPanel_AllRound();
         lblTitle = new javax.swing.JLabel();
         pnlButton = new extended_JComponent.JPanel_AllRound();
@@ -177,9 +184,8 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
-        btnDanhSachNhanVien.setText("Xem Danh Sách Nhân Viên");
+        btnDanhSachNhanVien.setText("Danh Sách Nhân Viên");
         btnDanhSachNhanVien.setBorderRadius(20);
-        btnDanhSachNhanVien.setBorderThickness(1);
         btnDanhSachNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
         btnDanhSachNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
@@ -187,6 +193,19 @@ public class GUI_Main extends javax.swing.JPanel {
         btnDanhSachNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDanhSachNhanVienActionPerformed(evt);
+            }
+        });
+
+        btnTimKiemNhanVien.setText("Tìm Kiếm Nhân Viên");
+        btnTimKiemNhanVien.setBorderRadius(20);
+        btnTimKiemNhanVien.setBorderThickness(1);
+        btnTimKiemNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiemNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiemNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnTimKiemNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemNhanVienActionPerformed(evt);
             }
         });
 
@@ -229,9 +248,8 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
-        btnDanhSachKhachHang.setText("Xem Danh Sách Khách Hàng");
+        btnDanhSachKhachHang.setText("Danh Sách Khách Hàng");
         btnDanhSachKhachHang.setBorderRadius(20);
-        btnDanhSachKhachHang.setBorderThickness(1);
         btnDanhSachKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));
         btnDanhSachKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachKhachHang.setColorClick(new java.awt.Color(119, 204, 255));
@@ -239,6 +257,19 @@ public class GUI_Main extends javax.swing.JPanel {
         btnDanhSachKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDanhSachKhachHangActionPerformed(evt);
+            }
+        });
+
+        btnTimKiemKhachHang.setText("Xem Danh Sách Khách Hàng");
+        btnTimKiemKhachHang.setBorderRadius(20);
+        btnTimKiemKhachHang.setBorderThickness(1);
+        btnTimKiemKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemKhachHang.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiemKhachHang.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiemKhachHang.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnTimKiemKhachHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemKhachHangActionPerformed(evt);
             }
         });
 
@@ -257,7 +288,6 @@ public class GUI_Main extends javax.swing.JPanel {
 
         btnDanhSachHoaDon.setText("Xem Danh Sách Hóa Đơn");
         btnDanhSachHoaDon.setBorderRadius(20);
-        btnDanhSachHoaDon.setBorderThickness(1);
         btnDanhSachHoaDon.setColorBackground(new java.awt.Color(170, 238, 255));
         btnDanhSachHoaDon.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachHoaDon.setColorClick(new java.awt.Color(119, 204, 255));
@@ -268,9 +298,21 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
-        btnDanhSachQuanAo.setText("Xem Danh Sách Quần Áo");
+        btnTimKiemHoaDon.setText("Tìm Kiếm Hóa Đơn");
+        btnTimKiemHoaDon.setBorderRadius(20);
+        btnTimKiemHoaDon.setBorderThickness(1);
+        btnTimKiemHoaDon.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemHoaDon.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiemHoaDon.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiemHoaDon.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnTimKiemHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemHoaDonActionPerformed(evt);
+            }
+        });
+
+        btnDanhSachQuanAo.setText("Danh Sách Quần Áo");
         btnDanhSachQuanAo.setBorderRadius(20);
-        btnDanhSachQuanAo.setBorderThickness(1);
         btnDanhSachQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
         btnDanhSachQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
         btnDanhSachQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
@@ -278,6 +320,19 @@ public class GUI_Main extends javax.swing.JPanel {
         btnDanhSachQuanAo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDanhSachQuanAoActionPerformed(evt);
+            }
+        });
+
+        btnTimKiemQuanAo.setText("Tìm Kiếm Quần Áo");
+        btnTimKiemQuanAo.setBorderRadius(20);
+        btnTimKiemQuanAo.setBorderThickness(1);
+        btnTimKiemQuanAo.setColorBackground(new java.awt.Color(170, 238, 255));
+        btnTimKiemQuanAo.setColorBorder(new java.awt.Color(255, 255, 255));
+        btnTimKiemQuanAo.setColorClick(new java.awt.Color(119, 204, 255));
+        btnTimKiemQuanAo.setColorEnter(new java.awt.Color(119, 238, 255));
+        btnTimKiemQuanAo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemQuanAoActionPerformed(evt);
             }
         });
 
@@ -384,17 +439,12 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
-        btn_2.setText("jButton_AllRound1");
-        btn_2.setBorderRadius(20);
-        btn_2.setColorBackground(new java.awt.Color(170, 238, 255));
-        btn_2.setColorClick(new java.awt.Color(119, 204, 255));
-        btn_2.setColorEnter(new java.awt.Color(119, 238, 255));
-
-        btn_3.setText("jButton_AllRound1");
-        btn_3.setBorderRadius(20);
-        btn_3.setColorBackground(new java.awt.Color(170, 238, 255));
-        btn_3.setColorClick(new java.awt.Color(119, 204, 255));
-        btn_3.setColorEnter(new java.awt.Color(119, 238, 255));
+        btn_6.setText("jButton_AllRound1");
+        btn_6.setBorderRadius(20);
+        btn_6.setColorBackground(new java.awt.Color(170, 238, 255));
+        btn_6.setColorBorder(new java.awt.Color(255, 255, 255));
+        btn_6.setColorClick(new java.awt.Color(119, 204, 255));
+        btn_6.setColorEnter(new java.awt.Color(119, 238, 255));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -610,10 +660,10 @@ public class GUI_Main extends javax.swing.JPanel {
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnDanhSachDonDatHangActionPerformed
 
-    private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
-        showPanel(GUI_DanhSachNhanVien.newInstance());
+    private void btnTimKiemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNhanVienActionPerformed
+        showPanel(GUI_TimKiemNhanVien.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
-    }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
+    }//GEN-LAST:event_btnTimKiemNhanVienActionPerformed
 
     private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
         showPanel(GUI_ThemNhanVien.newInstance());
@@ -632,25 +682,25 @@ public class GUI_Main extends javax.swing.JPanel {
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnThongTinNhanVienActionPerformed
 
-    private void btnDanhSachKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachKhachHangActionPerformed
-        showPanel(GUI_DanhSachKhachHang.newInstance());
+    private void btnTimKiemKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemKhachHangActionPerformed
+        showPanel(GUI_TimKiemKhachHang.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
-    }//GEN-LAST:event_btnDanhSachKhachHangActionPerformed
+    }//GEN-LAST:event_btnTimKiemKhachHangActionPerformed
 
     private void btnCapNhatKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatKhachHangActionPerformed
         showPanel(GUI_CapNhatKhachHang.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnCapNhatKhachHangActionPerformed
 
-    private void btnDanhSachHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachHoaDonActionPerformed
-        showPanel(GUI_DanhSachHoaDon.newInstance());
+    private void btnTimKiemHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemHoaDonActionPerformed
+        showPanel(GUI_TimKiemHoaDon.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
-    }//GEN-LAST:event_btnDanhSachHoaDonActionPerformed
+    }//GEN-LAST:event_btnTimKiemHoaDonActionPerformed
 
-    private void btnDanhSachQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachQuanAoActionPerformed
-        showPanel(GUI_DanhSachQuanAo.newInstance());
+    private void btnTimKiemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemQuanAoActionPerformed
+        showPanel(GUI_TimKiemQuanAo.newInstance());
         GUI_MainFrame.getInstance().resetPopupPanel();
-    }//GEN-LAST:event_btnDanhSachQuanAoActionPerformed
+    }//GEN-LAST:event_btnTimKiemQuanAoActionPerformed
 
     private void btnThemQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemQuanAoActionPerformed
         showPanel(GUI_ThemQuanAo.newInstance());
@@ -693,6 +743,30 @@ public class GUI_Main extends javax.swing.JPanel {
         GUI_MainFrame.getInstance().resetPopupPanel();
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
+    private void btnDanhSachHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachHoaDonActionPerformed
+        // TODO add your handling code here:
+        showPanel(GUI_DanhSachHoaDon.newInstance());
+        GUI_MainFrame.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachHoaDonActionPerformed
+
+    private void btnDanhSachKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachKhachHangActionPerformed
+        // TODO add your handling code here:
+        showPanel(GUI_DanhSachKhachHang.newInstance());
+        GUI_MainFrame.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachKhachHangActionPerformed
+
+    private void btnDanhSachNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachNhanVienActionPerformed
+        // TODO add your handling code here:
+        showPanel(GUI_DanhSachNhanVien.newInstance());
+        GUI_MainFrame.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachNhanVienActionPerformed
+
+    private void btnDanhSachQuanAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachQuanAoActionPerformed
+        // TODO add your handling code here:
+        showPanel(GUI_DanhSachQuanAo.newInstance());
+        GUI_MainFrame.getInstance().resetPopupPanel();
+    }//GEN-LAST:event_btnDanhSachQuanAoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private extended_JComponent.JButton_AllRound btnCapNhatKhachHang;
     private extended_JComponent.JButton_AllRound btnCapNhatNhanVien;
@@ -718,10 +792,13 @@ public class GUI_Main extends javax.swing.JPanel {
     private extended_JComponent.JButton_AllRound btnThongKeQuanAoDaBan;
     private extended_JComponent.JButton_AllRound btnThongKeQuanAoDaHet;
     private extended_JComponent.JButton_AllRound btnThongTinNhanVien;
+    private extended_JComponent.JButton_AllRound btnTimKiemHoaDon;
+    private extended_JComponent.JButton_AllRound btnTimKiemKhachHang;
+    private extended_JComponent.JButton_AllRound btnTimKiemNhanVien;
+    private extended_JComponent.JButton_AllRound btnTimKiemQuanAo;
     private extended_JComponent.JButton_AllRound btnTinhLuong;
     private extended_JComponent.JButton_AllRound btnTrangChu;
-    private extended_JComponent.JButton_AllRound btn_2;
-    private extended_JComponent.JButton_AllRound btn_3;
+    private extended_JComponent.JButton_AllRound btn_6;
     private javax.swing.JLabel lblTitle;
     private extended_JComponent.JPanel_AllRound pnlActionButton;
     private extended_JComponent.JPanel_AllRound pnlButton;
