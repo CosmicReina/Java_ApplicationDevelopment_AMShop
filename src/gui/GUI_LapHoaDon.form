@@ -23,8 +23,8 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder justification="2" position="2" title="T&#xec;m Ki&#x1ebf;m">
-              <Font PropertyName="font" name="Segoe UI" size="18" style="0"/>
+            <TitledBorder justification="2" position="2" title="T&#xec;m Ki&#x1ebf;m Qu&#x1ea7;n &#xc1;o">
+              <Font PropertyName="font" name="Segoe UI" size="24" style="0"/>
               <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
             </TitledBorder>
           </Border>
@@ -113,7 +113,7 @@
                   <Component id="btnXoa" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="pnlHinhAnh" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

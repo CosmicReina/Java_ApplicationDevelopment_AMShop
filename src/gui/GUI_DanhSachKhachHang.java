@@ -71,7 +71,7 @@ public class GUI_DanhSachKhachHang extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnlTimKiem.setBackground(new java.awt.Color(68, 136, 255));
-        pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm Kiếm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlTimKiem.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Xem Chi Tiết", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlTimKiem.setPreferredSize(new java.awt.Dimension(300, 100));
 
         btnChiTiet.setText("Xem Chi Tiết Khách Hàng");

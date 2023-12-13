@@ -141,7 +141,6 @@ public class GUI_Main extends javax.swing.JPanel {
         btnThongKeKhachHang = new extended_JComponent.JButton_AllRound();
         btnThongKeQuanAoDaBan = new extended_JComponent.JButton_AllRound();
         btnThongKeQuanAoDaHet = new extended_JComponent.JButton_AllRound();
-        btn_6 = new extended_JComponent.JButton_AllRound();
         pnlTitle = new extended_JComponent.JPanel_AllRound();
         lblTitle = new javax.swing.JLabel();
         pnlButton = new extended_JComponent.JPanel_AllRound();
@@ -438,13 +437,6 @@ public class GUI_Main extends javax.swing.JPanel {
                 btnThongKeQuanAoDaHetActionPerformed(evt);
             }
         });
-
-        btn_6.setText("jButton_AllRound1");
-        btn_6.setBorderRadius(20);
-        btn_6.setColorBackground(new java.awt.Color(170, 238, 255));
-        btn_6.setColorBorder(new java.awt.Color(255, 255, 255));
-        btn_6.setColorClick(new java.awt.Color(119, 204, 255));
-        btn_6.setColorEnter(new java.awt.Color(119, 238, 255));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -798,7 +790,6 @@ public class GUI_Main extends javax.swing.JPanel {
     private extended_JComponent.JButton_AllRound btnTimKiemQuanAo;
     private extended_JComponent.JButton_AllRound btnTinhLuong;
     private extended_JComponent.JButton_AllRound btnTrangChu;
-    private extended_JComponent.JButton_AllRound btn_6;
     private javax.swing.JLabel lblTitle;
     private extended_JComponent.JPanel_AllRound pnlActionButton;
     private extended_JComponent.JPanel_AllRound pnlButton;

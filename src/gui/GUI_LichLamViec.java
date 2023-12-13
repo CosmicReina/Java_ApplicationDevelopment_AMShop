@@ -62,7 +62,8 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
                 FormatLocalDate.fromLocalDate(thisLichLamViec.getNgayLamViec())
             });
         }
-        maximumScrollDown();
+        JScrollBar verticalScrollBar = scrDanhSachLichLamViec.getVerticalScrollBar();
+        verticalScrollBar.setValue(verticalScrollBar.getMaximum());
     }    
 
     private void showTableListNhanVien(ArrayList<NhanVien> list){
@@ -340,11 +341,6 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             return;
         }
         showTableListLichLamViec(lichLamViec);
-    }
-    
-    private void maximumScrollDown(){
-        JScrollBar scrollBar = scrDanhSachLichLamViec.getVerticalScrollBar();
-        scrollBar.setValue(scrollBar.getMaximum());
     }
     
     @SuppressWarnings("unchecked")

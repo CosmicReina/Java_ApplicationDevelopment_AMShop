@@ -481,24 +481,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThongKeQuanAoDaHetActionPerformed"/>
       </Events>
     </Component>
-    <Component class="extended_JComponent.JButton_AllRound" name="btn_6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton_AllRound1"/>
-        <Property name="borderRadius" type="int" value="20"/>
-        <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ee" red="aa" type="rgb"/>
-        </Property>
-        <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="cc" red="77" type="rgb"/>
-        </Property>
-        <Property name="colorEnter" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ee" red="77" type="rgb"/>
-        </Property>
-      </Properties>
-    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
