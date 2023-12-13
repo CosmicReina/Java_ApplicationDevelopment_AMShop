@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HoaDon {
     private String maHoaDon;
@@ -15,7 +17,9 @@ public class HoaDon {
         return maHoaDon;
     }
 
-    public void setMaHoaDon(String maHoaDon) {
+    public void setMaHoaDon(String maHoaDon) throws Exception {
+        if(!maHoaDon.matches("^HD[0-9]{10}$"))
+            throw new Exception("Mã Hóa Đơn không hợp lệ");
         this.maHoaDon = maHoaDon;
     }
 
@@ -55,20 +59,25 @@ public class HoaDon {
         return tienKhachDua;
     }
 
-    public void setTienKhachDua(double tienKhachDua) {
+    public void setTienKhachDua(double tienKhachDua) throws Exception {
+        if(tienKhachDua < 0)
+            throw new Exception("Tiền Khách Đưa không hợp lệ");
         this.tienKhachDua = tienKhachDua;
     }
 
-    public HoaDon() {
-    }
+    public HoaDon() {}
 
     public HoaDon(String maHoaDon, CuaHang cuaHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, double tienKhachDua) {
-        this.maHoaDon = maHoaDon;
-        this.cuaHang = cuaHang;
-        this.nhanVien = nhanVien;
-        this.khachHang = khachHang;
-        this.thoiGianTao = thoiGianTao;
-        this.tienKhachDua = tienKhachDua;
+        try {
+            setMaHoaDon(maHoaDon);
+            setCuaHang(cuaHang);
+            setNhanVien(nhanVien);
+            setKhachHang(khachHang);
+            setThoiGianTao(thoiGianTao);
+            setTienKhachDua(tienKhachDua);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override
