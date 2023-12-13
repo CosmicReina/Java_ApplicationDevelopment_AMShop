@@ -95,7 +95,7 @@ public class GUI_ThongKeQuanAoDaHet extends javax.swing.JPanel {
         pnlHoaDon.setLayout(new java.awt.BorderLayout());
 
         scrQuanAo.setBackground(new java.awt.Color(68, 136, 255));
-        scrQuanAo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        scrQuanAo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh Sách Quần Áo Đã Hết", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
 
         tblQuanAo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

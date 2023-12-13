@@ -268,7 +268,7 @@
     </Component>
     <Component class="extended_JComponent.JButton_AllRound" name="btnDanhSachLichLamViec">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Xem Danh S&#xe1;ch L&#x1ecb;ch L&#xe0;m Vi&#x1ec7;c"/>
+        <Property name="text" type="java.lang.String" value="Ch&#x1ea5;m C&#xf4;ng Nh&#xe2;n Vi&#xea;n"/>
         <Property name="borderRadius" type="int" value="20"/>
         <Property name="borderThickness" type="int" value="1"/>
         <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -286,6 +286,27 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDanhSachLichLamViecActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="extended_JComponent.JButton_AllRound" name="btnTinhLuong">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="T&#xed;nh L&#x1b0;&#x1a1;ng Nh&#xe2;n Vi&#xea;n"/>
+        <Property name="borderRadius" type="int" value="20"/>
+        <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ee" red="aa" type="rgb"/>
+        </Property>
+        <Property name="colorBorder" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="cc" red="77" type="rgb"/>
+        </Property>
+        <Property name="colorEnter" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ee" red="77" type="rgb"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTinhLuongActionPerformed"/>
       </Events>
     </Component>
     <Component class="extended_JComponent.JButton_AllRound" name="btnThongKeDoanhThu">
@@ -375,21 +396,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThongKeQuanAoDaHetActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="extended_JComponent.JButton_AllRound" name="btn_1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton_AllRound1"/>
-        <Property name="borderRadius" type="int" value="20"/>
-        <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ee" red="aa" type="rgb"/>
-        </Property>
-        <Property name="colorClick" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="cc" red="77" type="rgb"/>
-        </Property>
-        <Property name="colorEnter" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ee" red="77" type="rgb"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="extended_JComponent.JButton_AllRound" name="btn_2">
       <Properties>
