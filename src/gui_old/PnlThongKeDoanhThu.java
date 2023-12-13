@@ -5,7 +5,7 @@ import dao.DAO_HoaDon;
 import data.FormatLocalDate;
 import data.FormatDouble;
 import data.FormatLocalDateTime;
-import data.InBaoCaoDoanhThu;
+import data.InBaoCaoDoanhThuc;
 import data.UtilityLocalDateTime;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -111,7 +111,7 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Vui lòng tạo thống kê trước.");
                 return;
             }
-            if(InBaoCaoDoanhThu.createBaoCaoDoanhThu(ngayBatDau, ngayKetThuc) == true){
+            if(InBaoCaoDoanhThuc.createBaoCaoDoanhThu(ngayBatDau, ngayKetThuc) == true){
                 JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thành công.");
             }
             else{

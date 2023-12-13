@@ -3,7 +3,7 @@ package gui;
 import dao.DAO_KhachHang;
 import data.FormatLocalDate;
 import data.FormatDouble;
-import data.InBaoCaoDoanhThu;
+import data.InBaoCaoDoanhThuc;
 import data.InBaoCaoKhachHang;
 import entity.KhachHang;
 import java.io.IOException;

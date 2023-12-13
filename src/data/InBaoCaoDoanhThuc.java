@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class InBaoCaoDoanhThu {
+public class InBaoCaoDoanhThuc {
     public static boolean createBaoCaoDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException{
         String baocao_file_path = "files//baoCao//" + "baoCaoDoanhThu.pdf";
         PdfWriter pdfWriter = new PdfWriter(baocao_file_path);
