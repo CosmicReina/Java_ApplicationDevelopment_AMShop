@@ -6,8 +6,9 @@ import dao.DAO_LichLamViec;
 import dao.DAO_NhanVien;
 import data.FormatLocalDate;
 import data.FormatLocalDateTime;
-import data.FormatLocalTime;
 import data.KhoiTaoMa;
+import data.UtilityJTextField;
+import data.UtilityLocalDateTime;
 import entity.CaLamViec;
 import entity.ChiTietPhanCong;
 import entity.LichLamViec;
@@ -18,30 +19,26 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class GUI_LichLamViec extends javax.swing.JPanel {
+public class GUI_LichLamViecDupplicate extends javax.swing.JPanel {
     
-    private static GUI_LichLamViec instance = new GUI_LichLamViec();
+    private static GUI_LichLamViecDupplicate instance = new GUI_LichLamViecDupplicate();
 
-    public static GUI_LichLamViec getInstance() {
+    public static GUI_LichLamViecDupplicate getInstance() {
         return instance;
     }
     
-    public static GUI_LichLamViec newInstance() {
-        instance = new GUI_LichLamViec();
+    public static GUI_LichLamViecDupplicate newInstance() {
+        instance = new GUI_LichLamViecDupplicate();
         return instance;
     }
     
-    public GUI_LichLamViec() {
+    public GUI_LichLamViecDupplicate() {
         initComponents();
         initExtra();
     }
     
     private void initExtra(){
         showTableListLichLamViec(DAO_LichLamViec.getAllLichLamViec());
-        
-        tblDanhSachLichLamViec.fixTable(scrDanhSachLichLamViec);
-        tblDanhSachNhanVien.fixTable(scrDanhSachNhanVien);
-        tblDanhSachNhanVienTrongCa.fixTable(scrDanhSachNhanVienTrongCa);
         
         ArrayList<CaLamViec> listCaLamViec = DAO_CaLamViec.getAllCaLamViec();
         for(CaLamViec thisCaLamViec : listCaLamViec){
@@ -58,7 +55,7 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 thisLichLamViec.getMaLichLamViec(),
                 thisLichLamViec.getCaLamViec().getTenCaLamViec(),
-                FormatLocalDate.fromLocalDate(thisLichLamViec.getNgayLamViec())
+                thisLichLamViec.getNgayLamViec()
             });
         }
     }    
@@ -83,19 +80,11 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         tblDanhSachNhanVienTrongCa.revalidate();
         tblDanhSachNhanVienTrongCa.repaint();
         for(ChiTietPhanCong thisChiTietPhanCong : list){
-            String thoiGianVaoCa = "";
-            String thoiGianRaCa = "";
-            if(thisChiTietPhanCong.getThoiGianVaoCa() != null){
-                thoiGianVaoCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianVaoCa().toLocalTime());
-            }
-            if(thisChiTietPhanCong.getThoiGianRaCa() != null){
-                thoiGianVaoCa = FormatLocalTime.fromLocalTime(thisChiTietPhanCong.getThoiGianRaCa().toLocalTime());
-            }
             model.addRow(new Object[]{
                 thisChiTietPhanCong.getNhanVien().getMaNhanVien(),
                 thisChiTietPhanCong.getNhanVien().getHoTen(),
-                thoiGianVaoCa,
-                thoiGianRaCa
+                FormatLocalDateTime.toFormattedLocalDateTime(thisChiTietPhanCong.getThoiGianVaoCa()),
+                FormatLocalDateTime.toFormattedLocalDateTime(thisChiTietPhanCong.getThoiGianRaCa())
             });
         }
     }    
@@ -168,13 +157,13 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
         if(lichLamViec.getNgayLamViec().isBefore(LocalDate.now())){
             btnThemNhanVien.setEnabled(false);
-            btnXoaNhanVien.setEnabled(false);
+            btnXoaNhanVienKhoiCaLam.setEnabled(false);
             btnChamCongVao.setEnabled(false);
             btnChamCongRa.setEnabled(false);
         }
         else{
             btnThemNhanVien.setEnabled(true);
-            btnXoaNhanVien.setEnabled(true);
+            btnXoaNhanVienKhoiCaLam.setEnabled(true);
             btnChamCongVao.setEnabled(true);
             btnChamCongRa.setEnabled(true);
         }
@@ -204,8 +193,6 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(null, "Thêm Nhân Viên vào Lịch thất bại.");
         }
-        
-        tblDanhSachNhanVien.clearSelection();
     }
     
     private void xoaNhanVienKhoiLich(){
@@ -229,12 +216,16 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Xóa Nhân Viên khỏi Lịch thất bại.");
         }
         
-        tblDanhSachNhanVienTrongCa.clearSelection();
     }
     
     private void updateSauCapNhat(String maLichLamViec){
-        LichLamViec lichLamViec = DAO_LichLamViec.getLichLamViecTheoMaLichLamViec(maLichLamViec);
-        ArrayList<NhanVien> listNhanVienChuaThem = DAO_NhanVien.getDanhSachNhanVienChuaCoTrongNgayLamViec(lichLamViec.getNgayLamViec());
+        ArrayList<ChiTietPhanCong> listPC = DAO_ChiTietPhanCong.getAllChiTietPhanCongTheoMaLichLamViec(maLichLamViec);
+        ArrayList<NhanVien> listNhanVienDaThem = new ArrayList<>();
+        for(ChiTietPhanCong thisChiTietPhanCong : listPC){
+            listNhanVienDaThem.add(thisChiTietPhanCong.getNhanVien());
+        }
+        ArrayList<NhanVien> listNhanVienChuaThem = DAO_NhanVien.getAllNhanVien();
+        listNhanVienChuaThem.removeAll(listNhanVienDaThem);
 
         showTableListNhanVienTrongCa(maLichLamViec);
         showTableListNhanVien(listNhanVienChuaThem);
@@ -243,7 +234,7 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
     private void chamCongVaoCa(){
         int i = tblDanhSachNhanVienTrongCa.getSelectedRow();
         if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần chấm công.");
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần xóa.");
             return;
         }
         String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
@@ -268,14 +259,12 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         if(DAO_ChiTietPhanCong.updateChiTietPhanCong(chiTietPhanCongUpdate) == true){
             updateSauCapNhat(maLichLamViec);
         }
-        
-        tblDanhSachNhanVienTrongCa.clearSelection();
     }
     
     private void chamCongRaCa(){
         int i = tblDanhSachNhanVienTrongCa.getSelectedRow();
         if(i < 0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần chấm công.");
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn Nhân Viên cần xóa.");
             return;
         }
         String maNhanVien = tblDanhSachNhanVienTrongCa.getValueAt(i, 0).toString();
@@ -305,12 +294,6 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         if(DAO_ChiTietPhanCong.updateChiTietPhanCong(chiTietPhanCongUpdate) == true){
             updateSauCapNhat(maLichLamViec);
         }
-        
-        tblDanhSachNhanVienTrongCa.clearSelection();
-    }
-    
-    private void timKiem(){
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -321,28 +304,27 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         pnlDanhSachLichVaNhanVien = new javax.swing.JPanel();
         pnlDanhSachLichLamViec = new javax.swing.JPanel();
         scrDanhSachLichLamViec = new javax.swing.JScrollPane();
-        tblDanhSachLichLamViec = new extended_JComponent.JTable_LightMode();
+        tblDanhSachLichLamViec = new javax.swing.JTable();
         pnlDanhSachNhanVienTrongCa = new javax.swing.JPanel();
         scrDanhSachNhanVienTrongCa = new javax.swing.JScrollPane();
-        tblDanhSachNhanVienTrongCa = new extended_JComponent.JTable_LightMode();
+        tblDanhSachNhanVienTrongCa = new javax.swing.JTable();
         pnlCapNhatLichLamViec = new javax.swing.JPanel();
         pnlCapNhatCaLam = new javax.swing.JPanel();
         lblNgayLamViec = new javax.swing.JLabel();
         lblCaLamViec = new javax.swing.JLabel();
+        txtNgayLamViec = new javax.swing.JTextField();
         cmbCaLamViec = new javax.swing.JComboBox<>();
-        txtNgayLamViec = new extended_JComponent.JTextField_AllRound();
-        btnThem = new extended_JComponent.JButton_AllRound();
-        btnTimKiem = new extended_JComponent.JButton_AllRound();
+        btnThem = new javax.swing.JButton();
         pnlDanhSachNhanVien = new javax.swing.JPanel();
         scrDanhSachNhanVien = new javax.swing.JScrollPane();
-        tblDanhSachNhanVien = new extended_JComponent.JTable_LightMode();
+        tblDanhSachNhanVien = new javax.swing.JTable();
         pnlChamCong = new javax.swing.JPanel();
         pnlChamCongCaLam = new javax.swing.JPanel();
-        btnChamCongVao = new extended_JComponent.JButton_AllRound();
-        btnChamCongRa = new extended_JComponent.JButton_AllRound();
+        btnChamCongVao = new javax.swing.JButton();
+        btnChamCongRa = new javax.swing.JButton();
         pnlTimKiemNhanVien = new javax.swing.JPanel();
-        btnThemNhanVien = new extended_JComponent.JButton_AllRound();
-        btnXoaNhanVien = new extended_JComponent.JButton_AllRound();
+        btnThemNhanVien = new javax.swing.JButton();
+        btnXoaNhanVienKhoiCaLam = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -362,10 +344,19 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Lịch Làm", "Tên Ca Làm", "Ngày Làm Việc"
+                "Mã lịch làm việc", "Tên ca làm", "Ngày làm việc"
             }
-        ));
-        tblDanhSachLichLamViec.setRowHeight(20);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachLichLamViec.setRowHeight(40);
+        tblDanhSachLichLamViec.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblDanhSachLichLamViec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDanhSachLichLamViecMouseClicked(evt);
@@ -387,9 +378,19 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "T.Gian Vào Ca", "T.Gian Ra Ca"
+                "Mã Nhân Viên", "Tên Nhân Viên", "Thời gian vào ca", "Thời gian ra ca"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachNhanVienTrongCa.setRowHeight(40);
+        tblDanhSachNhanVienTrongCa.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrDanhSachNhanVienTrongCa.setViewportView(tblDanhSachNhanVienTrongCa);
 
         pnlDanhSachNhanVienTrongCa.add(scrDanhSachNhanVienTrongCa, java.awt.BorderLayout.CENTER);
@@ -413,32 +414,17 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         lblCaLamViec.setForeground(new java.awt.Color(255, 255, 255));
         lblCaLamViec.setText("Ca Làm Việc");
 
+        txtNgayLamViec.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         cmbCaLamViec.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         cmbCaLamViec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca Làm Việc" }));
 
-        txtNgayLamViec.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
+        btnThem.setBackground(new java.awt.Color(170, 238, 255));
+        btnThem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnThem.setText("Thêm Lịch");
-        btnThem.setBorderRadius(30);
-        btnThem.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnThem.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnThem.setColorClick(new java.awt.Color(119, 204, 255));
-        btnThem.setColorEnter(new java.awt.Color(119, 238, 255));
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
-            }
-        });
-
-        btnTimKiem.setText("Tìm Kiếm");
-        btnTimKiem.setBorderRadius(30);
-        btnTimKiem.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnTimKiem.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnTimKiem.setColorClick(new java.awt.Color(119, 204, 255));
-        btnTimKiem.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTimKiemActionPerformed(evt);
             }
         });
 
@@ -449,34 +435,29 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             .addGroup(pnlCapNhatCaLamLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlCapNhatCaLamLayout.createSequentialGroup()
-                        .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNgayLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(lblCaLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
-                        .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbCaLamViec, 0, 200, Short.MAX_VALUE)
-                            .addComponent(txtNgayLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblNgayLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(lblCaLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNgayLamViec)
+                    .addComponent(cmbCaLamViec, 0, 200, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(109, Short.MAX_VALUE))
         );
         pnlCapNhatCaLamLayout.setVerticalGroup(
             pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCapNhatCaLamLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblNgayLamViec, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNgayLamViec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNgayLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(lblNgayLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlCapNhatCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblCaLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(cmbCaLamViec, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         pnlCapNhatLichLamViec.add(pnlCapNhatCaLam, java.awt.BorderLayout.WEST);
@@ -493,7 +474,17 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             new String [] {
                 "Mã Nhân Viên", "Tên Nhân Viên"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblDanhSachNhanVien.setRowHeight(40);
+        tblDanhSachNhanVien.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrDanhSachNhanVien.setViewportView(tblDanhSachNhanVien);
 
         pnlDanhSachNhanVien.add(scrDanhSachNhanVien, java.awt.BorderLayout.CENTER);
@@ -507,29 +498,21 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         pnlChamCong.setLayout(new java.awt.BorderLayout());
 
         pnlChamCongCaLam.setBackground(new java.awt.Color(79, 137, 255));
-        pnlChamCongCaLam.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chấm Công", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlChamCongCaLam.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chấm Công Ca Làm", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlChamCongCaLam.setPreferredSize(new java.awt.Dimension(266, 350));
 
+        btnChamCongVao.setBackground(new java.awt.Color(170, 238, 255));
+        btnChamCongVao.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnChamCongVao.setText("Chấm Công Vào Ca");
-        btnChamCongVao.setBorderRadius(50);
-        btnChamCongVao.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnChamCongVao.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnChamCongVao.setColorClick(new java.awt.Color(119, 204, 255));
-        btnChamCongVao.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnChamCongVao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnChamCongVao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChamCongVaoActionPerformed(evt);
             }
         });
 
+        btnChamCongRa.setBackground(new java.awt.Color(170, 238, 255));
+        btnChamCongRa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnChamCongRa.setText("Chấm Công Ra Ca");
-        btnChamCongRa.setBorderRadius(50);
-        btnChamCongRa.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnChamCongRa.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnChamCongRa.setColorClick(new java.awt.Color(119, 204, 255));
-        btnChamCongRa.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnChamCongRa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnChamCongRa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChamCongRaActionPerformed(evt);
@@ -542,49 +525,42 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             pnlChamCongCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChamCongCaLamLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlChamCongCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnChamCongVao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChamCongRa, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(pnlChamCongCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnChamCongRa, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChamCongVao, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         pnlChamCongCaLamLayout.setVerticalGroup(
             pnlChamCongCaLamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlChamCongCaLamLayout.createSequentialGroup()
-                .addComponent(btnChamCongVao, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(btnChamCongRa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(btnChamCongVao, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnChamCongRa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         pnlChamCong.add(pnlChamCongCaLam, java.awt.BorderLayout.NORTH);
 
         pnlTimKiemNhanVien.setBackground(new java.awt.Color(79, 137, 255));
-        pnlTimKiemNhanVien.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chỉnh Sửa", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlTimKiemNhanVien.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chỉnh Sửa Ca", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         pnlTimKiemNhanVien.setPreferredSize(new java.awt.Dimension(266, 350));
 
+        btnThemNhanVien.setBackground(new java.awt.Color(170, 238, 255));
+        btnThemNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         btnThemNhanVien.setText("Thêm Nhân Viên Vào Ca");
-        btnThemNhanVien.setBorderRadius(50);
-        btnThemNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnThemNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnThemNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
-        btnThemNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnThemNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemNhanVienActionPerformed(evt);
             }
         });
 
-        btnXoaNhanVien.setText("Xóa Nhân Viên Khỏi Ca");
-        btnXoaNhanVien.setBorderRadius(50);
-        btnXoaNhanVien.setColorBackground(new java.awt.Color(170, 238, 255));
-        btnXoaNhanVien.setColorBorder(new java.awt.Color(255, 255, 255));
-        btnXoaNhanVien.setColorClick(new java.awt.Color(119, 204, 255));
-        btnXoaNhanVien.setColorEnter(new java.awt.Color(119, 238, 255));
-        btnXoaNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnXoaNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaNhanVienKhoiCaLam.setBackground(new java.awt.Color(170, 238, 255));
+        btnXoaNhanVienKhoiCaLam.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnXoaNhanVienKhoiCaLam.setText("Xóa Nhân Viên Khỏi Ca");
+        btnXoaNhanVienKhoiCaLam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaNhanVienActionPerformed(evt);
+                btnXoaNhanVienKhoiCaLamActionPerformed(evt);
             }
         });
 
@@ -595,17 +571,18 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
             .addGroup(pnlTimKiemNhanVienLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTimKiemNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThemNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(btnXoaNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnThemNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                    .addComponent(btnXoaNhanVienKhoiCaLam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlTimKiemNhanVienLayout.setVerticalGroup(
             pnlTimKiemNhanVienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTimKiemNhanVienLayout.createSequentialGroup()
-                .addComponent(btnThemNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btnThemNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnXoaNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(btnXoaNhanVienKhoiCaLam, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         pnlChamCong.add(pnlTimKiemNhanVien, java.awt.BorderLayout.CENTER);
@@ -618,10 +595,20 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         themLichLamViec();
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void btnXoaNhanVienKhoiCaLamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNhanVienKhoiCaLamActionPerformed
         // TODO add your handling code here:
-        timKiem();
-    }//GEN-LAST:event_btnTimKiemActionPerformed
+        xoaNhanVienKhoiLich();
+    }//GEN-LAST:event_btnXoaNhanVienKhoiCaLamActionPerformed
+
+    private void tblDanhSachLichLamViecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachLichLamViecMouseClicked
+        // TODO add your handling code here:
+        updateDanhSachNhanVien();
+    }//GEN-LAST:event_tblDanhSachLichLamViecMouseClicked
+
+    private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
+        // TODO add your handling code here:
+        themNhanVienVaoLich();
+    }//GEN-LAST:event_btnThemNhanVienActionPerformed
 
     private void btnChamCongVaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamCongVaoActionPerformed
         // TODO add your handling code here:
@@ -633,28 +620,12 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
         chamCongRaCa();
     }//GEN-LAST:event_btnChamCongRaActionPerformed
 
-    private void btnThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanVienActionPerformed
-        // TODO add your handling code here:
-        themNhanVienVaoLich();
-    }//GEN-LAST:event_btnThemNhanVienActionPerformed
-
-    private void btnXoaNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaNhanVienActionPerformed
-        // TODO add your handling code here:
-        xoaNhanVienKhoiLich();
-    }//GEN-LAST:event_btnXoaNhanVienActionPerformed
-
-    private void tblDanhSachLichLamViecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachLichLamViecMouseClicked
-        // TODO add your handling code here:
-        updateDanhSachNhanVien();
-    }//GEN-LAST:event_tblDanhSachLichLamViecMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private extended_JComponent.JButton_AllRound btnChamCongRa;
-    private extended_JComponent.JButton_AllRound btnChamCongVao;
-    private extended_JComponent.JButton_AllRound btnThem;
-    private extended_JComponent.JButton_AllRound btnThemNhanVien;
-    private extended_JComponent.JButton_AllRound btnTimKiem;
-    private extended_JComponent.JButton_AllRound btnXoaNhanVien;
+    private javax.swing.JButton btnChamCongRa;
+    private javax.swing.JButton btnChamCongVao;
+    private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnThemNhanVien;
+    private javax.swing.JButton btnXoaNhanVienKhoiCaLam;
     private javax.swing.JComboBox<String> cmbCaLamViec;
     private javax.swing.JLabel lblCaLamViec;
     private javax.swing.JLabel lblNgayLamViec;
@@ -671,10 +642,10 @@ public class GUI_LichLamViec extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrDanhSachLichLamViec;
     private javax.swing.JScrollPane scrDanhSachNhanVien;
     private javax.swing.JScrollPane scrDanhSachNhanVienTrongCa;
-    private extended_JComponent.JTable_LightMode tblDanhSachLichLamViec;
-    private extended_JComponent.JTable_LightMode tblDanhSachNhanVien;
-    private extended_JComponent.JTable_LightMode tblDanhSachNhanVienTrongCa;
-    private extended_JComponent.JTextField_AllRound txtNgayLamViec;
+    private javax.swing.JTable tblDanhSachLichLamViec;
+    private javax.swing.JTable tblDanhSachNhanVien;
+    private javax.swing.JTable tblDanhSachNhanVienTrongCa;
+    private javax.swing.JTextField txtNgayLamViec;
     // End of variables declaration//GEN-END:variables
 
 }

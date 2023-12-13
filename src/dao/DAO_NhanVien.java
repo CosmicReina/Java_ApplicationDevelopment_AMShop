@@ -5,6 +5,8 @@ import entity.NhanVien;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAO_NhanVien extends DAO {
     
@@ -237,6 +239,50 @@ public class DAO_NhanVien extends DAO {
             ex.printStackTrace(System.out);
         }
         return null;
+    }
+    
+    public static ArrayList<NhanVien> getDanhSachNhanVienChuaCoTrongNgayLamViec(LocalDate ngayLamViec){
+        ArrayList<NhanVien> list = new ArrayList();
+        try {
+            String sql = ""
+                    + "SELECT * FROM NhanVien "
+                    + "WHERE MaNhanVien NOT IN "
+                    + "("
+                    + "SELECT MaNhanVien "
+                    + "FROM ChiTietPhanCong CT JOIN LichLamViec L ON CT.MaLichLamViec = L.MaLichLamViec "
+                    + "WHERE NgayLamViec = ?) AND NgayKetThucLam IS NULL";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setDate(1, UtilityLocalDate.fromLocalDate(ngayLamViec));
+            
+            ResultSet rs_NhanVien = prs.executeQuery();
+            while(rs_NhanVien.next()){
+                String maNhanVien = rs_NhanVien.getString(1);
+                String hoTen = rs_NhanVien.getString(2);
+                String soDienThoai = rs_NhanVien.getString(3);
+                String diaChi = rs_NhanVien.getString(4);
+                String chucVu = rs_NhanVien.getString(5);
+                LocalDate ngaySinh = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(6));
+                String canCuocCongDan = rs_NhanVien.getString(7);
+                String gioiTinh = rs_NhanVien.getString(8);
+                LocalDate ngayBatDauLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(9));
+                LocalDate ngayKetThucLam = UtilityLocalDate.toLocalDate(rs_NhanVien.getDate(10));
+                double luong = rs_NhanVien.getDouble(11);
+                String tenDangNhap = null;
+                String matKhau = null;
+                
+                ResultSet rs_TaiKhoan = DAO_TaiKhoan.getTaiKhoanTheoTenDangNhap(maNhanVien);
+                if(rs_TaiKhoan != null && rs_TaiKhoan.next()){
+                    tenDangNhap = rs_TaiKhoan.getString(1);
+                    matKhau = rs_TaiKhoan.getString(2);
+                }
+                NhanVien nhanVien = new NhanVien(maNhanVien, hoTen, soDienThoai, diaChi, chucVu, ngaySinh, canCuocCongDan, gioiTinh, ngayBatDauLam, ngayKetThucLam, luong, tenDangNhap, matKhau);
+                
+                list.add(nhanVien);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return list;
     }
 
     public static String getMaNhanVienCuoi(String prefix){
