@@ -10,53 +10,65 @@ public class CuaHang {
         return maCuaHang;
     }
 
-    public void setMaCuaHang(String maCuaHang) throws Exception {
-        if(maCuaHang.isBlank())
-            throw new Exception("Mã Cửa Hàng không hợp lệ");
-        this.maCuaHang = maCuaHang;
+    public void setMaCuaHang(String maCuaHang) {
+        try {
+            if(maCuaHang.isBlank())
+                throw new Exception("Mã Cửa Hàng không hợp lệ");
+            this.maCuaHang = maCuaHang;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getTenCuaHang() {
         return tenCuaHang;
     }
 
-    public void setTenCuaHang(String tenCuaHang) throws Exception {
-        if(tenCuaHang.isBlank())
-            throw new Exception("Tên Cửa Hàng không hợp lệ");
-        this.tenCuaHang = tenCuaHang;
+    public void setTenCuaHang(String tenCuaHang) {
+        try {
+            if(tenCuaHang.isBlank())
+                throw new Exception("Tên Cửa Hàng không hợp lệ");
+            this.tenCuaHang = tenCuaHang;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getSoDienThoai() {
         return soDienThoai;
     }
 
-    public void setSoDienThoai(String soDienThoai) throws Exception {
-        if(!soDienThoai.matches("^[0-9]{10}$"))
-            throw new Exception("Số điện thoại không hợp lệ");
-        this.soDienThoai = soDienThoai;
+    public void setSoDienThoai(String soDienThoai) {
+        try {
+            if(!soDienThoai.matches("^[0-9]{10}$"))
+                throw new Exception("Số điện thoại không hợp lệ");
+            this.soDienThoai = soDienThoai;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getDiaChi() {
         return diaChi;
     }
 
-    public void setDiaChi(String diaChi) throws Exception {
-        if(diaChi.isBlank())
-            throw new Exception("Địa chỉ không hợp lệ");
-        this.diaChi = diaChi;
+    public void setDiaChi(String diaChi) {
+        try {
+            if(diaChi.isBlank())
+                throw new Exception("Địa chỉ không hợp lệ");
+            this.diaChi = diaChi;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public CuaHang() {}
 
     public CuaHang(String maCuaHang, String tenCuaHang, String soDienThoai, String diaChi) {
-        try {
-            setMaCuaHang(maCuaHang);
-            setTenCuaHang(tenCuaHang);
-            setSoDienThoai(soDienThoai);
-            setDiaChi(diaChi);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.out);
-        }
+        setMaCuaHang(maCuaHang);
+        setTenCuaHang(tenCuaHang);
+        setSoDienThoai(soDienThoai);
+        setDiaChi(diaChi);
     }
 
     @Override

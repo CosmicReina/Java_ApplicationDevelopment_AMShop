@@ -2,6 +2,8 @@ package entity;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DonDatHang {
     private String maDonDatHang;
@@ -14,10 +16,14 @@ public class DonDatHang {
         return maDonDatHang;
     }
 
-    public void setMaDonDatHang(String maDonDatHang) throws Exception {
-        if(!maDonDatHang.matches("^DD[0-9]{10}$"))
-            throw new Exception("Mã Đơn Đặt Hàng không hợp lệ");
-        this.maDonDatHang = maDonDatHang;
+    public void setMaDonDatHang(String maDonDatHang) {
+        try {
+            if(!maDonDatHang.matches("^DD[0-9]{10}$"))
+                throw new Exception("Mã Đơn Đặt Hàng không hợp lệ");
+            this.maDonDatHang = maDonDatHang;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public NhanVien getNhanVien() {
@@ -55,7 +61,7 @@ public class DonDatHang {
     public DonDatHang() {
     }
 
-    public DonDatHang(String maDonDatHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, boolean trangThaiThanhToan) throws Exception {
+    public DonDatHang(String maDonDatHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, boolean trangThaiThanhToan) {
         setMaDonDatHang(maDonDatHang);
         setNhanVien(nhanVien);
         setKhachHang(khachHang);

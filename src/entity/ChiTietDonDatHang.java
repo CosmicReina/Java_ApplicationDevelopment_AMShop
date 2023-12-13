@@ -27,22 +27,22 @@ public class ChiTietDonDatHang {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) throws Exception {
-        if(soLuong < 0)
-            throw new Exception("Số Lượng không hợp lệ");
-        this.soLuong = soLuong;
+    public void setSoLuong(int soLuong) {
+        try {
+            if(soLuong < 0)
+                throw new Exception("Số Lượng không hợp lệ");
+            this.soLuong = soLuong;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public ChiTietDonDatHang() {}
 
     public ChiTietDonDatHang(DonDatHang donDatHang, QuanAo quanAo, int soLuong) {
-        try {
-            setDonDatHang(donDatHang);
-            setQuanAo(quanAo);
-            setSoLuong(soLuong);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.out);
-        }
+        setDonDatHang(donDatHang);
+        setQuanAo(quanAo);
+        setSoLuong(soLuong);
     }
 
     @Override

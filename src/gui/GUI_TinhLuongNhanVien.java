@@ -71,7 +71,8 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
-        
+        if(tblLuong.getModel().getRowCount() == 0)
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu");
     }
     
     @SuppressWarnings("unchecked")

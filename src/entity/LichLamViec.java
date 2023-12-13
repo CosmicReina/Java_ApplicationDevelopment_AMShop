@@ -12,10 +12,14 @@ public class LichLamViec {
         return maLichLamViec;
     }
 
-    public void setMaLichLamViec(String maLichLamViec) throws Exception {
-        if(!maLichLamViec.matches("^LH[0-9]{6}[SC]$"))
-            throw new Exception("Mã Lịch Làm Việc không hợp lệ");
-        this.maLichLamViec = maLichLamViec;
+    public void setMaLichLamViec(String maLichLamViec) {
+        try {
+            if(!maLichLamViec.matches("^LH[0-9]{6}[SC]$"))
+                throw new Exception("Mã Lịch Làm Việc không hợp lệ");
+            this.maLichLamViec = maLichLamViec;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public LocalDate getNgayLamViec() {
@@ -37,13 +41,9 @@ public class LichLamViec {
     public LichLamViec() {}
 
     public LichLamViec(String maLichLamViec, LocalDate ngayLamViec, CaLamViec caLamViec) {
-        try {
-            setMaLichLamViec(maLichLamViec);
-            setNgayLamViec(ngayLamViec);
-            setCaLamViec(caLamViec);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.out);
-        }
+        setMaLichLamViec(maLichLamViec);
+        setNgayLamViec(ngayLamViec);
+        setCaLamViec(caLamViec);
     }
 
     @Override

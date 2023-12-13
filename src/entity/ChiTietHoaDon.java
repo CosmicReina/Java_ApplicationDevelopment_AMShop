@@ -1,6 +1,8 @@
 package entity;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ChiTietHoaDon {
     private HoaDon hoaDon;
@@ -28,34 +30,38 @@ public class ChiTietHoaDon {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) throws Exception {
-        if(soLuong < 0)
-            throw new Exception("Số Lượng không hợp lệ");
-        this.soLuong = soLuong;
+    public void setSoLuong(int soLuong) {
+        try {
+            if(soLuong < 0)
+                throw new Exception("Số Lượng không hợp lệ");
+            this.soLuong = soLuong;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public double getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(double donGia) throws Exception {
-        if(donGia < 0)
-            throw new Exception("Đơn Giá không hợp lệ");
-        this.donGia = donGia;
+    public void setDonGia(double donGia) {
+        try {
+            if(donGia < 0)
+                throw new Exception("Đơn Giá không hợp lệ");
+            this.donGia = donGia;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public ChiTietHoaDon() {
     }
 
     public ChiTietHoaDon(HoaDon hoaDon, QuanAo quanAo, int soLuong, double donGia) {
-        try {
-            setHoaDon(hoaDon);
-            setQuanAo(quanAo);
-            setSoLuong(soLuong);
-            setDonGia(donGia);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.out);
-        }
+        setHoaDon(hoaDon);
+        setQuanAo(quanAo);
+        setSoLuong(soLuong);
+        setDonGia(donGia);
     }
 
     @Override

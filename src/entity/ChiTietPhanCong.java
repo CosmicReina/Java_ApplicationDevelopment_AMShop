@@ -37,11 +37,15 @@ public class ChiTietPhanCong {
         return thoiGianRaCa;
     }
 
-    public void setThoiGianRaCa(LocalDateTime thoiGianRaCa) throws Exception {
-        if(thoiGianRaCa != null)
-            if(thoiGianRaCa.isBefore(thoiGianVaoCa))
-                throw new Exception("Thời Gian Ra Ca không hợp lệ");
-        this.thoiGianRaCa = thoiGianRaCa;
+    public void setThoiGianRaCa(LocalDateTime thoiGianRaCa) {
+        try {
+            if(thoiGianRaCa != null)
+                if(thoiGianRaCa.isBefore(thoiGianVaoCa))
+                    throw new Exception("Thời Gian Ra Ca không hợp lệ");
+            this.thoiGianRaCa = thoiGianRaCa;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public ChiTietPhanCong() {}

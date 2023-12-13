@@ -22,120 +22,168 @@ public class QuanAo {
         return maQuanAo;
     }
 
-    public void setMaQuanAo(String maQuanAo) throws Exception {
-        if(!maQuanAo.matches("^QA[0-9]{6}$"))
-            throw new Exception("Mã Quần Áo không hợp lệ");
-        this.maQuanAo = maQuanAo;
+    public void setMaQuanAo(String maQuanAo) {
+        try {
+            if(!maQuanAo.matches("^QA[0-9]{6}$"))
+                throw new Exception("Mã Quần Áo không hợp lệ");
+            this.maQuanAo = maQuanAo;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getTenQuanAo() {
         return tenQuanAo;
     }
 
-    public void setTenQuanAo(String tenQuanAo) throws Exception {
-        if(tenQuanAo.isBlank())
-            throw new Exception("Tên Quần Áo không hợp lệ");
-        this.tenQuanAo = tenQuanAo;
+    public void setTenQuanAo(String tenQuanAo) {
+        try {
+            if(tenQuanAo.isBlank())
+                throw new Exception("Tên Quần Áo không hợp lệ");
+            this.tenQuanAo = tenQuanAo;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public double getDonGiaNhap() {
         return donGiaNhap;
     }
 
-    public void setDonGiaNhap(double donGiaNhap) throws Exception {
-        if(donGiaNhap < 0)
-            throw new Exception("Đơn Giá Nhập không hợp lệ");
-        this.donGiaNhap = donGiaNhap;
+    public void setDonGiaNhap(double donGiaNhap) {
+        try {
+            if(donGiaNhap < 0)
+                throw new Exception("Đơn Giá Nhập không hợp lệ");
+            this.donGiaNhap = donGiaNhap;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public double getDonGiaBan() {
         return donGiaBan;
     }
 
-    public void setDonGiaBan(double donGiaBan) throws Exception {
-        if(donGiaBan < donGiaNhap)
-            throw new Exception("Đơn Giá Bán không hợp lệ");
-        this.donGiaBan = donGiaBan;
+    public void setDonGiaBan(double donGiaBan) {
+        try {
+            if(donGiaBan < donGiaNhap)
+                throw new Exception("Đơn Giá Bán không hợp lệ");
+            this.donGiaBan = donGiaBan;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public int getSoLuongTrongKho() {
         return soLuongTrongKho;
     }
 
-    public void setSoLuongTrongKho(int soLuongTrongKho) throws Exception {
-        if(soLuongTrongKho < 0)
-            throw new Exception("Số Lượng Trong Kho không hợp lệ");
-        this.soLuongTrongKho = soLuongTrongKho;
+    public void setSoLuongTrongKho(int soLuongTrongKho) {
+        try {
+            if(soLuongTrongKho < 0)
+                throw new Exception("Số Lượng Trong Kho không hợp lệ");
+            this.soLuongTrongKho = soLuongTrongKho;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getNhaSanXuat() {
         return nhaSanXuat;
     }
 
-    public void setNhaSanXuat(String nhaSanXuat) throws Exception {
-        if(nhaSanXuat.isBlank())
-            throw new Exception("Nhà Sản Xuất không hợp lệ");
-        this.nhaSanXuat = nhaSanXuat;
+    public void setNhaSanXuat(String nhaSanXuat) {
+        try {
+            if(nhaSanXuat.isBlank())
+                throw new Exception("Nhà Sản Xuất không hợp lệ");
+            this.nhaSanXuat = nhaSanXuat;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getDanhMuc() {
         return danhMuc;
     }
 
-    public void setDanhMuc(String danhMuc) throws Exception {
-        if(danhMuc.isBlank())
-            throw new Exception("Danh Mục không hợp lệ");
-        this.danhMuc = danhMuc;
+    public void setDanhMuc(String danhMuc) {
+        try {
+            if(danhMuc.isBlank())
+                throw new Exception("Danh Mục không hợp lệ");
+            this.danhMuc = danhMuc;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getGioiTinh() {
         return gioiTinh;
     }
 
-    public void setGioiTinh(String gioiTinh) throws Exception {
-        if(gioiTinh.isBlank())
-            throw new Exception("Giới Tính không hợp lệ");
-        this.gioiTinh = gioiTinh;
+    public void setGioiTinh(String gioiTinh) {
+        try {
+            if(gioiTinh.isBlank())
+                throw new Exception("Giới Tính không hợp lệ");
+            this.gioiTinh = gioiTinh;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getMauSac() {
         return mauSac;
     }
 
-    public void setMauSac(String mauSac) throws Exception {
-        if(mauSac.isBlank())
-            throw new Exception("Màu Sắc không hợp lệ");
-        this.mauSac = mauSac;
+    public void setMauSac(String mauSac) {
+        try {
+            if(mauSac.isBlank())
+                throw new Exception("Màu Sắc không hợp lệ");
+            this.mauSac = mauSac;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getKichThuoc() {
         return kichThuoc;
     }
 
-    public void setKichThuoc(String kichThuoc) throws Exception {
-        if(kichThuoc.isBlank())
-            throw new Exception("Kích Thước không hợp lệ");
-        this.kichThuoc = kichThuoc;
+    public void setKichThuoc(String kichThuoc) {
+        try {
+            if(kichThuoc.isBlank())
+                throw new Exception("Kích Thước không hợp lệ");
+            this.kichThuoc = kichThuoc;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getChatLieu() {
         return chatLieu;
     }
 
-    public void setChatLieu(String chatLieu) throws Exception {
-        if(chatLieu.isBlank())
-            throw new Exception("Chất Liệu không hợp lệ");
-        this.chatLieu = chatLieu;
+    public void setChatLieu(String chatLieu) {
+        try {
+            if(chatLieu.isBlank())
+                throw new Exception("Chất Liệu không hợp lệ");
+            this.chatLieu = chatLieu;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public ImageIcon getHinhAnh() {
         return hinhAnh;
     }
 
-    public void setHinhAnh(ImageIcon hinhAnh) throws Exception {
-        if(hinhAnh == null)
-            throw new Exception("Hình Ảnh không hợp lệ");
-        this.hinhAnh = hinhAnh;
+    public void setHinhAnh(ImageIcon hinhAnh) {
+        try {
+            if(hinhAnh == null)
+                throw new Exception("Hình Ảnh không hợp lệ");
+            this.hinhAnh = hinhAnh;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public boolean isNgungNhap() {
@@ -149,23 +197,19 @@ public class QuanAo {
     public QuanAo() {}
 
     public QuanAo(String maQuanAo, String tenQuanAo, double donGiaNhap, double donGiaBan, int soLuongTrongKho, String nhaSanXuat, String danhMuc, String gioiTinh, String mauSac, String kichThuoc, String chatLieu, ImageIcon hinhAnh, boolean ngungNhap) {
-        try {
-            setMaQuanAo(maQuanAo);
-            setTenQuanAo(tenQuanAo);
-            setDonGiaNhap(donGiaNhap);
-            setDonGiaBan(donGiaBan);
-            setSoLuongTrongKho(soLuongTrongKho);
-            setNhaSanXuat(nhaSanXuat);
-            setDanhMuc(danhMuc);
-            setGioiTinh(gioiTinh);
-            setMauSac(mauSac);
-            setKichThuoc(kichThuoc);
-            setChatLieu(chatLieu);
-            setHinhAnh(hinhAnh);
-            setNgungNhap(ngungNhap);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.out);
-        }
+        setMaQuanAo(maQuanAo);
+        setTenQuanAo(tenQuanAo);
+        setDonGiaNhap(donGiaNhap);
+        setDonGiaBan(donGiaBan);
+        setSoLuongTrongKho(soLuongTrongKho);
+        setNhaSanXuat(nhaSanXuat);
+        setDanhMuc(danhMuc);
+        setGioiTinh(gioiTinh);
+        setMauSac(mauSac);
+        setKichThuoc(kichThuoc);
+        setChatLieu(chatLieu);
+        setHinhAnh(hinhAnh);
+        setNgungNhap(ngungNhap);
     }
 
     @Override

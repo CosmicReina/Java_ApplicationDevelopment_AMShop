@@ -12,20 +12,28 @@ public class CaLamViec {
         return maCaLamViec;
     }
 
-    public void setMaCaLamViec(int maCaLamViec) throws Exception {
-        if(maCaLamViec < 0)
-            throw new Exception("Mã Ca Làm Việc không hợp lệ");
-        this.maCaLamViec = maCaLamViec;
+    public void setMaCaLamViec(int maCaLamViec) {
+        try {
+            if(maCaLamViec < 0)
+                throw new Exception("Mã Ca Làm Việc không hợp lệ");
+            this.maCaLamViec = maCaLamViec;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getTenCaLamViec() {
         return tenCaLamViec;
     }
 
-    public void setTenCaLamViec(String tenCaLamViec) throws Exception {
-        if(tenCaLamViec.isBlank())
-            throw new Exception("Tên Ca Làm Việc không hợp lệ");
-        this.tenCaLamViec = tenCaLamViec;
+    public void setTenCaLamViec(String tenCaLamViec) {
+        try {
+            if(tenCaLamViec.isBlank())
+                throw new Exception("Tên Ca Làm Việc không hợp lệ");
+            this.tenCaLamViec = tenCaLamViec;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public LocalTime getThoiGianBatDau() {
@@ -40,24 +48,24 @@ public class CaLamViec {
         return thoiGianKetThuc;
     }
 
-    public void setThoiGianKetThuc(LocalTime thoiGianKetThuc) throws Exception {
-        if(thoiGianKetThuc.isBefore(thoiGianBatDau))
-            throw new Exception("Thời Gian Kết Thúc không hợp lệ");
-        this.thoiGianKetThuc = thoiGianKetThuc;
+    public void setThoiGianKetThuc(LocalTime thoiGianKetThuc) {
+        try {
+            if(thoiGianKetThuc.isBefore(thoiGianBatDau))
+                throw new Exception("Thời Gian Kết Thúc không hợp lệ");
+            this.thoiGianKetThuc = thoiGianKetThuc;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public CaLamViec() {
     }
 
     public CaLamViec(int maCaLamViec, String tenCaLamViec, LocalTime thoiGianBatDau, LocalTime thoiGianKetThuc) {
-        try {
-            setMaCaLamViec(maCaLamViec);
-            setTenCaLamViec(tenCaLamViec);
-            setThoiGianBatDau(thoiGianBatDau);
-            setThoiGianKetThuc(thoiGianKetThuc);
-        } catch (Exception ex) {
-            ex.printStackTrace(System.out);
-        }
+        setMaCaLamViec(maCaLamViec);
+        setTenCaLamViec(tenCaLamViec);
+        setThoiGianBatDau(thoiGianBatDau);
+        setThoiGianKetThuc(thoiGianKetThuc);
     }
 
     @Override
