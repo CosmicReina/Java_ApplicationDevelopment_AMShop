@@ -128,7 +128,6 @@ public class GUI_ThongKeDoanhThu extends javax.swing.JPanel {
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
         }
-        
     }
     
     @SuppressWarnings("unchecked")
