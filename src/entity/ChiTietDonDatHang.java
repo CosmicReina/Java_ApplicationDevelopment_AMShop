@@ -1,6 +1,8 @@
 package entity;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ChiTietDonDatHang {
     private DonDatHang donDatHang;
@@ -27,17 +29,22 @@ public class ChiTietDonDatHang {
         return soLuong;
     }
 
-    public void setSoLuong(int soLuong) {
+    public void setSoLuong(int soLuong) throws Exception {
+        if(soLuong < 0)
+            throw new Exception("Số Lượng không hợp lệ");
         this.soLuong = soLuong;
     }
 
-    public ChiTietDonDatHang() {
-    }
+    public ChiTietDonDatHang() {}
 
     public ChiTietDonDatHang(DonDatHang donDatHang, QuanAo quanAo, int soLuong) {
-        this.donDatHang = donDatHang;
-        this.quanAo = quanAo;
-        this.soLuong = soLuong;
+        try {
+            setDonDatHang(donDatHang);
+            setQuanAo(quanAo);
+            setSoLuong(soLuong);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override

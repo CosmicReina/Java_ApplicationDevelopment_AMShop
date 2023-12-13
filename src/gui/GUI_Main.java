@@ -74,15 +74,17 @@ public class GUI_Main extends javax.swing.JPanel {
             listBtnNhanVien.add(btnDanhSachDonDatHang);
             listBtnNhanVien.add(btnThongTinNhanVien);
             
+            listBtnKhachHang.add(btnDanhSachKhachHang);
             listBtnKhachHang.add(btnTimKiemKhachHang);
             listBtnKhachHang.add(btnCapNhatKhachHang);
             
+            listBtnHoaDon.add(btnDanhSachHoaDon);
             listBtnHoaDon.add(btnTimKiemHoaDon);
             
+            listBtnQuanAo.add(btnDanhSachQuanAo);
             listBtnQuanAo.add(btnTimKiemQuanAo);
             
             btnLichLamViec.setVisible(false);
-            
             btnThongKe.setVisible(false);
         }
     }
@@ -170,7 +172,7 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
-        btnDanhSachDonDatHang.setText("Xem Danh Sách Đơn Đặt Hàng");
+        btnDanhSachDonDatHang.setText("Danh Sách Đơn Đặt Hàng");
         btnDanhSachDonDatHang.setBorderRadius(20);
         btnDanhSachDonDatHang.setBorderThickness(1);
         btnDanhSachDonDatHang.setColorBackground(new java.awt.Color(170, 238, 255));
@@ -259,7 +261,7 @@ public class GUI_Main extends javax.swing.JPanel {
             }
         });
 
-        btnTimKiemKhachHang.setText("Xem Danh Sách Khách Hàng");
+        btnTimKiemKhachHang.setText("Tìm Kiếm Khách Hàng");
         btnTimKiemKhachHang.setBorderRadius(20);
         btnTimKiemKhachHang.setBorderThickness(1);
         btnTimKiemKhachHang.setColorBackground(new java.awt.Color(170, 238, 255));

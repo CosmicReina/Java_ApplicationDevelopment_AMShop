@@ -26,7 +26,7 @@
     </Component>
     <Component class="extended_JComponent.JButton_AllRound" name="btnDanhSachDonDatHang">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Xem Danh S&#xe1;ch &#x110;&#x1a1;n &#x110;&#x1eb7;t H&#xe0;ng"/>
+        <Property name="text" type="java.lang.String" value="Danh S&#xe1;ch &#x110;&#x1a1;n &#x110;&#x1eb7;t H&#xe0;ng"/>
         <Property name="borderRadius" type="int" value="20"/>
         <Property name="borderThickness" type="int" value="1"/>
         <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -178,7 +178,7 @@
     </Component>
     <Component class="extended_JComponent.JButton_AllRound" name="btnTimKiemKhachHang">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Xem Danh S&#xe1;ch Kh&#xe1;ch H&#xe0;ng"/>
+        <Property name="text" type="java.lang.String" value="T&#xec;m Ki&#x1ebf;m Kh&#xe1;ch H&#xe0;ng"/>
         <Property name="borderRadius" type="int" value="20"/>
         <Property name="borderThickness" type="int" value="1"/>
         <Property name="colorBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
