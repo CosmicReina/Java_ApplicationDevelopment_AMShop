@@ -11,32 +11,44 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import dao.DAO_ChiTietHoaDon;
+import dao.DAO_HoaDon;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class GenerateBaoCaoDoanhThu {
-    public static boolean createBaoCaoDoanhThu(ArrayList<HoaDon> listHD, LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException{
+    public static boolean createBaoCaoDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws IOException{
         String baocao_file_path = "files//baoCao//" + "baoCaoDoanhThu.pdf";
         PdfWriter pdfWriter = new PdfWriter(baocao_file_path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         Document document = new Document(pdfDocument);
         
         String font_path = "files//font//Inconsolata-VariableFont_wdth,wght.ttf";
-        pdfDocument.setDefaultPageSize(new PageSize(800, 600));
+        pdfDocument.setDefaultPageSize(new PageSize(850, 600));
         document.setMargins(5, 5, 0, 5);
         document.setFont(PdfFontFactory.createFont(font_path, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED));
         
+        ArrayList<HoaDon> listHD = DAO_HoaDon.getAllHoaDonTrongKhoangNgay(ngayBatDau, ngayKetThuc);
+        
+        int tongQuanAo = 0;
         double tongDoanhThu = 0;
+        double tongDoanhThuThuan = 0;
         for(HoaDon thisHoaDon : listHD){
             ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
-            double doanhThuThanhPhan = 0;
+            double tongDoanhThuThanhPhan = 0;
+            double tongDoanhThuThuanThanhPhan = 0;
+            int tongQuanAoThanhPhan = 0;
             for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
-                doanhThuThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+                tongDoanhThuThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+                tongDoanhThuThuanThanhPhan += thisChiTietHoaDon.getSoLuong() * (thisChiTietHoaDon.getDonGia() - thisChiTietHoaDon.getQuanAo().getDonGiaNhap());
+                tongQuanAoThanhPhan += thisChiTietHoaDon.getSoLuong();
             }
-            tongDoanhThu += doanhThuThanhPhan;
+            tongQuanAo += tongQuanAoThanhPhan;
+            tongDoanhThu += tongDoanhThuThanhPhan;
+            tongDoanhThuThuan += tongDoanhThuThuanThanhPhan;
         }
         
         Paragraph prgBaoCao = new Paragraph("Báo Cáo Doanh Thu");
@@ -53,15 +65,30 @@ public class GenerateBaoCaoDoanhThu {
         prgKhoangThoiGian.add(new Text(FormatLocalDate.fromLocalDate(ngayKetThuc)));
         prgKhoangThoiGian.setMarginLeft(50);
         
+        Paragraph prgThoiGianThongKe = new Paragraph();
+        prgThoiGianThongKe.add(new Text("Thống kê vào lúc: ").setBold());
+        prgThoiGianThongKe.add(FormatLocalDateTime.toFormattedLocalDateTime(LocalDateTime.now()));
+        prgThoiGianThongKe.setMarginLeft(50);
+        
         Paragraph prgTongHoaDon = new Paragraph();
         prgTongHoaDon.add(new Text("Tổng số hóa đơn: ").setBold());
         prgTongHoaDon.add(new Text(Integer.toString(listHD.size())));
         prgTongHoaDon.setMarginLeft(50);
         
+        Paragraph prgTongQuanAo = new Paragraph();
+        prgTongQuanAo.add(new Text("Tổng số quần áo: ").setBold());
+        prgTongQuanAo.add(new Text(Integer.toString(tongQuanAo)));
+        prgTongQuanAo.setMarginLeft(50);
+        
         Paragraph prgTongDoanhThu = new Paragraph();
         prgTongDoanhThu.add(new Text("Tổng doanh thu: ").setBold());
         prgTongDoanhThu.add(new Text(FormatDouble.toMoney(tongDoanhThu)));
         prgTongDoanhThu.setMarginLeft(50);
+        
+        Paragraph prgTongDoanhThuThuan = new Paragraph();
+        prgTongDoanhThuThuan.add(new Text("Tổng doanh thu thuần: ").setBold());
+        prgTongDoanhThuThuan.add(new Text(FormatDouble.toMoney(tongDoanhThuThuan)));
+        prgTongDoanhThuThuan.setMarginLeft(50);
         
         Paragraph prgBaoCaoDoanhThu = new Paragraph("Danh Sách Hóa Đơn Thống Kê");
         prgBaoCaoDoanhThu
@@ -70,12 +97,13 @@ public class GenerateBaoCaoDoanhThu {
                 .setTextAlignment(TextAlignment.CENTER)
                 .setMargin(0);
         
-        float[] tblHeaderSize = {150, 150, 150, 150, 150};
+        float[] tblHeaderSize = {150, 150, 150, 150, 25, 150};
         String[] tblHeaderList = {
             "Mã Hóa Đơn",
             "Tên Nhân Viên",
             "Tên Khách Hàng",
             "Thời Gian Lập Đơn",
+            "Số Quần Áo",
             "Tổng Tiền"
         };
         
@@ -86,14 +114,19 @@ public class GenerateBaoCaoDoanhThu {
 
         for(HoaDon thisHoaDon : listHD){
             ArrayList<ChiTietHoaDon> listCTHD = DAO_ChiTietHoaDon.getAllChiTietHoaDonTheoMaHoaDon(thisHoaDon.getMaHoaDon());
+            int tongQuanAoThanhPhan = 0;
             double doanhThuThanhPhan = 0;
+            
             for(ChiTietHoaDon thisChiTietHoaDon : listCTHD){
                 doanhThuThanhPhan += thisChiTietHoaDon.getSoLuong() * thisChiTietHoaDon.getDonGia();
+                tongQuanAoThanhPhan += thisChiTietHoaDon.getSoLuong();
+                
             }
             tblDetail.addCell(new Paragraph(thisHoaDon.getMaHoaDon()));
             tblDetail.addCell(new Paragraph(thisHoaDon.getNhanVien().getHoTen()));
             tblDetail.addCell(new Paragraph(thisHoaDon.getKhachHang().getHoTen()));
             tblDetail.addCell(new Paragraph(FormatLocalDateTime.toFormattedLocalDateTime(thisHoaDon.getThoiGianTao())));
+            tblDetail.addCell(new Paragraph(Integer.toString(tongQuanAoThanhPhan)));
             tblDetail.addCell(new Paragraph(FormatDouble.toMoney(doanhThuThanhPhan)));
         }
         tblDetail
@@ -101,9 +134,12 @@ public class GenerateBaoCaoDoanhThu {
                 .setMargin(0);
         
         document.add(prgBaoCao);
+        document.add(prgThoiGianThongKe);
         document.add(prgKhoangThoiGian);
         document.add(prgTongHoaDon);
+        document.add(prgTongQuanAo);
         document.add(prgTongDoanhThu);
+        document.add(prgTongDoanhThuThuan);
         document.add(prgBaoCaoDoanhThu);
         document.add(tblDetail);
         

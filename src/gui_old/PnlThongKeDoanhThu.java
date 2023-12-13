@@ -111,7 +111,7 @@ public class PnlThongKeDoanhThu extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Vui lòng tạo thống kê trước.");
                 return;
             }
-            if(GenerateBaoCaoDoanhThu.createBaoCaoDoanhThu(listHoaDon, ngayBatDau, ngayKetThuc) == true){
+            if(GenerateBaoCaoDoanhThu.createBaoCaoDoanhThu(ngayBatDau, ngayKetThuc) == true){
                 JOptionPane.showMessageDialog(null, "Tạo Báo Cáo Doanh Thu thành công.");
             }
             else{
