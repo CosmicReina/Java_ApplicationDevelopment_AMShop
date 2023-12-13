@@ -463,6 +463,15 @@ public class GUI_LapHoaDon extends javax.swing.JPanel {
                 InHoaDon.createAMShopInvoice(maHoaDon);
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công.");
                 
+                KhachHang khachHangDaMua = DAO_KhachHang.getKhachHangTheoMaKhachHang(hoaDon.getKhachHang().getMaKhachHang());
+                if(khachHangDaMua.getNhomKhachHang().equals("Thường")){
+                    double soTienKhachHangDaMua = DAO_KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang(khachHangDaMua.getMaKhachHang());
+                    if(soTienKhachHangDaMua > 10000000){
+                        khachHangDaMua.setNhomKhachHang("Thân Thiết");
+                        DAO_KhachHang.updateKhachHang(khachHangDaMua);
+                    }
+                }
+                
                 GUI_Main.getInstance().showPanel(GUI_ChiTietHoaDon.newInstance());
                 GUI_ChiTietHoaDon.getInstance().showThongTinHoaDon(maHoaDon);
                 GUI_ChiTietHoaDon.getInstance().setPnlBefore(newInstance());
