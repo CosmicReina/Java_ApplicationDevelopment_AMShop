@@ -9,7 +9,7 @@ import dao.DAO_NhaSanXuat;
 import dao.DAO_NhanVien;
 import dao.DAO_QuanAo;
 import data.FormatDouble;
-import data.GenerateID;
+import data.KhoiTaoMa;
 import data.UtilityImageIcon;
 import entity.QuanAo;
 import java.awt.event.ItemEvent;

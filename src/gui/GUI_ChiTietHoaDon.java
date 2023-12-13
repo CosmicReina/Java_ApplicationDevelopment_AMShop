@@ -4,11 +4,15 @@ import dao.DAO_ChiTietHoaDon;
 import dao.DAO_HoaDon;
 import data.FormatDouble;
 import data.FormatLocalDateTime;
+import data.InHoaDon;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.QuanAo;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -71,7 +75,12 @@ public class GUI_ChiTietHoaDon extends javax.swing.JPanel {
     }
 
     private void xemFileHoaDon(){
-        String path = "files//hoaDon//" + maHoaDon + ".pdf";
+        try {
+            InHoaDon.createTempAMShopInvoice(maHoaDon);
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }
+        String path = "files//hoaDon//temp.pdf";
         File file = new File(path);
         if(file.exists()) {
             Viewer viewer = new Viewer();

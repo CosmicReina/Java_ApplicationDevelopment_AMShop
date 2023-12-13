@@ -9,8 +9,8 @@ import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
 import data.FormatDouble;
 import data.FormatLocalDateTime;
-import data.GenerateID;
-import data.GenerateInvoice;
+import data.KhoiTaoMa;
+import data.InHoaDon;
 import data.UtilityJTextField;
 import entity.ChiTietDonDatHang;
 import entity.ChiTietHoaDon;
@@ -94,7 +94,7 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
             return;
         }
         
-        String maHoaDon = GenerateID.generateMaHoaDon();
+        String maHoaDon = KhoiTaoMa.generateMaHoaDon();
         
         String hoTen = txtHoTen.getText();
         String soDienThoai = txtSoDienThoai.getText();
@@ -125,7 +125,7 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         
         KhachHang khachHang = DAO_KhachHang.getKhachHangTheoSoDienThoai(soDienThoai);
         if(khachHang == null){
-            String maKhachHang = GenerateID.generateMaKhachHang();
+            String maKhachHang = KhoiTaoMa.generateMaKhachHang();
             String nhomKhachHang = "Thường";
             khachHang = new KhachHang(maKhachHang, hoTen, soDienThoai, diaChi, nhomKhachHang);
             DAO_KhachHang.createKhachHang(khachHang);
@@ -152,7 +152,7 @@ public class GUI_DanhSachDonDatHang extends javax.swing.JPanel {
         
         if(themHoaDon){
             try {
-                GenerateInvoice.createAMShopInvoice(maHoaDon);
+                InHoaDon.createAMShopInvoice(maHoaDon);
                 donDatHangHienTai.setTrangThaiThanhToan(true);
                 DAO_DonDatHang.updateDonDatHang(donDatHangHienTai);
                 JOptionPane.showMessageDialog(null, "Thanh Toán Thành Công.");

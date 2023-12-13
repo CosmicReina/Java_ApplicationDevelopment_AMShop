@@ -6,7 +6,7 @@ import dao.DAO_LichLamViec;
 import dao.DAO_NhanVien;
 import data.FormatLocalDate;
 import data.FormatLocalDateTime;
-import data.GenerateID;
+import data.KhoiTaoMa;
 import data.UtilityJTextField;
 import data.UtilityLocalDateTime;
 import entity.CaLamViec;
@@ -124,7 +124,7 @@ public class PnlLichLamViec extends javax.swing.JPanel {
                 charCaLamViec = "C";
             }
             
-            String maLichlamViec = GenerateID.generateMaLichLamViec(ngayLamViec, charCaLamViec);
+            String maLichlamViec = KhoiTaoMa.generateMaLichLamViec(ngayLamViec, charCaLamViec);
             CaLamViec caLamViec = DAO_CaLamViec.getCaLamViecTheoMaCaLamViec(maCaLamViec);
             LichLamViec lichLamViec = new LichLamViec(maLichlamViec, ngayLamViec, caLamViec);
             

@@ -30,6 +30,7 @@ public class Initiate_Test {
 //        System.out.println(DAO_KhachHang.getKhachHangTheoSoDienThoai("0334999221"));
 //        System.out.println(DAO_DonDatHang.getDonDatHangTheoMaDonDatHang("DD2311150002"));
 //        System.out.println(DAO_KhachHang.getKhachHangTheoSoDienThoai("0334445555"));
+//        System.out.println(DAO_KhachHang.getSoTienKhachHangDaThanhToanTheoMaKhachHang("KH23000011"));
         ConnectDB.getInstance().disconnectDatabase();
     }
 }

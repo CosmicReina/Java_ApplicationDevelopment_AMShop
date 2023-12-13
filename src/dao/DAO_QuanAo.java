@@ -1,9 +1,13 @@
 package dao;
 
 import data.UtilityImageIcon;
+import data.UtilityLocalDate;
 import entity.QuanAo;
 import java.util.ArrayList;
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 public class DAO_QuanAo extends DAO {
@@ -152,6 +156,34 @@ public class DAO_QuanAo extends DAO {
             ex.printStackTrace(System.out);
         }
         return null;
+    }
+    
+    public static ResultSet thongKeQuanAoDaBanTrongKhoangNgay(LocalDate ngayBatDau, LocalDate ngayKetThuc){
+        try {
+            String sql = ""
+                    + "SELECT QA.MaQuanAo, SUM(CTHD.SoLuong) AS TongSoLuongDaBan "
+                    + "FROM (HoaDon HD JOIN ChiTietHoaDon CTHD ON HD.MaHoaDon = CTHD.MaHoaDon) JOIN QuanAo QA ON CTHD.MaQuanAo = QA.MaQuanAo "
+                    + "WHERE HD.ThoiGianTao BETWEEN ? AND ? "
+                    + "GROUP BY QA.MaQuanAo";
+            PreparedStatement prs = connection.prepareStatement(sql);
+            prs.setDate(1, UtilityLocalDate.fromLocalDate(ngayBatDau));
+            prs.setDate(2, UtilityLocalDate.fromLocalDate(ngayKetThuc));
+            
+            ResultSet rs = prs.executeQuery();
+            return rs;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
+    public static ResultSet thongKeQuanAoDaHetHang(){
+        String sql = ""
+                + "SELECT MaQuanAo, TenQuanAo "
+                + "FROM QuanAo "
+                + "WHERE SoLuongTrongKho = 0 AND NgungNhap = 0";
+        ResultSet rs = DAO.getResultSetFromStatement(sql);
+        return rs;
     }
     
     public static String getMaQuanAoCuoi(){

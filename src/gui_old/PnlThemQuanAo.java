@@ -9,7 +9,7 @@ import dao.DAO_NhaSanXuat;
 import dao.DAO_QuanAo;
 import data.FormatLocalDate;
 import data.FormatDouble;
-import data.GenerateID;
+import data.KhoiTaoMa;
 import data.UtilityImageIcon;
 import entity.QuanAo;
 import java.awt.event.ItemEvent;
@@ -46,7 +46,7 @@ public class PnlThemQuanAo extends javax.swing.JPanel implements ItemListener {
     private void initExtra(){
         updateTable(DAO_QuanAo.getAllQuanAo());
         
-        txtMaQuanAo.setText(GenerateID.generateMaQuanAo());
+        txtMaQuanAo.setText(KhoiTaoMa.generateMaQuanAo());
         txtMaQuanAo.setEditable(false);
         
         cmbNhaSanXuat.addItemListener(this);
