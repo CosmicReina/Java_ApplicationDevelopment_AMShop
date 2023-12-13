@@ -54,7 +54,10 @@ public class DAO_LichLamViec extends DAO {
     public static ArrayList<LichLamViec> getAllLichLamViec(){
         ArrayList<LichLamViec> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM LichLamViec";
+            String sql = ""
+                    + "SELECT * "
+                    + "FROM LichLamViec "
+                    + "ORDER BY NgayLamViec ASC, MaCaLamViec DESC";
             ResultSet rs = DAO.getResultSetFromStatement(sql);
             while(rs.next()){
                 String maLichLamViec = rs.getString(1);

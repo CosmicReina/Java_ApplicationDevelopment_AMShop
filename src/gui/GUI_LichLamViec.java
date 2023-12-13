@@ -1,4 +1,4 @@
-package gui_old;
+package gui;
 
 import dao.DAO_CaLamViec;
 import dao.DAO_ChiTietPhanCong;
@@ -19,20 +19,20 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class PnlLichLamViec extends javax.swing.JPanel {
+public class GUI_LichLamViec extends javax.swing.JPanel {
     
-    private static PnlLichLamViec instance = new PnlLichLamViec();
+    private static GUI_LichLamViec instance = new GUI_LichLamViec();
 
-    public static PnlLichLamViec getInstance() {
+    public static GUI_LichLamViec getInstance() {
         return instance;
     }
     
-    public static PnlLichLamViec newInstance() {
-        instance = new PnlLichLamViec();
+    public static GUI_LichLamViec newInstance() {
+        instance = new GUI_LichLamViec();
         return instance;
     }
     
-    public PnlLichLamViec() {
+    public GUI_LichLamViec() {
         initComponents();
         initExtra();
     }
@@ -136,7 +136,7 @@ public class PnlLichLamViec extends javax.swing.JPanel {
             
             if(DAO_LichLamViec.createLichLamViec(lichLamViec)){
                 JOptionPane.showMessageDialog(null, "Thêm Lịch Thành Công.");
-                PnlMain.getInstance().showPanel(newInstance());
+                GUI_Main.getInstance().showPanel(newInstance());
             }
             else{
                 JOptionPane.showMessageDialog(null, "Thêm Lịch Thất Bại.");
