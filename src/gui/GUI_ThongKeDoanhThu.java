@@ -117,8 +117,8 @@ public class GUI_ThongKeDoanhThu extends javax.swing.JPanel {
     
     private void inBaoCaoThongKe(){
         try {
-            if(listHoaDon.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Vui lòng tạo thống kê trước.");
+            if(tblHoaDon.getModel().getRowCount() == 0){
+                JOptionPane.showMessageDialog(null, "Vui lòng Tạo Thống Kê trước.");
                 return;
             }
             if(InBaoCaoDoanhThu.createBaoCaoDoanhThu(ngayBatDau, ngayKetThuc) == true){
