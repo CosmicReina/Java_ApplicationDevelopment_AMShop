@@ -40,8 +40,9 @@ public class ChiTietPhanCong {
     }
 
     public void setThoiGianRaCa(LocalDateTime thoiGianRaCa) throws Exception {
-        if(thoiGianRaCa.isBefore(thoiGianVaoCa))
-            throw new Exception("Thời Gian Ra Ca không hợp lệ");
+        if(thoiGianRaCa != null)
+            if(thoiGianRaCa.isBefore(thoiGianVaoCa))
+                throw new Exception("Thời Gian Ra Ca không hợp lệ");
         this.thoiGianRaCa = thoiGianRaCa;
     }
 

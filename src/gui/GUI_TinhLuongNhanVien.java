@@ -56,7 +56,6 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
             tblLuong.revalidate();
             tblLuong.repaint();
             while(rs.next()){
-                System.out.println("Hello world");
                 String maNhanVien = rs.getString(1);
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 
@@ -65,9 +64,8 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
                 long gio = duration.toHours();
                 long phut = duration.toMinutesPart();
                 long giay = duration.toSecondsPart();
-                LocalTime localTime = LocalTime.of((int)gio, (int)phut, (int)giay);
                 
-                double thoiGianLamViec = localTime.getHour() + localTime.getMinute()/60 + localTime.getSecond()/3600;
+                double thoiGianLamViec = gio + phut/60 + giay/3600;
                 
                 model.addRow(new Object[]{
                     maNhanVien,
@@ -75,7 +73,7 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
                     nhanVien.getChucVu(),
                     nhanVien.getLuong(),
                     thoiGianLamViec,
-                    nhanVien.getLuong() * thoiGianLamViec
+                    FormatDouble.toMoney(nhanVien.getLuong() * thoiGianLamViec)
                 });
             }
         } catch (SQLException ex) {
