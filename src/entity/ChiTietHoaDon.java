@@ -1,6 +1,8 @@
 package entity;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ChiTietHoaDon {
     private HoaDon hoaDon;
@@ -29,7 +31,13 @@ public class ChiTietHoaDon {
     }
 
     public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+        try {
+            if(soLuong < 0)
+                throw new Exception("Số Lượng không hợp lệ");
+            this.soLuong = soLuong;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public double getDonGia() {
@@ -37,17 +45,23 @@ public class ChiTietHoaDon {
     }
 
     public void setDonGia(double donGia) {
-        this.donGia = donGia;
+        try {
+            if(donGia < 0)
+                throw new Exception("Đơn Giá không hợp lệ");
+            this.donGia = donGia;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public ChiTietHoaDon() {
     }
 
     public ChiTietHoaDon(HoaDon hoaDon, QuanAo quanAo, int soLuong, double donGia) {
-        this.hoaDon = hoaDon;
-        this.quanAo = quanAo;
-        this.soLuong = soLuong;
-        this.donGia = donGia;
+        setHoaDon(hoaDon);
+        setQuanAo(quanAo);
+        setSoLuong(soLuong);
+        setDonGia(donGia);
     }
 
     @Override

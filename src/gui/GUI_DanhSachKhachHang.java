@@ -1,7 +1,6 @@
 package gui;
 
 import dao.DAO_KhachHang;
-import data.UtilityJTextField;
 import entity.KhachHang;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

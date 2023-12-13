@@ -1,21 +1,13 @@
 package gui;
 
-import dao.DAO_KhachHang;
 import dao.DAO_NhanVien;
-import data.FormatLocalDate;
 import data.FormatDouble;
-import data.InBaoCaoKhachHang;
-import entity.KhachHang;
 import entity.NhanVien;
-import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.time.Duration;
-import java.time.LocalTime;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
     
@@ -56,7 +48,6 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
             tblLuong.revalidate();
             tblLuong.repaint();
             while(rs.next()){
-                System.out.println("Hello world");
                 String maNhanVien = rs.getString(1);
                 NhanVien nhanVien = DAO_NhanVien.getNhanVienTheoMaNhanVien(maNhanVien);
                 
@@ -65,9 +56,8 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
                 long gio = duration.toHours();
                 long phut = duration.toMinutesPart();
                 long giay = duration.toSecondsPart();
-                LocalTime localTime = LocalTime.of((int)gio, (int)phut, (int)giay);
                 
-                double thoiGianLamViec = localTime.getHour() + localTime.getMinute()/60 + localTime.getSecond()/3600;
+                double thoiGianLamViec = gio + phut/60 + giay/3600;
                 
                 model.addRow(new Object[]{
                     maNhanVien,
@@ -75,13 +65,14 @@ public class GUI_TinhLuongNhanVien extends javax.swing.JPanel {
                     nhanVien.getChucVu(),
                     nhanVien.getLuong(),
                     thoiGianLamViec,
-                    nhanVien.getLuong() * thoiGianLamViec
+                    FormatDouble.toMoney(nhanVien.getLuong() * thoiGianLamViec)
                 });
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }
-        
+        if(tblLuong.getModel().getRowCount() == 0)
+            JOptionPane.showMessageDialog(null, "Không có dữ liệu");
     }
     
     @SuppressWarnings("unchecked")

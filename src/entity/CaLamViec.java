@@ -13,7 +13,13 @@ public class CaLamViec {
     }
 
     public void setMaCaLamViec(int maCaLamViec) {
-        this.maCaLamViec = maCaLamViec;
+        try {
+            if(maCaLamViec < 0)
+                throw new Exception("Mã Ca Làm Việc không hợp lệ");
+            this.maCaLamViec = maCaLamViec;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getTenCaLamViec() {
@@ -21,7 +27,13 @@ public class CaLamViec {
     }
 
     public void setTenCaLamViec(String tenCaLamViec) {
-        this.tenCaLamViec = tenCaLamViec;
+        try {
+            if(tenCaLamViec.isBlank())
+                throw new Exception("Tên Ca Làm Việc không hợp lệ");
+            this.tenCaLamViec = tenCaLamViec;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public LocalTime getThoiGianBatDau() {
@@ -37,17 +49,23 @@ public class CaLamViec {
     }
 
     public void setThoiGianKetThuc(LocalTime thoiGianKetThuc) {
-        this.thoiGianKetThuc = thoiGianKetThuc;
+        try {
+            if(thoiGianKetThuc.isBefore(thoiGianBatDau))
+                throw new Exception("Thời Gian Kết Thúc không hợp lệ");
+            this.thoiGianKetThuc = thoiGianKetThuc;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public CaLamViec() {
     }
 
     public CaLamViec(int maCaLamViec, String tenCaLamViec, LocalTime thoiGianBatDau, LocalTime thoiGianKetThuc) {
-        this.maCaLamViec = maCaLamViec;
-        this.tenCaLamViec = tenCaLamViec;
-        this.thoiGianBatDau = thoiGianBatDau;
-        this.thoiGianKetThuc = thoiGianKetThuc;
+        setMaCaLamViec(maCaLamViec);
+        setTenCaLamViec(tenCaLamViec);
+        setThoiGianBatDau(thoiGianBatDau);
+        setThoiGianKetThuc(thoiGianKetThuc);
     }
 
     @Override

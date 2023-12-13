@@ -16,7 +16,13 @@ public class HoaDon {
     }
 
     public void setMaHoaDon(String maHoaDon) {
-        this.maHoaDon = maHoaDon;
+        try {
+            if(!maHoaDon.matches("^HD[0-9]{10}$"))
+                throw new Exception("Mã Hóa Đơn không hợp lệ");
+            this.maHoaDon = maHoaDon;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public CuaHang getCuaHang() {
@@ -56,19 +62,24 @@ public class HoaDon {
     }
 
     public void setTienKhachDua(double tienKhachDua) {
-        this.tienKhachDua = tienKhachDua;
+        try {
+            if(tienKhachDua < 0)
+                throw new Exception("Tiền Khách Đưa không hợp lệ");
+            this.tienKhachDua = tienKhachDua;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
-    public HoaDon() {
-    }
+    public HoaDon() {}
 
     public HoaDon(String maHoaDon, CuaHang cuaHang, NhanVien nhanVien, KhachHang khachHang, LocalDateTime thoiGianTao, double tienKhachDua) {
-        this.maHoaDon = maHoaDon;
-        this.cuaHang = cuaHang;
-        this.nhanVien = nhanVien;
-        this.khachHang = khachHang;
-        this.thoiGianTao = thoiGianTao;
-        this.tienKhachDua = tienKhachDua;
+        setMaHoaDon(maHoaDon);
+        setCuaHang(cuaHang);
+        setNhanVien(nhanVien);
+        setKhachHang(khachHang);
+        setThoiGianTao(thoiGianTao);
+        setTienKhachDua(tienKhachDua);
     }
 
     @Override

@@ -5,8 +5,6 @@ import entity.NhanVien;
 import java.util.ArrayList;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DAO_NhanVien extends DAO {
     

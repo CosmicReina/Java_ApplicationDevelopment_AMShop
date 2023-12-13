@@ -38,17 +38,27 @@ public class ChiTietPhanCong {
     }
 
     public void setThoiGianRaCa(LocalDateTime thoiGianRaCa) {
-        this.thoiGianRaCa = thoiGianRaCa;
+        try {
+            if(thoiGianRaCa != null)
+                if(thoiGianRaCa.isBefore(thoiGianVaoCa))
+                    throw new Exception("Thời Gian Ra Ca không hợp lệ");
+            this.thoiGianRaCa = thoiGianRaCa;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
-    public ChiTietPhanCong() {
-    }
+    public ChiTietPhanCong() {}
 
     public ChiTietPhanCong(LichLamViec lichLamViec, NhanVien nhanVien, LocalDateTime thoiGianVaoCa, LocalDateTime thoiGianRaCa) {
-        this.lichLamViec = lichLamViec;
-        this.nhanVien = nhanVien;
-        this.thoiGianVaoCa = thoiGianVaoCa;
-        this.thoiGianRaCa = thoiGianRaCa;
+        try {
+            setLichLamViec(lichLamViec);
+            setNhanVien(nhanVien);
+            setThoiGianVaoCa(thoiGianVaoCa);
+            setThoiGianRaCa(thoiGianRaCa);
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     @Override

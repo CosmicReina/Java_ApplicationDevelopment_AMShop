@@ -1,6 +1,8 @@
 package entity;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class KhachHang {
     private String maKhachHang;
@@ -14,7 +16,13 @@ public class KhachHang {
     }
 
     public void setMaKhachHang(String maKhachHang) {
-        this.maKhachHang = maKhachHang;
+        try {
+            if(!maKhachHang.matches("^KH[0-9]{8}$"))
+                throw new Exception("Mã Khách Hàng không hợp lệ");
+            this.maKhachHang = maKhachHang;
+        } catch (Exception ex) {
+            Logger.getLogger(KhachHang.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getHoTen() {
@@ -22,7 +30,13 @@ public class KhachHang {
     }
 
     public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
+        try {
+            if(!hoTen.matches("^[\\p{L}]+(\\s[\\p{L}]+)+$"))
+                throw new Exception("Họ Tên không hợp lệ");
+            this.hoTen = hoTen;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getSoDienThoai() {
@@ -30,7 +44,13 @@ public class KhachHang {
     }
 
     public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+        try {
+            if(!soDienThoai.matches("^[0-9]{10}$"))
+                throw new Exception("Số điện thoại không hợp lệ");
+            this.soDienThoai = soDienThoai;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getDiaChi() {
@@ -38,7 +58,13 @@ public class KhachHang {
     }
 
     public void setDiaChi(String diaChi) {
-        this.diaChi = diaChi;
+        try {
+            if(diaChi.isBlank())
+                throw new Exception("Địa chỉ không hợp lệ");
+            this.diaChi = diaChi;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public String getNhomKhachHang() {
@@ -46,18 +72,23 @@ public class KhachHang {
     }
 
     public void setNhomKhachHang(String nhomKhachHang) {
-        this.nhomKhachHang = nhomKhachHang;
+        try {
+            if(!nhomKhachHang.equals("Thường") && !nhomKhachHang.equals("Thân Thiết"))
+                throw new Exception("Nhóm Khách Hàng không hợp lệ");
+            this.nhomKhachHang = nhomKhachHang;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
-    public KhachHang() {
-    }
+    public KhachHang() {}
 
     public KhachHang(String maKhachHang, String hoTen, String soDienThoai, String diaChi, String nhomKhachHang) {
-        this.maKhachHang = maKhachHang;
-        this.hoTen = hoTen;
-        this.soDienThoai = soDienThoai;
-        this.diaChi = diaChi;
-        this.nhomKhachHang = nhomKhachHang;
+        setMaKhachHang(maKhachHang);
+        setHoTen(hoTen);
+        setSoDienThoai(soDienThoai);
+        setDiaChi(diaChi);
+        setNhomKhachHang(nhomKhachHang);
     }
 
     @Override

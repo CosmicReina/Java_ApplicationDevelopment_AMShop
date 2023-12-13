@@ -13,7 +13,13 @@ public class LichLamViec {
     }
 
     public void setMaLichLamViec(String maLichLamViec) {
-        this.maLichLamViec = maLichLamViec;
+        try {
+            if(!maLichLamViec.matches("^LH[0-9]{6}[SC]$"))
+                throw new Exception("Mã Lịch Làm Việc không hợp lệ");
+            this.maLichLamViec = maLichLamViec;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
     public LocalDate getNgayLamViec() {
@@ -32,13 +38,12 @@ public class LichLamViec {
         this.caLamViec = caLamViec;
     }
 
-    public LichLamViec() {
-    }
+    public LichLamViec() {}
 
     public LichLamViec(String maLichLamViec, LocalDate ngayLamViec, CaLamViec caLamViec) {
-        this.maLichLamViec = maLichLamViec;
-        this.ngayLamViec = ngayLamViec;
-        this.caLamViec = caLamViec;
+        setMaLichLamViec(maLichLamViec);
+        setNgayLamViec(ngayLamViec);
+        setCaLamViec(caLamViec);
     }
 
     @Override

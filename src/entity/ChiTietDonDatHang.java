@@ -28,16 +28,21 @@ public class ChiTietDonDatHang {
     }
 
     public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+        try {
+            if(soLuong < 0)
+                throw new Exception("Số Lượng không hợp lệ");
+            this.soLuong = soLuong;
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
     }
 
-    public ChiTietDonDatHang() {
-    }
+    public ChiTietDonDatHang() {}
 
     public ChiTietDonDatHang(DonDatHang donDatHang, QuanAo quanAo, int soLuong) {
-        this.donDatHang = donDatHang;
-        this.quanAo = quanAo;
-        this.soLuong = soLuong;
+        setDonDatHang(donDatHang);
+        setQuanAo(quanAo);
+        setSoLuong(soLuong);
     }
 
     @Override
